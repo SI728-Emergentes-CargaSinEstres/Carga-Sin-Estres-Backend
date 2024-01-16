@@ -1,0 +1,5 @@
+# Created at 2023-11-02T19:09:54.891
+Boot Manifest-JAR contains absolute paths in classpath 'D:\projectosOpen\TB2-backend-v3\CargaSinEstres\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
