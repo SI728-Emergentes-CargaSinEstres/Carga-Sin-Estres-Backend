@@ -48,13 +48,7 @@ public class Client {
      * The last name of the client.
      */
     @Column(name = "apellidoMaterno", nullable = false)
-    private String apellidoMaterno;
-
-    /**
-     * The last name of the client.
-     */
-    @Column(name = "apellidoPaterno", nullable = false)
-    private String apellidoPaterno;
+    private String apellido;
 
     /**
      *  The phone number of the client.

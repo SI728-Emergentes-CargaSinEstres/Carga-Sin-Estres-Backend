@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 public class ClientResponseDto {
     private Long id;
     private String name;
-    private String apellidoMaterno;
-    private String apellidoPaterno;
+    private String apellido;
     private String celular;
     private String direccion;
 }

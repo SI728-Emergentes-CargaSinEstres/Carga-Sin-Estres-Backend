@@ -20,11 +20,8 @@ public class ClientValidation {
         if(clientRequestDto.getName().length() > 20){
             throw new ValidationException("El nombre no puede exceder los 20 caracteres");
         }
-        if(clientRequestDto.getApellidoMaterno().length() > 20){
-            throw new ValidationException("El apellido materno no puede exceder los 20 caracteres");
-        }
-        if(clientRequestDto.getApellidoPaterno().length() > 20){
-            throw new ValidationException("El apellido paterno no puede exceder los 20 caracteres");
+        if(clientRequestDto.getApellido().length() > 20){
+            throw new ValidationException("El apellido no puede exceder los 20 caracteres");
         }
         if(clientRequestDto.getEmail() == null || clientRequestDto.getEmail().isEmpty()){
             throw new ValidationException("El email del cliente debe ser obligatorio"); //ERROR 400
@@ -38,11 +35,7 @@ public class ClientValidation {
             throw new ValidationException("El nombre del cliente debe ser obligatorio");
         }
 
-        if(clientRequestDto.getApellidoMaterno().isEmpty()){
-            throw new ValidationException("El apellido del cliente debe ser obligatorio");
-        }
-
-        if(clientRequestDto.getApellidoPaterno().isEmpty()){
+        if(clientRequestDto.getApellido().isEmpty()){
             throw new ValidationException("El apellido del cliente debe ser obligatorio");
         }
 

@@ -17,9 +17,7 @@ import lombok.NoArgsConstructor;
 public class ClientRequestDto {
     private String name;
 
-    private String apellidoMaterno;
-
-    private String apellidoPaterno;
+    private String apellido;
 
     private String celular;
 
