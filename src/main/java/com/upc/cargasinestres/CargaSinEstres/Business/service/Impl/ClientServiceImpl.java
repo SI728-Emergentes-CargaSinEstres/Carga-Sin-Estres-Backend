@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * */
 @Service
-public class ClientServiceImpl implements IClientService{
+public class ClientServiceImpl implements IClientService {
 
 
     private final IClientRepository clientRepository;
@@ -41,7 +41,7 @@ public class ClientServiceImpl implements IClientService{
     @Override
     public ClientResponseDto createClient(ClientRequestDto clientRequestDto) {
 
-        if(clientRepository.existsClient(clientRequestDto.getEmail(), clientRequestDto.getPassword()).isPresent())
+        if (clientRepository.existsClient(clientRequestDto.getEmail(), clientRequestDto.getPassword()).isPresent())
             throw new RuntimeException("Ya existe un cliente con ese email y password");
 
         ClientValidation.ValidateClient(clientRequestDto);
@@ -72,14 +72,14 @@ public class ClientServiceImpl implements IClientService{
     @Override
     public ClientResponseDto getClientById(Long id) {
         var client = clientRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontro el cliente con id: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro el cliente con id: " + id));
         return modelMapper.map(client, ClientResponseDto.class);
     }
 
     @Override
-    public ClientResponseDto updateClient(Long id, ClientRequestDto clientRequestDto){
+    public ClientResponseDto updateClient(Long id, ClientRequestDto clientRequestDto) {
         var client = clientRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontro el cliente con id: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro el cliente con id: " + id));
 
         modelMapper.map(clientRequestDto, client);
 
@@ -88,6 +88,4 @@ public class ClientServiceImpl implements IClientService{
         return modelMapper.map(updateClient, ClientResponseDto.class);
 
     }
-
-
 }
