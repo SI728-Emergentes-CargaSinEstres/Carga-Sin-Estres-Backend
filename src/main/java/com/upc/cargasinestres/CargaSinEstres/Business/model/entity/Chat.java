@@ -2,12 +2,9 @@ package com.upc.cargasinestres.CargaSinEstres.Business.model.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * This class represents the Chat entity for CSE. The table name is chats. And the columns are:
@@ -27,8 +24,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "chat")
+@Table(name = "chats")
 public class Chat {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * The id of the chat.
      * This is a primary key.
@@ -38,35 +43,22 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * The author of the chat.
-     */
+
+    /*
     @Column(name = "user", nullable = false)
     private String user;
+    */
 
     /**
      * The content of a message in chat.
      */
-    @Column(name = "message", nullable = false)
-    private String message;
-
-    /**
-     * The date and time of the message.
-     */
-    @Column(name = "date_time", nullable = false)
-    private LocalDateTime dateTime;
-
-    /**
-     * The order of the message.
-     */
-    @Column(name = "message_order", nullable = false)
-    private int messageOrder;
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
+    private List<Message> messages; //String message;
 
     /**
      * The booking history.
      */
-    @ManyToOne
-    @JoinColumn(name = "bookingHistory_id")
-    private BookingHistory bookingHistory;
+    @JoinColumn(name = "reservation_id")
+    private Long reservationId;
 
 }

@@ -31,11 +31,11 @@ public class ChatController {
      * Creates a new chat for the bookingHistory it's related by Id to.
      * */
     @Operation(summary = "Create a Chat")
-    @PostMapping("/bookingHistory/{id}/chat")
-    public ResponseEntity<ChatResponseDto> createChat(@PathVariable(name="id") Long bookingId, @RequestParam(name = "userType") String userType,  @RequestBody ChatRequestDto chatRequestDto){
-        var res = chatService.createChat(bookingId, userType, chatRequestDto);
+    @PostMapping("/reservation/{id}/chat")
+    public ResponseEntity<ChatResponseDto> createChat(@PathVariable(name="id") Long reservationId, @RequestBody ChatRequestDto chatRequestDto){
+        var res = chatService.createChat(reservationId, chatRequestDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-
+    //a la vez que se crea una reservation se crea un chat.
 }

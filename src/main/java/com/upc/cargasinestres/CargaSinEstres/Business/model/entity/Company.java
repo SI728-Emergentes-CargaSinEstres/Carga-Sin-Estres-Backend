@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * This class represents the Company entity for CSE. The table name is companies. And the columns are:
  * <ul>
@@ -32,7 +34,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="company")
+@Table(name="companies")
 public class Company {
     /**
      * The id of the company.
@@ -64,14 +66,20 @@ public class Company {
     /**
      * The adress of the company.
      */
-    @Column(name = "direccion", nullable = false)
-    private String direccion;
+    @Column(name = "direction", nullable = false)
+    private String direction;
 
     /**
      * The contact number of the company.
      */
-    @Column(name = "numeroContacto", nullable = false)
-    private String numeroContacto;
+    @Column(name = "TIC", nullable = false)
+    private String TIC;
+
+    /**
+     * The contact number of the company.
+     */
+    @Column(name = "phoneNumber", nullable = false)
+    private String phoneNumber;
 
     /**
      * The password of the company.
@@ -80,52 +88,22 @@ public class Company {
     private String password;
 
     /**
-     * If the company has transporte.
-     */
-    @Column(name = "transporte", nullable = false)
-    private boolean transporte;
-
-    /**
-     * If the company has carga.
-     */
-    @Column(name = "carga", nullable = false)
-    private boolean carga;
-
-    /**
-     * If the company has embalaje.
-     */
-    @Column(name = "embalaje", nullable = false)
-    private boolean embalaje;
-
-    /**
-     * If the company has montaje
-     */
-    @Column(name = "montaje", nullable = false)
-    private boolean montaje;
-
-    /**
-     * If the company has desmontaje
-     */
-    @Column(name = "desmontaje", nullable = false)
-    private boolean desmontaje;
-
-    /**
-     * The average rating given to the company via reviews
-     */
-    @Column(name = "averageRating", nullable = false)
-    private int averageRating;
-
-    /**
      * The description of the company
      */
     @Column(name = "description", nullable = false)
     private String description;
 
     /**
-     * The user type of company
+     * The rating of the company
      */
-    @Column(name = "userType", nullable = false)
-    private String userType;
+    @OneToMany(mappedBy = "rating", cascade = CascadeType.ALL)
+    private List<Rating> ratings;
+
+    /**
+     * The services of the company
+     */
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    private List<Service> services;
 
 
 }

@@ -19,16 +19,9 @@ public interface IChatService {
 
     /**
      * Create a new Chat with the information provided as a parameter
-     * @param bookingId The booking id
-     * @param chatRequestDto The chat information
+     * @param reservationId The booking id
      * @return The created chat information
      */
-    public abstract ChatResponseDto createChat(Long bookingId, String userType, ChatRequestDto chatRequestDto);
+    public abstract ChatResponseDto createChat(Long reservationId, ChatRequestDto chatRequestDto);
 
-    /**
-     * Get all the chats by booking history id
-     * @param bookingHistoryId The booking history id
-     * @return The list of chats
-     */
-    public abstract List<ChatResponseDto> getChatsByBookingHistoryId(Long bookingHistoryId);
 }

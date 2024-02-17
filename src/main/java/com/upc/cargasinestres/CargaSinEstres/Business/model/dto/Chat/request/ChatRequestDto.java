@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.request;
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatRequestDto {
 //    private String user;
-    private String message;
+    private Message message;
 }

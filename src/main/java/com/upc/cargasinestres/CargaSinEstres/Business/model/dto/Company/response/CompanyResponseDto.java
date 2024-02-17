@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 public class CompanyResponseDto {
     private Long id;
     private String name;
-    private String photo;
+    private String logo;
     private String description;
-    private String NumeroContacto;
-    private String direccion;
+    private String phone_number;
+    private String direction;
     private boolean transporte;
     private boolean carga;
     private boolean embalaje;

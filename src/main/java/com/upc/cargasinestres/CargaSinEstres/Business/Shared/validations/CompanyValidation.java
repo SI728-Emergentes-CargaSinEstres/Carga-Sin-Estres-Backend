@@ -20,7 +20,7 @@ public class CompanyValidation {
         if(companyRequestDto.getName().isEmpty()){
             throw new ValidationException("El nombre de la empresa no puede estar vacio");
         }
-        if(companyRequestDto.getPhoto().isEmpty()){
+        if(companyRequestDto.getLogo().isEmpty()){
             throw new ValidationException("La foto de la empresa no puede estar vacio");
         }
         if(companyRequestDto.getName().length()>30) {

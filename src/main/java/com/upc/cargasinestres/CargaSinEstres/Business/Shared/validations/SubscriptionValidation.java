@@ -1,6 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Subscription.request.SubscriptionRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.request.MembershipRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 
 /**
@@ -8,12 +8,7 @@ import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationExceptio
  * It checks for the presence and validity of fields in a subscription request.
  */
 public class SubscriptionValidation {
-    public static void ValidateSubscription(SubscriptionRequestDto subscription){
-       if (subscription.getPaymentMethod() == null || subscription.getPaymentMethod().isEmpty()){
-           throw new ValidationException("El metodo de pago es obligatorio");
-       }
-       if(subscription.getPaymentMethod().length() != 16){
-           throw new ValidationException("El metodo de pago no tiene 16 caracteres");
-       }
+    public static void ValidateSubscription(MembershipRequestDto subscription){
+
     }
 }

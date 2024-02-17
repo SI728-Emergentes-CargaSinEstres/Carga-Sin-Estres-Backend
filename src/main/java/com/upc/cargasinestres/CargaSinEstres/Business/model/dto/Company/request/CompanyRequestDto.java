@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanyRequestDto {
     private String name;
-    private String photo;
+    private String logo;
     private String description;
     private String email;
-    private String NumeroContacto;
-    private String direccion;
+    private String phone_number;
+    private String direction;
     private String password;
     //private String userType;
     private boolean transporte;
