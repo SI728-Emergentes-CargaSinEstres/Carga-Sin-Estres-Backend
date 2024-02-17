@@ -1,7 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Client.request.ClientRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Client.response.ClientResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Customer.request.CustomerRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Customer.response.CustomerResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -9,9 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IClientService;
-
-import java.util.List;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.ICustomerService;
 
 
 /**
@@ -25,13 +23,13 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ClientController {
 
-    private final IClientService clientService;
+    private final ICustomerService clientService;
 
     /**
      * Class constructor
      * @param clientService The service for handling client operations.
      */
-    public ClientController(IClientService clientService) {
+    public ClientController(ICustomerService clientService) {
 
         this.clientService = clientService;
     }
@@ -45,8 +43,8 @@ public class ClientController {
      */
     @Operation(summary = "Get clients for login")
     @GetMapping("/clients")
-    public ResponseEntity<ClientResponseDto> getClientForLogin(@RequestParam(name="Email") String email, @RequestParam(name="Password")String password){
-        var res = clientService.getClientForLogin(email, password);
+    public ResponseEntity<CustomerResponseDto> getClientForLogin(@RequestParam(name="Email") String email, @RequestParam(name="Password")String password){
+        var res = clientService.getCustomerForLogin(email, password);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -58,21 +56,22 @@ public class ClientController {
      */
     @Operation(summary = "Get a client by Id")
     @GetMapping("/clients/{id}")
-    public ResponseEntity<ClientResponseDto> getClientById(@PathVariable Long id){
-        var res = clientService.getClientById(id);
+    public ResponseEntity<CustomerResponseDto> getClientById(@PathVariable Long id){
+
+        var res = clientService.getCustomerById(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     /**
      * Creates a new client based on the provided client data.
      *
-     * @param clientRequestDto The data for creating the client.
+     * @param customerRequestDto The data for creating the client.
      * @return A ResponseEntity containing the created ClientResponseDto and HttpStatus.CREATED.
      */
     @Operation(summary = "Create a Client")
     @PostMapping("/clients")
-    public ResponseEntity<ClientResponseDto> createClient(@RequestBody ClientRequestDto clientRequestDto) {
-        var res = clientService.createClient(clientRequestDto);
+    public ResponseEntity<CustomerResponseDto> createClient(@RequestBody CustomerRequestDto customerRequestDto) {
+        var res = clientService.createCustomer(customerRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
@@ -80,13 +79,13 @@ public class ClientController {
      * Updates an existing client based on the provided client data.
      *
      * @param id The ID of the client to be updated.
-     * @param clientRequestDto The updated data for the client.
+     * @param customerRequestDto The updated data for the client.
      * @return A ResponseEntity containing the updated ClientResponseDto and HttpStatus.OK.
      */
     @Operation(summary = "Update a Client")
     @PutMapping("/clients/{id}")
-    public ResponseEntity<ClientResponseDto> updateClient(@PathVariable(name="id") Long id, @RequestBody ClientRequestDto clientRequestDto){
-        var res = clientService.updateClient(id, clientRequestDto);
+    public ResponseEntity<CustomerResponseDto> updateClient(@PathVariable(name="id") Long id, @RequestBody CustomerRequestDto customerRequestDto){
+        var res = clientService.updateCustomer(id, customerRequestDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

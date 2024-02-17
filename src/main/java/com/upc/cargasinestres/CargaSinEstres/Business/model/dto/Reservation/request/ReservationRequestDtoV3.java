@@ -1,4 +1,4 @@
-package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.BookingHistory.request;
+package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
  * @author Grupo1
  * @version 1.0
  */
-public class BookingHistoryRequestDtoV3 {
+public class ReservationRequestDtoV3 {
     private String status;
 }

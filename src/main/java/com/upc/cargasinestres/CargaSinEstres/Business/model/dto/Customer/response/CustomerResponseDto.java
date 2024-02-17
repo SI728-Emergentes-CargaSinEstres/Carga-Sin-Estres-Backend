@@ -1,4 +1,4 @@
-package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Client.response;
+package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Customer.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientResponseDto {
+public class CustomerResponseDto {
     private Long id;
     private String name;
-    private String apellidoMaterno;
-    private String apellidoPaterno;
-    private String celular;
-    private String direccion;
+    private String last_name;
+    private String phone_number;
+    private String direction;
 }

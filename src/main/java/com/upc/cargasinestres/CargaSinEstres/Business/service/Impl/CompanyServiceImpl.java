@@ -1,9 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Client.response.ClientResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.CompanyValidation;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Client;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
@@ -50,13 +48,12 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
-        if (companyRepository.findByNameAndNumeroContacto(companyRequestDto.getName(), companyRequestDto.getNumeroContacto()).isPresent())
-            throw new RuntimeException("Ya existe una empresa con ese nombre y numero de contacto");
+        if (companyRepository.findByNameAndTIC(companyRequestDto.getName(), companyRequestDto.getPhone_number()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese nombre y numero de RUC");
 
         CompanyValidation.ValidateCompany(companyRequestDto);
 
         var newCompany = modelMapper.map(companyRequestDto, Company.class);
-        newCompany.setUserType("company");
         var createdCompany = companyRepository.save(newCompany);
         return modelMapper.map(createdCompany, CompanyResponseDto.class);
     }
@@ -76,9 +73,9 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public CompanyResponseDto getCompanyForLogin(String email, String password) {
 
-        var company = companyRepository.findCompanyByEmailAndPassword(email, password); //se obtiene
+        var company = companyRepository.findByEmailAndPassword(email, password); //se obtiene
 
-        if (company == null)
+        if (company.isEmpty())
             throw new ResourceNotFoundException("No existe una empresa con ese email y password"); // se valida
 
         return modelMapper.map(company, CompanyResponseDto.class); // se retorna un responseDTO con los datos del company

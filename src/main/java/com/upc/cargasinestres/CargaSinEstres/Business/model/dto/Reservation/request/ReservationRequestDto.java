@@ -1,12 +1,13 @@
-package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.BookingHistory.request;
+package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request;
 
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Service;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The BookingHistoryRequestDto class represents the data transfer object for creating a booking history record.
@@ -18,14 +19,13 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingHistoryRequestDto {
+public class ReservationRequestDto {
     //private Company company;
     //private Client client;
     //private LocalDate bookingDate;
-    private String pickupAddress;
-    private String destinationAddress;
-    private Date movingDate;
-    private String movingTime;
-    private String Services;
-
+    private String origin_address;
+    private String destination_address;
+    private Date start_date;
+    private String start_time;
+    private List<Service> Services;
 }
