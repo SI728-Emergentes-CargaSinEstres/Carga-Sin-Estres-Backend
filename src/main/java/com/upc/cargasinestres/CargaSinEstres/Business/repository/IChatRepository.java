@@ -19,10 +19,11 @@ import java.util.List;
 public interface IChatRepository extends JpaRepository<Chat, Long> {
 
     /**
-     * Returns a list of ChatResponseDto by reservationId
-     * @param reservationId - id of the booking history
-     * @return a list of ChatResponseDto
+     * Returns a list of Chat by reservationId
+     * @param reservationId - id of reservation
+     * @return a list of Chat
      */
     Chat findByReservationId(Long reservationId);
+
 
 }

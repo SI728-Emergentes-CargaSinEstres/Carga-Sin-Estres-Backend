@@ -1,7 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request;
 
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Service;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +27,5 @@ public class ReservationRequestDto {
     private String destination_address;
     private Date start_date;
     private String start_time;
-    private List<Service> Services;
+    private List<Servicio> servicios;
 }

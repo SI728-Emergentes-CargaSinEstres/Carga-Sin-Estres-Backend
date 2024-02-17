@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -115,8 +114,8 @@ public class Reservation {
     /**
      * The services of the booking history.
      */
-    @ManyToMany(mappedBy="Services", cascade = CascadeType.ALL)
-    private List<Service> services; //String Services;
+    @ManyToMany(mappedBy="services", cascade = CascadeType.ALL) //para carga rapida siempre es solo un objeto service, la carga
+    private List<Servicio> servicios; //para carga rapida se llena solo la dirección inicial y final, la validación es lo mismo que la normal
 
     /**
      * The payment of the booking history.

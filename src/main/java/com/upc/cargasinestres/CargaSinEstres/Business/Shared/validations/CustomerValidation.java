@@ -15,7 +15,7 @@ public class CustomerValidation {
      * @param customerRequestDto The ClientRequestDto object to be validated.
      * @throws ValidationException if any validation rule is not met.
      */
-    public static void ValidateClient(CustomerRequestDto customerRequestDto){
+    public static void ValidateCustomer(CustomerRequestDto customerRequestDto){
 
         if(customerRequestDto.getName().length() > 20){
             throw new ValidationException("El nombre no puede exceder los 20 caracteres");

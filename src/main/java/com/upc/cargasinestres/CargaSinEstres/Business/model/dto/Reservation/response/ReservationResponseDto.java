@@ -2,8 +2,7 @@ package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.res
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Customer;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Service;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Chat;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,16 +22,17 @@ import java.util.List;
 public class ReservationResponseDto {
     private Long id;
     private Company company;
-    private Customer customer; //Client client
+    private Customer customer;
     private LocalDate bookingDate;
-    private String origin_address; //String pickupAddress;
-    private String destination_address;   //String destinationAddress;
+    private String origin_address;
+    private String destination_address;
     private Date movingDate;
     private String movingTime;
     private String status;
-    private List<Service> services; //String Services
-    private int price; //paym
+    private List<Servicio> servicios;
+    private int price;
     private Long chat_id;
+
     public void setChat_id(Long chat_id) {
             this.chat_id = chat_id;
     }

@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.request.ChatRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.response.ChatResponseDto;
 
 import java.util.List;
@@ -22,6 +21,6 @@ public interface IChatService {
      * @param reservationId The booking id
      * @return The created chat information
      */
-    public abstract ChatResponseDto createChat(Long reservationId, ChatRequestDto chatRequestDto);
+    public abstract ChatResponseDto createChat(Long reservationId);
 
 }

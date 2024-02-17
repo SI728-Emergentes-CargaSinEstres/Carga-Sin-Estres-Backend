@@ -5,18 +5,18 @@ import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationExceptio
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 
 /**
- * The BookingHistoryValidation class provides methods for validating BookingHistoryRequestDto objects.
+ * The reservationValidation class provides methods for validating reservationRequestDto objects.
  * It checks for the presence and validity of essential fields in a booking history request.
  */
 public class ReservationValidation {
 
     /**
-     * Validates the provided BookingHistoryRequestDto object.
+     * Validates the provided ReservationRequestDto object.
      *
-     * @param reservationRequestDto The BookingHistoryRequestDto object to be validated.
+     * @param reservationRequestDto The ReservationRequestDto object to be validated.
      * @throws ValidationException if any validation rule is not met.
      */
-    public static void ValidateBookingHistory(ReservationRequestDto reservationRequestDto){
+    public static void ValidateReservation(ReservationRequestDto reservationRequestDto){
 
         if(reservationRequestDto.getOrigin_address() == null || reservationRequestDto.getOrigin_address().isEmpty()){
             throw new ValidationException("La dirección de recogida debe ser obligatoria"); //error 400
@@ -34,11 +34,23 @@ public class ReservationValidation {
             throw new ValidationException("El tiempo de recogida debe ser obligatorio"); //error 400
         }
 
-        if(reservationRequestDto.getServices() == null || reservationRequestDto.getServices().isEmpty()){
+        if(reservationRequestDto.getServicios() == null || reservationRequestDto.getServicios().isEmpty()){
             throw new ValidationException("La reserva debe presentar almenos 1 servicio, es obligatorio"); //error 400
         }
 
 
     }
 
+    /*public static void ValidateReservationStatus(ReservationRequestDto reservationRequestDto) {
+        if (!(reservationRequestDto.getStatus().equals("finished")) && !(reservationRequestDto.getStatus().equals("cancelled"))) {
+            throw new ValidationException("El estado a enviar debe ser Finalizado");
+        }
+    }*/
+
+/*
+    // Validación
+        if (reservation.getStatus().equals("finished") || reservation.getStatus().equals("cancelled")) {
+        throw new ValidationException("Esta reserva ya esta finalizada");
+    }
+*/
 }

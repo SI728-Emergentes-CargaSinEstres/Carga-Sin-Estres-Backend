@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,7 +65,7 @@ public class Company {
     private String email;
 
     /**
-     * The adress of the company.
+     * The address of the company.
      */
     @Column(name = "direction", nullable = false)
     private String direction;
@@ -102,8 +103,12 @@ public class Company {
     /**
      * The services of the company
      */
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
-    private List<Service> services;
+    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL)
+    private List<Servicio> servicios;
 
+    @OneToOne
+    @JoinColumn(name="idCompany", nullable = true, foreignKey = @ForeignKey(name="FK_membership_company"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Membership membership; //cambiar a conexion por id
 
 }

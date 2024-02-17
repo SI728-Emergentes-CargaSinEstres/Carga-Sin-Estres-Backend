@@ -46,7 +46,7 @@ public class Membership {
     @OneToOne
     @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_membership_company"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Company company;
+    private Company company; //cambiar a conexión por id
 
     /**
      * The start date of the subscription.
@@ -67,21 +67,6 @@ public class Membership {
      */
     @Column(name="price", nullable = false)
     private float price;
-
-    /*
-    * id: any;
-    firma: any;
-    idCompany: any;
-    subscriptionDate: any;
-    subscriptionType: any;
-    payment: {
-      paymentMethod: any;
-    };
-    hiredCompany: {
-      name: any;
-      logo: any;
-    };
-    * */
 
     //la membresia resalta a la compañia y la hace aparecer entre las principales en al tabla,
     // tambien hace que se busque primero entre estas para carga rapida

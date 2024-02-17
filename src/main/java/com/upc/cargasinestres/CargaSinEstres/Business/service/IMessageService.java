@@ -1,8 +1,8 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service;
 
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.Request.MessageRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.Response.MessageResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.request.MessageRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.response.MessageResponseDto;
 
 public interface IMessageService {
 

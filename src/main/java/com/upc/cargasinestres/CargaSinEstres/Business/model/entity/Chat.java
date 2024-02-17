@@ -26,6 +26,7 @@ import java.util.List;
 @Entity
 @Table(name = "chats")
 public class Chat {
+
     public Long getId() {
         return id;
     }
@@ -43,22 +44,16 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    /*
-    @Column(name = "user", nullable = false)
-    private String user;
-    */
-
     /**
      * The content of a message in chat.
      */
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<Message> messages; //String message;
+    @OneToMany(mappedBy = "chatId", cascade = CascadeType.ALL)
+    private List<Message> messages;
 
     /**
      * The booking history.
      */
-    @JoinColumn(name = "reservation_id")
+    @Column(name = "reservation_id")
     private Long reservationId;
 
 }

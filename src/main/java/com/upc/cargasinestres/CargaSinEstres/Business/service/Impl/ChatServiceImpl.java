@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.request.ChatRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.response.ChatResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Chat;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
@@ -29,21 +28,17 @@ public class ChatServiceImpl implements IChatService {
     }
 
     @Override
-    public ChatResponseDto createChat(Long reservationId, ChatRequestDto chatRequestDto){
-        /*
-        var reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(()->new ResourceNotFoundException("No se encontró el historial de reserva con id " + reservationId));
-            */
+    public ChatResponseDto createChat(Long reservationId) {
 
-        var newChat = new Chat(); //revision
+        var reservation = reservationRepository.findById(reservationId).orElseThrow(()->new ResourceNotFoundException("No se encontró el historial de reserva con id " + reservationId));
 
-        /*
-        newChat.setReservation(reservation);
-         */
+        var newChat = new Chat(); //revision , con o sin mensaje inicial
+
+        newChat.setReservationId(reservationId);
+
         var createdChat = chatRepository.save(newChat);
 
         return modelMapper.map(createdChat, ChatResponseDto.class);
     }
-
 
 }

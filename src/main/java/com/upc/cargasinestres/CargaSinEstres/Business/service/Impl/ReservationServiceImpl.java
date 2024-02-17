@@ -7,8 +7,6 @@ import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.Reserva
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IChatRepository;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDtoV2;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDtoV3;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICustomerRepository;
@@ -22,8 +20,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of the IBookingHistoryService interface.
- * Handles the business logic for booking history operations.
+ * Implementation of the IreservationService interface.
+ * Handles the business logic for reservation operations.
  *
  * @author Grupo1
  * @version 1.0
@@ -50,12 +48,12 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     /**
-     * Creates a new booking history record.
+     * Creates a new reservation record.
      *
-     * @param customerId              The ID of the client associated with the booking.
-     * @param companyId             The ID of the company associated with the booking.
-     * @param reservationRequestDto The data for creating the booking history.
-     * @return The created booking history response.
+     * @param customerId              The ID of the client associated with the reservation.
+     * @param companyId             The ID of the company associated with the reservation.
+     * @param reservationRequestDto The data for creating the reservation.
+     * @return The created reservation response.
      * @throws ResourceNotFoundException If the client or company is not found.
      */
     //Method : POST
@@ -69,31 +67,31 @@ public class ReservationServiceImpl implements IReservationService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró la empresa con ID: " + companyId));
 
         // Validación
-        ReservationValidation.ValidateBookingHistory(reservationRequestDto);
+        ReservationValidation.ValidateReservation(reservationRequestDto);
 
         // Mapeo
-        var newBookingHistory = modelMapper.map(reservationRequestDto, Reservation.class);
-        newBookingHistory.setCustomer(client);
-        newBookingHistory.setCompany(company);
+        var newReservation = modelMapper.map(reservationRequestDto, Reservation.class);
+        newReservation.setCustomer(client);
+        newReservation.setCompany(company);
         /*
-        newBookingHistory.setBookingDate(LocalDate.now());
+        newreservation.setBookingDate(LocalDate.now());
         */
-        newBookingHistory.setStatus("solicited");
+        newReservation.setStatus("solicited");
 
         /* Convertir movingTime de Date a Time
-        String movingTimeDate = bookingHistoryRequestDto.getMovingTime();
+        String movingTimeDate = reservationRequestDto.getMovingTime();
         Time movingTime = new Time(movingTimeDate.getTime());
-        newBookingHistory.setMovingTime(movingTime);*/
+        newreservation.setMovingTime(movingTime);*/
 
-        var createdBookingHistory = reservationRepository.save(newBookingHistory);
-        return modelMapper.map(createdBookingHistory, ReservationResponseDto.class);
+        var createdreservation = reservationRepository.save(newReservation);
+        return modelMapper.map(createdreservation, ReservationResponseDto.class);
     }
 
     /**
-     * Retrieves a list of booking history records associated with a client.
+     * Retrieves a list of reservation records associated with a client.
      *
      * @param clientId The ID of the client.
-     * @return A list of booking history response DTOs.
+     * @return A list of reservation response DTOs.
      */
     @Override
     public List<ReservationResponseDto> getReservationByCustomerId(Long clientId) {
@@ -115,10 +113,10 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     /**
-     * Retrieves a list of booking history records associated with a company.
+     * Retrieves a list of reservation records associated with a company.
      *
      * @param companyId The ID of the company.
-     * @return A list of booking history response DTOs.
+     * @return A list of reservation response DTOs.
      */
     @Override
     public List<ReservationResponseDto> getReservationByCompanyId(Long companyId) {
@@ -139,18 +137,18 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     /**
-     * Updates the payment field of a specific booking history.
+     * Updates the payment field of a specific reservation.
      *
-     * @param reservationId         The ID of the booking history to be updated.
-     * @param price The data for updating the payment of the booking history.
-     * @return The response of the updated booking history.
-     * @throws ResourceNotFoundException If the booking history with the given ID is not found.
+     * @param reservationId         The ID of the reservation to be updated.
+     * @param price The data for updating the payment of the reservation.
+     * @return The response of the updated reservation.
+     * @throws ResourceNotFoundException If the reservation with the given ID is not found.
      * @throws ValidationException       If the payment amount is not greater than 0.
      */
     @Override
     public ReservationResponseDto updateReservationPrice(Long reservationId, float price) {
         // Buscar la reserva
-        var bookingHistory = reservationRepository.findById(reservationId)
+        var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
         // Validación
@@ -159,48 +157,38 @@ public class ReservationServiceImpl implements IReservationService {
         }
 
         // Actualizar el campo "payment"
-        bookingHistory.setPrice(price);
+        reservation.setPrice(price);
 
         // Guardar la reserva actualizada
-        var updatedBookingHistory = reservationRepository.save(bookingHistory);
+        var updatedreservation = reservationRepository.save(reservation);
 
         // Retornar la respuesta actualizada
-        return modelMapper.map(updatedBookingHistory, ReservationResponseDto.class);
+        return modelMapper.map(updatedreservation, ReservationResponseDto.class);
     }
 
     /**
-     * Updates the status field of a specific booking history.
+     * Updates the status field of a specific reservation.
      *
-     * @param bookingHistoryId         The ID of the booking history to be updated.
-     * @param bookingHistoryRequestDto The data for updating the status of the booking history.
-     * @return The response of the updated booking history.
-     * @throws ResourceNotFoundException If the booking history with the given ID is not found.
+     * @param reservationId         The ID of the reservation to be updated.
+     * @param status The data for updating the status of the reservation.
+     * @return The response of the updated reservation.
+     * @throws ResourceNotFoundException If the reservation with the given ID is not found.
      * @throws ValidationException       If the new status is not "Finalizado".
      */
     @Override
-    public ReservationResponseDto updateReservationStatus(Long bookingHistoryId, ReservationRequestDtoV3 bookingHistoryRequestDto) {
+    public ReservationResponseDto updateReservationStatus(Long reservationId, String status) {
         // Buscar la reserva
-        var bookingHistory = reservationRepository.findById(bookingHistoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + bookingHistoryId));
-
-        // Validación
-        if (bookingHistory.getStatus().equals("finished") || bookingHistory.getStatus().equals("cancelled")) {
-            throw new ValidationException("Esta reserva ya esta finalizada");
-        }
-
-        if (!(bookingHistoryRequestDto.getStatus().equals("finished")) && !(bookingHistoryRequestDto.getStatus().equals("cancelled"))) {
-            throw new ValidationException("El estado a enviar debe ser Finalizado");
-        }
+        var reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
         // Actualizar el campo "payment"
-        bookingHistory.setStatus(bookingHistoryRequestDto.getStatus());
+        reservation.setStatus(status);
 
         // Guardar la reserva actualizada
-        var updatedBookingHistory = reservationRepository.save(bookingHistory);
+        var updatedreservation = reservationRepository.save(reservation);
 
         // Retornar la respuesta actualizada
-        return modelMapper.map(updatedBookingHistory, ReservationResponseDto.class);
+        return modelMapper.map(updatedreservation, ReservationResponseDto.class);
     }
-
 
 }

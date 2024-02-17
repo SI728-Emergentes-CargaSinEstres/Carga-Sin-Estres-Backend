@@ -3,6 +3,7 @@ package com.upc.cargasinestres.CargaSinEstres.Business.repository;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,16 +35,11 @@ public interface ICompanyRepository extends JpaRepository<Company, Long> {
     /**
      * Retrieves an Optional<Company> based on the provided email and contact number. This is used to
      *
-     * @param name The email of the company.
-     * @return An Optional containing the company info if a service with the same name is found, otherwise an empty Optional.
-     */
-    Optional<Company> findByServiceName(String name);
-
-    /**
-     * Retrieves an Optional<Company> based on the provided email and contact number. This is used to
-     *
      * @param direction The location of the company
      * @return An Optional containing the company info it's location is matching, otherwise an empty Optional.
      */
     Optional<Company> findByDirection(String direction);
+
+    Company findCompanyById(Long id);
+
 }

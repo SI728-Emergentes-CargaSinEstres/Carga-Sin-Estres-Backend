@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements ICustomerService {
         if(customerRepository.existsCustomer(customerRequestDto.getEmail(), customerRequestDto.getPassword()).isPresent())
             throw new RuntimeException("Ya existe un cliente con ese email y password");
 
-        CustomerValidation.ValidateClient(customerRequestDto);
+        CustomerValidation.ValidateCustomer(customerRequestDto);
 
         var newCustomer = modelMapper.map(customerRequestDto, Customer.class);
         /*

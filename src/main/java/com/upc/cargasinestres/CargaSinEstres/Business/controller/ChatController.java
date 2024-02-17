@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.request.ChatRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.response.ChatResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IChatService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,8 +31,9 @@ public class ChatController {
      * */
     @Operation(summary = "Create a Chat")
     @PostMapping("/reservation/{id}/chat")
-    public ResponseEntity<ChatResponseDto> createChat(@PathVariable(name="id") Long reservationId, @RequestBody ChatRequestDto chatRequestDto){
-        var res = chatService.createChat(reservationId, chatRequestDto);
+    public ResponseEntity<ChatResponseDto> createChat(@PathVariable(name="id") Long reservationId){
+        // Obsoleto
+        var res = chatService.createChat(reservationId);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRequestDto {
-//    private String user;
+
     private Message message;
+
 }

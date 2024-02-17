@@ -1,13 +1,11 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.Request.MessageRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.Response.MessageResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Chat;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.request.MessageRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.response.MessageResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Message;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IChatRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IMessageRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IMessageService;
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

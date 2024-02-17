@@ -2,6 +2,7 @@ package com.upc.cargasinestres.CargaSinEstres.Users.repository;
 
 import com.upc.cargasinestres.CargaSinEstres.Users.model.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
  * @author Grupo1
  * @version 1.0
  */
+@Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
     /**
      * Searchs a user by its email or username
