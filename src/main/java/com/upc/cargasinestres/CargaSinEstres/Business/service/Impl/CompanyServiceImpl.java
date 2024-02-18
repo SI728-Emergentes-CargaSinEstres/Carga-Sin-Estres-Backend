@@ -1,14 +1,14 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.CompanyValidation;
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
-import org.springframework.stereotype.Service;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
+import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ import java.util.List;
  * @author Grupo1
  * @version 1.0*/
 @Service
-public class CompanyServicioImpl implements ICompanyService {
+public class CompanyServiceImpl implements ICompanyService {
 
     private final ICompanyRepository companyRepository;
     private final ModelMapper modelMapper;
 
     //inyeccion de dependencias
-    public CompanyServicioImpl(ICompanyRepository companyRepository, ModelMapper modelMapper) {
+    public CompanyServiceImpl(ICompanyRepository companyRepository, ModelMapper modelMapper) {
 
         this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;
@@ -48,7 +48,7 @@ public class CompanyServicioImpl implements ICompanyService {
 
     @Override
     public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
-        if (companyRepository.findByNameAndTIC(companyRequestDto.getName(), companyRequestDto.getPhone_number()).isPresent())
+        if (companyRepository.findByNameAndTIC(companyRequestDto.getCompanyName(), companyRequestDto.getTIC()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese nombre y numero de RUC");
 
         CompanyValidation.ValidateCompany(companyRequestDto);

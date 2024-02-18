@@ -3,7 +3,6 @@ package com.upc.cargasinestres.CargaSinEstres.Business.repository;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**

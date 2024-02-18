@@ -1,7 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 
 /**
  * The CompanyValidation class provides methods for validating CompanyRequestDto objects.
@@ -17,25 +17,26 @@ public class CompanyValidation {
      */
     public static void ValidateCompany(CompanyRequestDto companyRequestDto){
 
-        if(companyRequestDto.getName().isEmpty()){
+        if(companyRequestDto.getCompanyName().isEmpty()){
             throw new ValidationException("El nombre de la empresa no puede estar vacio");
         }
         if(companyRequestDto.getLogo().isEmpty()){
             throw new ValidationException("La foto de la empresa no puede estar vacio");
         }
-        if(companyRequestDto.getName().length()>30) {
+        if(companyRequestDto.getCompanyName().length()>30) {
             throw new ValidationException("El nombre de la empresa no puede exceder los 30 caracteres");
         }
         if(companyRequestDto.getDescription().length() > 250){
             throw new ValidationException("La descripcion de la empresa no puede exceder los 250 caracteres");
         }
 
+        /*
         if(!companyRequestDto.isTransporte() && !companyRequestDto.isCarga() && !companyRequestDto.isEmbalaje()
                 && !companyRequestDto.isMontaje() && !companyRequestDto.isDesmontaje()
         ){
             throw new ValidationException("Como empresa debe ofrecer al menos un servicio");
         }
-
+        */
     }
 
 }

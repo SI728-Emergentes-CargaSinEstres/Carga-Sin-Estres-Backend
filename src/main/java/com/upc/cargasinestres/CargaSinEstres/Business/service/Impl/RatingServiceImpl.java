@@ -19,7 +19,7 @@ public class RatingServiceImpl implements IRatingService {
 
     private final ModelMapper modelMapper;
 
-    public RatingServiceImpl(IRatingRepository ratingRepository, ICompanyRepository companyRepository ,ModelMapper modelMapper) {
+    public RatingServiceImpl(IRatingRepository ratingRepository, ICompanyRepository companyRepository , ModelMapper modelMapper) {
         this.ratingRepository = ratingRepository;
         this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;

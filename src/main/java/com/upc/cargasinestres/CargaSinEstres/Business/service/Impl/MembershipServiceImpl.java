@@ -1,12 +1,12 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IMembershipService;
-import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.SubscriptionValidation;
+import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.MembershipValidation;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.request.MembershipRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.response.MembershipResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Membership;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IMembershipRepository;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.IMembershipService;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class MembershipServiceImpl implements IMembershipService {
 
     @Override
     public MembershipResponseDto createMembership(Long companyId, MembershipRequestDto membershipRequestDto) {
-        SubscriptionValidation.ValidateSubscription(membershipRequestDto);
+        MembershipValidation.ValidateSubscription(membershipRequestDto);
 
         var subscription = modelMapper.map(membershipRequestDto, Membership.class);
 

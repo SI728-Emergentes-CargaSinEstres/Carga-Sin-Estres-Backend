@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerResponseDto {
     private Long id;
-    private String name;
-    private String last_name;
-    private String phone_number;
-    private String direction;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 }

@@ -1,16 +1,14 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Chat.response.ChatResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.ReservationValidation;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.IChatRepository;
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICustomerRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
+import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICustomerRepository;
+import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
+import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +33,16 @@ public class ReservationServiceImpl implements IReservationService {
     private final ICustomerRepository customerRepository;
     private final ICompanyRepository companyRepository;
 
-    private final IChatRepository chatRepository;
+    //private final IChatRepository chatRepository;
 
     @Autowired
     public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper,
-                                  ICustomerRepository customerRepository, ICompanyRepository companyRepository, IChatRepository chatRepository) {
+                                  ICustomerRepository customerRepository, ICompanyRepository companyRepository) { //, IChatRepository chatRepository
         this.reservationRepository = reservationRepository;
         this.modelMapper = modelMapper;
         this.customerRepository = customerRepository;
         this.companyRepository = companyRepository;
-        this.chatRepository = chatRepository;
+        //this.chatRepository = chatRepository;
     }
 
     /**
@@ -103,12 +101,12 @@ public class ReservationServiceImpl implements IReservationService {
                 .map(Reservation -> modelMapper.map(Reservation, ReservationResponseDto.class))
                 .toList();
 
+        /*
         for (ReservationResponseDto reservation : toShowReservations) {
             var Chat = chatRepository.findByReservationId(reservation.getId());
             reservation.setChat_id(Chat.getId());
-
         }
-
+         */
         return toShowReservations;
     }
 
@@ -128,10 +126,12 @@ public class ReservationServiceImpl implements IReservationService {
                 .map(Reservation -> modelMapper.map(Reservation, ReservationResponseDto.class))
                 .toList();
 
+        /*
         for (ReservationResponseDto reservation : toShowReservations) {
             var Chat = chatRepository.findByReservationId(reservation.getId());
             reservation.setChat_id(Chat.getId());
         }
+         */
         return toShowReservations;
 
     }

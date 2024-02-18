@@ -1,8 +1,8 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
 
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 
 /**
  * The reservationValidation class provides methods for validating reservationRequestDto objects.
@@ -18,19 +18,19 @@ public class ReservationValidation {
      */
     public static void ValidateReservation(ReservationRequestDto reservationRequestDto){
 
-        if(reservationRequestDto.getOrigin_address() == null || reservationRequestDto.getOrigin_address().isEmpty()){
+        if(reservationRequestDto.getOriginAddress() == null || reservationRequestDto.getOriginAddress().isEmpty()){
             throw new ValidationException("La dirección de recogida debe ser obligatoria"); //error 400
         }
 
-        if(reservationRequestDto.getDestination_address() == null || reservationRequestDto.getDestination_address().isEmpty()){
+        if(reservationRequestDto.getDestinationAddress() == null || reservationRequestDto.getDestinationAddress().isEmpty()){
             throw new ValidationException("La dirección de destino debe ser obligatoria"); //error 400
         }
 
-        if(reservationRequestDto.getStart_date() == null){
+        if(reservationRequestDto.getStartDate() == null){
             throw new ValidationException("La fecha de recogida debe ser obligatoria"); //error 400
         }
 
-        if(reservationRequestDto.getStart_time() == null){
+        if(reservationRequestDto.getStartTime() == null){
             throw new ValidationException("El tiempo de recogida debe ser obligatorio"); //error 400
         }
 

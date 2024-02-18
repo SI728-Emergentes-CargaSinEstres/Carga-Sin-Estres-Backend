@@ -21,4 +21,5 @@ public class Servicio {
     private String name;
 
     // Missing intermediate table between service and company
+
 }

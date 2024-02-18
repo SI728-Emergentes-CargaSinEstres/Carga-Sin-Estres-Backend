@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.repository;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 

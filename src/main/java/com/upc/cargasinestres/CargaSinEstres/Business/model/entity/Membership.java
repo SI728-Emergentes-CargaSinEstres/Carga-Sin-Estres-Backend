@@ -37,17 +37,6 @@ public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /**
-     * The company that is subscribed.
-     * This is a foreign key.
-     * This is a one to one relationship.
-     */
-    @OneToOne
-    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_membership_company"))
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Company company; //cambiar a conexión por id
-
     /**
      * The start date of the subscription.
      */
@@ -71,4 +60,13 @@ public class Membership {
     //la membresia resalta a la compañia y la hace aparecer entre las principales en al tabla,
     // tambien hace que se busque primero entre estas para carga rapida
 
+    /**
+     * The company that is subscribed.
+     * This is a foreign key.
+     * This is a one-to-one relationship.
+     */
+    @OneToOne
+    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_company_membership"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Company company; //cambiar a conexión por id
 }

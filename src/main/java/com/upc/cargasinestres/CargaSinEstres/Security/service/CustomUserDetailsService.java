@@ -2,6 +2,7 @@ package com.upc.cargasinestres.CargaSinEstres.Security.service;
 
 import com.upc.cargasinestres.CargaSinEstres.Shared.util.Utilities;
 import com.upc.cargasinestres.CargaSinEstres.Users.repository.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
     private final IUserRepository userRepository;
 
     /**

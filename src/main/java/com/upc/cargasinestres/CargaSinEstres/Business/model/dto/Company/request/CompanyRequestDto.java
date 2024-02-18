@@ -14,17 +14,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyRequestDto {
-    private String name;
-    private String logo;
-    private String description;
-    private String email;
-    private String phone_number;
+    private String company_name;
+    private String TIC;
     private String direction;
+    private String email;
+    private String phoneNumber;
     private String password;
-    //private String userType;
-    private boolean transporte;
-    private boolean carga;
-    private boolean embalaje;
-    private boolean montaje;
-    private boolean desmontaje;
+    private String description;
+    private String logo;
+
+    public String getCompanyName() {
+        return company_name;
+    }
+
 }

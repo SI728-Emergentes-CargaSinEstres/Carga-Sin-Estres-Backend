@@ -9,5 +9,5 @@ public interface IServicioRepository extends JpaRepository<Servicio, Long> {
      * @param name The name of the service.
      * @return A List of Service records associated with the specified service name.
      */
-    Servicio findByServiceName(String name);
+    Servicio findByName(String name);
 }

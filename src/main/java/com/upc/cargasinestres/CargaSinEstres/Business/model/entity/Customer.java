@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
  * <ul>
  *     <li>id - The id of the client</li>
  *     <li>name - The name of the client</li>
- *     <li>apellidoMaterno - The last name of the client</li>
- *     <li>apellidoPaterno - The last name of the client</li>
+ *     <li>last_name - The last name of the customer</li>
  *     <li>celular - The phone number of the client</li>
  *     <li>direccion - The address of the client</li>
  *     <li>email - The email of the client</li>
@@ -41,20 +40,20 @@ public class Customer {
     /**
      * The name of the client.
      */
-    @Column(name = "name", nullable = false)
-    private String first_name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
     /**
      * The last name of the client.
      */
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName;
 
     /**
      *  The phone number of the client.
      */
     @Column(name = "phone_number", length = 9, nullable = false)
-    private String phone_number;
+    private String phoneNumber;
 
     /**
      * The email of the client.

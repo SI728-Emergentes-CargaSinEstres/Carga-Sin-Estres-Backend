@@ -2,10 +2,9 @@ package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IChatService;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +24,15 @@ import java.util.List;
 public class ReservationController {
 
     private final IReservationService reservationService;
-    private final IChatService chatService;
+   // private final IChatService chatService;
 
     /**
      * Class constructor
      * @param reservationService The service for handling reservation operations.
      */
-    public ReservationController(IReservationService reservationService, IChatService chatService) {
+    public ReservationController(IReservationService reservationService) { //, IChatService chatService
         this.reservationService = reservationService;
-        this.chatService = chatService;
+        //this.chatService = chatService;
     }
 
     /**
@@ -49,11 +48,13 @@ public class ReservationController {
     public ResponseEntity<ReservationResponseDto> createReservation(@RequestParam(name = "customerId") Long customerId, @RequestParam(name = "idCompany") Long companyId, @RequestBody ReservationRequestDto reservationRequestDto) {
         var res = reservationService.createReservation(customerId, companyId, reservationRequestDto);
 
-        var chat = chatService.createChat(res.getId()); //revision, sino ser ilegal V2
+        /*var chat = chatService.createChat(res.getId()); //revision, sino ser ilegal V2
 
         if (chat == null) {
             return ResponseEntity.badRequest().build();
         }
+
+         */
 
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }

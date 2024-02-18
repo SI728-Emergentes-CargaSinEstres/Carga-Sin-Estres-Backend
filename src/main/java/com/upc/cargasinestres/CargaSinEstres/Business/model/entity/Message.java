@@ -23,9 +23,12 @@ public class Message {
     private String content;
 
     @Column(name = "message_date", nullable = false)
-    private LocalDateTime message_date;
+    private LocalDateTime messageDate;
 
-    @Column(name = "chat_id", nullable = false)
+    @Column(name = "chat_id", nullable = false) //deberia ser many to one
     private Long chatId;
 
+    //@ManyToOne
+    //@JoinColumn(name = "chat_id", nullable = false)
+    //private Chat chat;
 }

@@ -21,6 +21,6 @@ public class Rating {
     private int stars;
 
     @ManyToOne
-    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_rating_company"))
+    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_company_rating"))
     private Company company;
 }

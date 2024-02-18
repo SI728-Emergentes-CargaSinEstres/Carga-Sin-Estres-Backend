@@ -49,20 +49,14 @@ public class Company {
     /**
      * The name of the company.
      */
-    @Column(name = "name", nullable = false)
+    @Column(name = "company_name", nullable = false)
     private String name;
 
     /**
-     * The photo of the company.
+     * The TIC of the company.
      */
-    @Column(name = "photo", nullable = false)
-    private String photo;
-
-    /**
-     * The email of the company.
-     */
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "TIC", nullable = false)
+    private String TIC;
 
     /**
      * The address of the company.
@@ -71,15 +65,15 @@ public class Company {
     private String direction;
 
     /**
-     * The contact number of the company.
+     * The email of the company.
      */
-    @Column(name = "TIC", nullable = false)
-    private String TIC;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     /**
      * The contact number of the company.
      */
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     /**
@@ -87,6 +81,12 @@ public class Company {
      */
     @Column(name = "password", nullable = false)
     private String password;
+
+    /**
+     * The photo of the company.
+     */
+    @Column(name = "logo", nullable = false)
+    private String logo;
 
     /**
      * The description of the company
@@ -97,17 +97,19 @@ public class Company {
     /**
      * The rating of the company
      */
-    @OneToMany(mappedBy = "rating", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name="idRating", nullable = false, foreignKey = @ForeignKey(name="FK_rating_company"))
     private List<Rating> ratings;
 
     /**
      * The services of the company
      */
-    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name="idServicio", nullable = false, foreignKey = @ForeignKey(name="FK_service_company"))
     private List<Servicio> servicios;
 
     @OneToOne
-    @JoinColumn(name="idCompany", nullable = true, foreignKey = @ForeignKey(name="FK_membership_company"))
+    @JoinColumn(name="idMembership", foreignKey = @ForeignKey(name="FK_membership_company"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Membership membership; //cambiar a conexion por id
 

@@ -1,7 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.repository;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Chat;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

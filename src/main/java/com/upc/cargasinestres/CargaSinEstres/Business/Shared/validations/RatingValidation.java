@@ -1,4 +1,4 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
-public class RatingsValidation {
+public class RatingValidation {
 }

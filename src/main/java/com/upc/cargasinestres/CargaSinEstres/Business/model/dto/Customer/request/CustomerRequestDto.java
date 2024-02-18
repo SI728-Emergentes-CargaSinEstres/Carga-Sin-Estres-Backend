@@ -15,17 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerRequestDto {
-    private String name;
-
-    private String last_name;
-
-    private String phone_number;
-
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String direction;
-
     private String email;
-
     private String password;
-
-    //private String userType;
 }

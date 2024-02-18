@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.response.MembershipResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
@@ -8,11 +7,9 @@ import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyReposit
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IServicioRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IServicioService;
-import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
-import java.util.List;
 
 
 @Service

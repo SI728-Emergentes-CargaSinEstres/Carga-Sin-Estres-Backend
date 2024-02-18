@@ -16,16 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanyResponseDto {
     private Long id;
-    private String name;
-    private String logo;
-    private String description;
-    private String phone_number;
+    private String company_name;
+    private String TIC;
     private String direction;
-    private boolean transporte;
-    private boolean carga;
-    private boolean embalaje;
-    private boolean montaje;
-    private boolean desmontaje;
-    private int averageRating;
-    private String userType;
+    private String email;
+    private String phoneNumber;
+    private String description;
+    private String logo;
 }

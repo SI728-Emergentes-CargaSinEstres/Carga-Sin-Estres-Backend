@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class Reservation {
      * </p>
      */
     @ManyToOne
-    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_bookingHistory_company"))
+    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_reservation_company"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Company company;
 
@@ -66,16 +67,25 @@ public class Reservation {
      * </p>
      */
     @ManyToOne
-    @JoinColumn(name="idClient", nullable = false, foreignKey = @ForeignKey(name="FK_bookingHistory_client"))
+    @JoinColumn(name="idClient", nullable = false, foreignKey = @ForeignKey(name="FK_reservation_client"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Customer customer;
 
     /**
-     * The booking date of the booking history.
+     * The moving date of the booking history.
+     */
+    @Column(name="start_date", nullable = false)
+    private Date startDate; //movingDate
 
-    @Column(name="bookingDate", nullable = false)
-    private LocalDate bookingDate;
-    */
+    /**
+     * The moving time of the booking history.
+     * <p>
+     *     The attribute is mapped by the {@code movingTime} attribute of the {@code Time} class.
+     * </p>
+     */
+    @Temporal(TemporalType.TIME)
+    @Column(name="start_time", nullable = false)
+    private Time startTime; //movingTime //cambiar a time
 
     /**
      * The pickup address of the booking history.
@@ -90,20 +100,16 @@ public class Reservation {
     private String destinationAddress;
 
     /**
-     * The moving date of the booking history.
+     * The end date of the booking history.
      */
-    @Column(name="start_date", nullable = false)
-    private Date start_date; //movingDate
+    @Column(name="end_date", nullable = false)
+    private Date endDate;
 
     /**
-     * The moving time of the booking history.
-     * <p>
-     *     The attribute is mapped by the {@code movingTime} attribute of the {@code Time} class.
-     * </p>
+     * The payment of the booking history.
      */
-    @Temporal(TemporalType.TIME)
-    @Column(name="start_time", nullable = false)
-    private String start_time; //movingTime //cambiar a time
+    @Column(name="price")
+    private float price;
 
     /**
      * The status of the booking history.
@@ -114,20 +120,13 @@ public class Reservation {
     /**
      * The services of the booking history.
      */
-    @ManyToMany(mappedBy="services", cascade = CascadeType.ALL) //para carga rapida siempre es solo un objeto service, la carga
+    @ManyToMany
+    @JoinColumn(name="idServicio", nullable = false, foreignKey = @ForeignKey(name="FK_service_reservation"))
     private List<Servicio> servicios; //para carga rapida se llena solo la dirección inicial y final, la validación es lo mismo que la normal
-
-    /**
-     * The payment of the booking history.
-     */
-    @Column(name="price")
-    private float price; //payment int
 
     /**
      * The chats of the booking history.
      */
     @Column(name="chat")
     private Long chatId;
-
 }
-

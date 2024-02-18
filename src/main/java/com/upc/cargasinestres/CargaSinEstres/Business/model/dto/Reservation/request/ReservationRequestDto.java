@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class ReservationRequestDto {
     //private Company company;
     //private Client client;
     //private LocalDate bookingDate;
-    private String origin_address;
-    private String destination_address;
-    private Date start_date;
-    private String start_time;
+    private String originAddress;
+    private String destinationAddress;
+    private Date startDate;
+    private Time startTime;
     private List<Servicio> servicios;
 }

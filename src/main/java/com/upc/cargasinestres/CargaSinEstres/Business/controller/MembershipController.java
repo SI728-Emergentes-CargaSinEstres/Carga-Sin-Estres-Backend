@@ -4,10 +4,10 @@ package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.request.MembershipRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.response.MembershipResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IMembershipService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * REST Subscription controller
