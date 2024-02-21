@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatingResponseDto {
 
-    private Long id;
-
     private int stars;
 
 }

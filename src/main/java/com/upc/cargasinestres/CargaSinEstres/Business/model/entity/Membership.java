@@ -66,7 +66,6 @@ public class Membership {
      * This is a one-to-one relationship.
      */
     @OneToOne
-    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_company_membership"))
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name="idCompany", nullable = false)
     private Company company; //cambiar a conexión por id
 }

@@ -19,5 +19,5 @@ import java.util.Date;
 public class MembershipRequestDto {
     private String name;
     private Date startDate;
-    private String cardNumber;
+    private String description;
 }

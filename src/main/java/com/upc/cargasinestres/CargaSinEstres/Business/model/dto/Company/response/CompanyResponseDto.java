@@ -1,8 +1,12 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response;
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 /**
  * The CompanyResponseDto class represents the data transfer object of the Company class.
  * It contains fields related to the details of a company entity.
@@ -16,11 +20,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanyResponseDto {
     private Long id;
-    private String company_name;
+    private String name;
     private String TIC;
     private String direction;
     private String email;
     private String phoneNumber;
     private String description;
     private String logo;
+    private List<ServicioRequestDto> servicios;
 }

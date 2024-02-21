@@ -49,7 +49,7 @@ public class Company {
     /**
      * The name of the company.
      */
-    @Column(name = "company_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     /**
@@ -97,15 +97,13 @@ public class Company {
     /**
      * The rating of the company
      */
-    @OneToMany
-    @JoinColumn(name="idRating", nullable = false, foreignKey = @ForeignKey(name="FK_rating_company"))
+    @OneToMany(mappedBy="company")
     private List<Rating> ratings;
 
     /**
      * The services of the company
      */
-    @OneToMany
-    @JoinColumn(name="idServicio", nullable = false, foreignKey = @ForeignKey(name="FK_service_company"))
+    @ManyToMany(mappedBy = "companies")
     private List<Servicio> servicios;
 
     @OneToOne

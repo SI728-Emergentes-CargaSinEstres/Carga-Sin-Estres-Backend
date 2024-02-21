@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ratings")
 public class Rating {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +21,12 @@ public class Rating {
     @Column(name = "stars", nullable = false)
     private int stars;
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     @ManyToOne
-    @JoinColumn(name="idCompany", nullable = false, foreignKey = @ForeignKey(name="FK_company_rating"))
+    @JoinColumn(name="idCompany", nullable = false)
     private Company company;
+
 }

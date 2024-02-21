@@ -32,13 +32,11 @@ public interface ICompanyRepository extends JpaRepository<Company, Long> {
     Optional<Company> findByEmailAndPassword(String email, String password);
 
     /**
-     * Retrieves an Optional<Company> based on the provided email and contact number. This is used to
+     * Retrieves a Company based on the provided company ID.
      *
-     * @param direction The location of the company
-     * @return An Optional containing the company info it's location is matching, otherwise an empty Optional.
+     * @param id The ID of the company.
+     * @return The company if found, otherwise null.
      */
-    Optional<Company> findByDirection(String direction);
-
     Company findCompanyById(Long id);
 
 }

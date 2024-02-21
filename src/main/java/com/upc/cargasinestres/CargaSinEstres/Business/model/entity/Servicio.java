@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,6 +22,11 @@ public class Servicio {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // Missing intermediate table between service and company
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "company_service", // Nombre de la tabla de unión
+            joinColumns = @JoinColumn(name = "service_id"), // Columna que hace referencia a la entidad actual (Servicio)
+            inverseJoinColumns = @JoinColumn(name = "company_id") // Columna que hace referencia a la entidad relacionada (Company)
+    )
+    private List<Company> companies;
 }
