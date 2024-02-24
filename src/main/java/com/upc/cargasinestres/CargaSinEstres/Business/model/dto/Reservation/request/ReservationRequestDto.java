@@ -1,6 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request;
 
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,12 +22,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationRequestDto {
-    //private Company company;
-    //private Client client;
-    //private LocalDate bookingDate;
     private String originAddress;
     private String destinationAddress;
     private Date startDate;
     private Time startTime;
-    private List<Servicio> servicios;
+    private List<ServicioRequestDto> servicios;
 }

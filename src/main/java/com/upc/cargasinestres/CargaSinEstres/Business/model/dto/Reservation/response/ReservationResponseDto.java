@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response;
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Customer;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -21,19 +23,15 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationResponseDto {
     private Long id;
-    private Company company;
-    private Customer customer;
-    private LocalDate bookingDate;
+    private float price;
     private String originAddress;
     private String destinationAddress;
-    private Date movingDate;
-    private String movingTime;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
     private String status;
-    private List<Servicio> servicios;
-    private float price;
+    private List<ServicioRequestDto> servicios;
     private Long chatId;
-
-    public void setChat_id(Long chat_id) {
-            this.chatId = chat_id;
-    }
+    private Company company;
+    private Customer customer;
 }

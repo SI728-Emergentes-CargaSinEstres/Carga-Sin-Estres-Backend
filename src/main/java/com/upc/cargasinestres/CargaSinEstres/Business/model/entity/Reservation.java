@@ -102,7 +102,7 @@ public class Reservation {
     /**
      * The end date of the booking history.
      */
-    @Column(name="end_date", nullable = false)
+    @Column(name="end_date")
     private Date endDate;
 
     /**
@@ -118,11 +118,10 @@ public class Reservation {
     private String status;
 
     /**
-     * The services of the booking history.
+     * The services of the reservation
      */
-    @ManyToMany
-    @JoinColumn(name="idServicio", nullable = false, foreignKey = @ForeignKey(name="FK_service_reservation"))
-    private List<Servicio> servicios; //para carga rapida se llena solo la dirección inicial y final, la validación es lo mismo que la normal
+    @ManyToMany(mappedBy = "reservations")
+    private List<Servicio> servicios;
 
     /**
      * The chats of the booking history.

@@ -29,4 +29,12 @@ public class Servicio {
             inverseJoinColumns = @JoinColumn(name = "company_id") // Columna que hace referencia a la entidad relacionada (Company)
     )
     private List<Company> companies;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "reservation_service", // Nombre de la tabla de unión
+            joinColumns = @JoinColumn(name = "service_id"), // Columna que hace referencia a la entidad actual (Servicio)
+            inverseJoinColumns = @JoinColumn(name = "reservation_id") // Columna que hace referencia a la entidad relacionada (Company)
+    )
+    private List<Reservation> reservations;
 }
