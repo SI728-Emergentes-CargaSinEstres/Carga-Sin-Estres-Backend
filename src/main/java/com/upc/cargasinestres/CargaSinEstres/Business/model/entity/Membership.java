@@ -37,6 +37,12 @@ public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * The name of the membership.
+     */
+    @Column(name="name", nullable = false)
+    private String name;
     /**
      * The start date of the subscription.
      */
@@ -45,12 +51,6 @@ public class Membership {
 
     @Column(name="end_date", nullable = false)
     private LocalDate endDate;
-    /**
-     * The description of the subscription.
-     */
-    @Column(name="description", nullable = false)
-    private String description;
-
     /**
      * The payment method of the subscription.
      */

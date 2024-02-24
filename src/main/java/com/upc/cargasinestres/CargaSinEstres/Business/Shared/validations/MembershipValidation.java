@@ -7,7 +7,7 @@ import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.reque
  * It checks for the presence and validity of fields in a subscription request.
  */
 public class MembershipValidation {
-    public static void ValidateSubscription(MembershipRequestDto subscription){
+    public static void ValidateMembership(MembershipRequestDto membership){
 
     }
 }

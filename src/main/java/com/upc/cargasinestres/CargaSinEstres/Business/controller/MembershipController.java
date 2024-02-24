@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST Subscription controller
+ * REST Membership controller
  * @author Grupo1
  * @version 1.0
  */
@@ -32,14 +32,18 @@ public class MembershipController {
     }
 
     /**
-     * Handles the creation of a new subscription.
+     * Handles the creation of a new membership.
      * @param idCompany The
-     * @param membershipRequestDto The request data for creating the subscription.
-     * @return ResponseEntity with the created subscription response or an error status.
+     * @param membershipRequestDto The request data for creating the membership.
+     * @return ResponseEntity with the created membership response or an error status.
      */
     @PostMapping("/memberships/{idCompany}")
     public ResponseEntity<MembershipResponseDto> createMembership(@PathVariable Long idCompany, @RequestBody MembershipRequestDto membershipRequestDto){
-        var res = membershipService.createMembership(idCompany, membershipRequestDto);
+        // Calculate the membership end date
+        var startDate = membershipRequestDto.getStartDate();
+        var endDate = startDate.plusYears(1);
+
+        var res = membershipService.createMembership(idCompany, endDate, membershipRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
@@ -47,7 +51,7 @@ public class MembershipController {
      * Handles the retrieval of membership(s) by company ID.
      *
      * @param idCompany The ID of the company for which memberships are retrieved.
-     * @return ResponseEntity with the subscription response(s) or an error status.
+     * @return ResponseEntity with the membership response(s) or an error status.
      */
     @GetMapping("/memberships/{idCompany}")
     public ResponseEntity<MembershipResponseDto> getMembership(@PathVariable(name="idCompany") Long idCompany){

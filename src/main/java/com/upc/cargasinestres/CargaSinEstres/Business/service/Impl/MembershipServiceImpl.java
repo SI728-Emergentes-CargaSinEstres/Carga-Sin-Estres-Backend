@@ -11,44 +11,47 @@ import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundEx
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 /**
- * Implementation of the ISubscriptionService interface.
+ * Implementation of the IMembershipService interface.
  * Handles the business logic for subscription operations.
  * @author Grupo1
  * @version 2.0*/
 @Service
 public class MembershipServiceImpl implements IMembershipService {
 
-    private final IMembershipRepository subscriptionRepository;
+    private final IMembershipRepository membershipRepository;
 
     private final ICompanyRepository companyRepository;
 
     private final ModelMapper modelMapper;
 
-    public MembershipServiceImpl(IMembershipRepository subscriptionRepository, ICompanyRepository companyRepository, ModelMapper modelMapper) {
-        this.subscriptionRepository = subscriptionRepository;
+    public MembershipServiceImpl(IMembershipRepository membershipRepository, ICompanyRepository companyRepository, ModelMapper modelMapper) {
+        this.membershipRepository = membershipRepository;
         this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public MembershipResponseDto createMembership(Long companyId, MembershipRequestDto membershipRequestDto) {
-        MembershipValidation.ValidateSubscription(membershipRequestDto);
+    public MembershipResponseDto createMembership(Long companyId, LocalDate endDate, MembershipRequestDto membershipRequestDto) {
+        MembershipValidation.ValidateMembership(membershipRequestDto);
 
-        var subscription = modelMapper.map(membershipRequestDto, Membership.class);
+        var membership = modelMapper.map(membershipRequestDto, Membership.class);
+        membership.setEndDate(endDate); // Set the endDate
 
-        subscription.setCompany(companyRepository.findById(companyId)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la empresa con id: "+companyId))); //Company of the subscription is set
+        membership.setCompany(companyRepository.findById(companyId)
+                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la empresa con id: "+companyId))); //Company of the membership is set
 
-        var createdSubscription = subscriptionRepository.save(subscription); //saved in the DB
+        var createdMembership = membershipRepository.save(membership); //saved in the DB
 
-        return modelMapper.map(createdSubscription, MembershipResponseDto.class);
+        return modelMapper.map(createdMembership, MembershipResponseDto.class);
     }
 
     @Override
     public MembershipResponseDto getMembershipByCompanyId(Long companyId){
-        var subscription = subscriptionRepository.findByCompanyId(companyId)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la suscripcion de la empresa con id: "+companyId));
+        var subscription = membershipRepository.findByCompanyId(companyId)
+                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la membresía de la empresa con id: "+companyId));
 
         return modelMapper.map(subscription, MembershipResponseDto.class);
     }
