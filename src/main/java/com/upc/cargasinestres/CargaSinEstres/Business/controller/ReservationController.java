@@ -85,6 +85,13 @@ public class ReservationController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @Operation(summary = "Obtain a list of reservation by company Id and status")
+    @GetMapping("/reservations/company/{id}/status")
+    public ResponseEntity<List<ReservationResponseDto>> getReservationByCompanyIdAndStatus(@PathVariable(name="id") Long id, @RequestParam(name="status") String status){
+        var res = reservationService.getReservationByCompanyIdAndStatus(id, status);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     /**
      * Updates the payment field of a specific reservation.
      *

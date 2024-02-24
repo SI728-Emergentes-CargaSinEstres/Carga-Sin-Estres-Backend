@@ -137,6 +137,25 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     /**
+     * Retrieves a list of reservation records associated with a company and a specific status.
+     *
+     * @param companyId The ID of the company.
+     * @param status The status of the reservation.
+     * @return A list of reservation response DTOs.
+     */
+    @Override
+    public List<ReservationResponseDto> getReservationByCompanyIdAndStatus(Long companyId, String status) {
+        var existingReservation = reservationRepository.findByCompanyIdAndStatus(companyId, status);
+        if (existingReservation.isEmpty())
+            throw new ResourceNotFoundException("No se encuentran reservas para la empresa : " + companyId);
+
+        var toShowReservations = existingReservation.stream()
+                .map(Reservation -> modelMapper.map(Reservation, ReservationResponseDto.class))
+                .toList();
+        return toShowReservations;
+    }
+
+    /**
      * Updates the payment field of a specific reservation.
      *
      * @param reservationId         The ID of the reservation to be updated.
