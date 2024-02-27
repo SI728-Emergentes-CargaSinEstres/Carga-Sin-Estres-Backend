@@ -100,15 +100,16 @@ public class Company {
     @OneToMany(mappedBy="company")
     private List<Rating> ratings;
 
-    /**
-     * The services of the company
-     */
-    @ManyToMany(mappedBy = "companies")
-    private List<Servicio> servicios;
-
     @OneToOne
     @JoinColumn(name="idMembership", foreignKey = @ForeignKey(name="FK_membership_company"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Membership membership; //cambiar a conexion por id
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "company_servicio", // Nombre de la tabla de unión
+            joinColumns = @JoinColumn(name = "company_id"), // Columna que hace referencia a la entidad actual (Company)
+            inverseJoinColumns = @JoinColumn(name = "servicio_id") // Columna que hace referencia a la entidad relacionada (Servicio)
+    )
+    private List<Servicio> servicios;
 }

@@ -1,7 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +25,5 @@ public class CompanyRequestDto {
     private String password;
     private String description;
     private String logo;
-    private List<ServicioRequestDto> servicios;
+    private List<Long> servicioIds;
 }
