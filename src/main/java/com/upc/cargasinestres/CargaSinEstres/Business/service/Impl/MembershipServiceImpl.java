@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
+import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.CustomerValidation;
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.MembershipValidation;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.request.MembershipRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.response.MembershipResponseDto;

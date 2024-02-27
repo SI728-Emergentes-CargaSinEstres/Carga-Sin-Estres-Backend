@@ -18,6 +18,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MembershipRequestDto {
-    private String name;
     private LocalDate startDate;
+    private float price;
 }
