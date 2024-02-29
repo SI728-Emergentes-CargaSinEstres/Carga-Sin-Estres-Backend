@@ -20,10 +20,10 @@ public class ServicioController {
         this.serviceService = serviceService;
     }
 
-    @Operation(summary = "Create a Service")
+    /*@Operation(summary = "Create a Service")
     @PostMapping("/services")
     public ResponseEntity<ServicioResponseDto> createServicio(@RequestBody ServicioRequestDto servicioRequestDto) {
         var res = serviceService.createServicio(servicioRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
-    }
+    }*/
 }
