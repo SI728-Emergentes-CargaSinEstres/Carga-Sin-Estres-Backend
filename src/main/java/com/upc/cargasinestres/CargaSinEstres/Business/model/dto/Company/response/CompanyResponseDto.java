@@ -1,6 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +27,5 @@ public class CompanyResponseDto {
     private String phoneNumber;
     private String description;
     private String logo;
-    private List<ServicioRequestDto> servicios;
+    private List<ServicioResponseDto> servicios;
 }

@@ -39,11 +39,6 @@ public class Membership {
     private Long id;
 
     /**
-     * The name of the membership.
-     */
-    @Column(name="name", nullable = false)
-    private String name;
-    /**
      * The start date of the subscription.
      */
     @Column(name="start_date", nullable = false)

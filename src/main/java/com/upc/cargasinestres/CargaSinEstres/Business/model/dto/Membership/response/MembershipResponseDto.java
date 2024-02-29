@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class MembershipResponseDto {
     private Long id;
-    private String name;
+    private float price;
     private LocalDate startDate;
     private LocalDate endDate;
     private Company company;

@@ -63,14 +63,15 @@ public class CompanyValidation {
             throw new ValidationException("La contraseña debe contener al menos un carácter especial");
         }
 
-
-        /*
-        if(!companyRequestDto.isTransporte() && !companyRequestDto.isCarga() && !companyRequestDto.isEmbalaje()
-                && !companyRequestDto.isMontaje() && !companyRequestDto.isDesmontaje()
-        ){
-            throw new ValidationException("Como empresa debe ofrecer al menos un servicio");
+        // Services validation
+        if (companyRequestDto.getServicioIds().isEmpty()) {
+            throw new ValidationException("La empresa debe ofrecer al menos un servicio");
         }
-        */
+
+        long distinctServiceCount = companyRequestDto.getServicioIds().stream().distinct().count();
+        if (distinctServiceCount != companyRequestDto.getServicioIds().size()) {
+            throw new ValidationException("La empresa no puede ofrecer servicios duplicados");
+        }
     }
 
 }
