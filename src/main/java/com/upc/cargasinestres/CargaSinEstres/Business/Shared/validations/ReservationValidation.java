@@ -38,6 +38,11 @@ public class ReservationValidation {
             throw new ValidationException("La reserva debe presentar almenos 1 servicio, es obligatorio"); //error 400
         }
 
+        Date ahora = new Date();
+        if(reservationRequestDto.getStartDate().before(ahora)){
+            throw new ValidationException("La fecha de inicio de la reserva no puede ser en el pasado."); //error 400
+        }
+
 
     }
 
