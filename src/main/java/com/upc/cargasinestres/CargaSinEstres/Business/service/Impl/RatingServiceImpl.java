@@ -30,26 +30,19 @@ public class RatingServiceImpl implements IRatingService {
 
     @Override
     public RatingResponseDto createRating(Long companyId, RatingRequestDto ratingRequestDto) {
-
         var newRating = modelMapper.map(ratingRequestDto, Rating.class);
-
         var company = companyRepository.findCompanyById(companyId);
 
-
-        newRating.setCompany(company); //company no se esta seteando
-
-        System.out.println("** New rating: " + newRating);
-
-        if(newRating.getCompany() == null) {
-                    throw new ValidationException("No se pudo encontrar la empresa con id: " + companyId); }
-
+        newRating.setCompany(company);
         RatingValidation.ValidateRating(ratingRequestDto);
 
         var createdRating = ratingRepository.save(newRating);
 
-        System.out.println("** Created rating: " + createdRating);
+        // Agregar el nuevo rating a la lista de ratings en la entidad Company
+        company.getRatings().add(createdRating);
+        companyRepository.save(company);
 
-        return modelMapper.map(createdRating, RatingResponseDto.class); //newRating?
-
+        return modelMapper.map(createdRating, RatingResponseDto.class);
     }
+
 }

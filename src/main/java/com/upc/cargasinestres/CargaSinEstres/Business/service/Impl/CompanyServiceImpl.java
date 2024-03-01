@@ -4,6 +4,7 @@ import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.Company
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Rating;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IServicioRepository;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.OptionalDouble;
 
 /**
  * Implementation of the ICompanyService interface.
@@ -38,16 +40,28 @@ public class CompanyServiceImpl implements ICompanyService {
     public List<CompanyResponseDto> getAllCompanies() {
         var companies = companyRepository.findAll();
 
-        return companies.stream().map(
-                Company->modelMapper.map(Company, CompanyResponseDto.class)
-        ).toList();
+        return companies.stream()
+                .map(company -> {
+                    CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
+                    int averageRating = calculateAverageRating(company);
+                    companyResponseDto.setAverageRating(averageRating);
+                    return companyResponseDto;
+                })
+                .toList();
     }
+
 
     @Override
     public CompanyResponseDto getCompanyById(Long id) {
         var company = companyRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la empresa con id: "+id));
-        return modelMapper.map(company, CompanyResponseDto.class);
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro la empresa con id: " + id));
+
+        int averageRating = calculateAverageRating(company);
+
+        CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
+        companyResponseDto.setAverageRating(averageRating);
+
+        return companyResponseDto;
     }
 
     @Override
@@ -98,4 +112,18 @@ public class CompanyServiceImpl implements ICompanyService {
 
         return modelMapper.map(company, CompanyResponseDto.class); // se retorna un responseDTO con los datos del company
     }
+
+    public static int calculateAverageRating(Company company) {
+        if (company == null || company.getRatings() == null || company.getRatings().isEmpty()) {
+            return 0;  // Manejo de casos nulos o vacíos
+        }
+
+        List<Rating> ratings = company.getRatings();
+        double sumRatings = ratings.stream()
+                .mapToInt(Rating::getStars)
+                .sum();
+
+        return (int) Math.round(sumRatings / ratings.size());
+    }
+
 }
