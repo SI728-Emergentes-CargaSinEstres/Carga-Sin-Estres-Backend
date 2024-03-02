@@ -31,9 +31,6 @@ public class CustomerValidation {
         if(customerRequestDto.getLastName().isEmpty()) {
             throw new ValidationException("El apellido del cliente debe ser obligatorio");
         }
-        if(customerRequestDto.getDirection() == null || customerRequestDto.getDirection().isEmpty()){
-            throw new ValidationException("La direccion del cliente debe ser obligatorio");
-        }
         if(customerRequestDto.getPhoneNumber().length() != 9){
             throw new ValidationException("El celular del cliente debe tener exactamente 9 digitos");
         }

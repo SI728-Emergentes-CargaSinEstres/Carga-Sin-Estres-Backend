@@ -18,7 +18,6 @@ public class CustomerRequestDto {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String direction;
     private String email;
     private String password;
 }
