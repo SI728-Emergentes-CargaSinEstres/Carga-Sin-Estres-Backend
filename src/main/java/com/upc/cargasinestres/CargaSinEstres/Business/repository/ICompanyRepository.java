@@ -14,13 +14,21 @@ import java.util.Optional;
 public interface ICompanyRepository extends JpaRepository<Company, Long> {
 
     /**
-     * Retrieves an Optional<Company> based on the provided name and contact number. This is used to avoid duplicate companies with the same TIC and name
+     * Retrieves an Optional<Company> based on the provided name. This is used to avoid duplicate companies with the same name
      *
      * @param name The name of the company.
-     * @param TIC The contact number of the company.
      * @return An Optional containing the company if found, otherwise an empty Optional.
      */
-    Optional<Company> findByNameAndTIC(String name, String TIC);
+    Optional<Company> findByName(String name);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided TIC. This is used to avoid duplicate companies with the same TIC
+     *
+     * @param TIC The TIC of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByTIC(String TIC);
+
 
     /**
      * Retrieves an Optional<Company> based on the provided email and contact number. This is used to
@@ -54,5 +62,13 @@ public interface ICompanyRepository extends JpaRepository<Company, Long> {
      * @return An Optional containing the company if found, otherwise an empty Optional.
      */
     Optional<Company> findByPhoneNumber(String phoneNumber);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided logo. This is used to avoid duplicate companies with the same logo
+     *
+     * @param logo The logo of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByLogo(String logo);
 
 }

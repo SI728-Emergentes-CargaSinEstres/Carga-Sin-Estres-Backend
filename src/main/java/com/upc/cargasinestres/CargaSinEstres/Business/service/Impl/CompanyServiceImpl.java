@@ -66,14 +66,20 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
-        if (companyRepository.findByNameAndTIC(companyRequestDto.getName(), companyRequestDto.getTIC()).isPresent())
-            throw new RuntimeException("Ya existe una empresa con ese nombre y numero de RUC");
+        if(companyRepository.findByName(companyRequestDto.getName()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese nombre");
+
+        if(companyRepository.findByTIC(companyRequestDto.getTIC()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese RUC");
 
         if (companyRepository.findByEmail(companyRequestDto.getEmail()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese email");
 
         if (companyRepository.findByPhoneNumber(companyRequestDto.getPhoneNumber()).isPresent())
-            throw new RuntimeException("Ya existe una empresa con ese numero de telefono");
+            throw new RuntimeException("Ya existe una empresa con ese número de teléfono");
+
+        if(companyRepository.findByLogo(companyRequestDto.getLogo()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese logo");
 
         CompanyValidation.ValidateCompany(companyRequestDto);
 
