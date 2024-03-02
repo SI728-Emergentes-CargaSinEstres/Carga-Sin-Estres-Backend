@@ -4,7 +4,9 @@ package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The reservationValidation class provides methods for validating reservationRequestDto objects.
@@ -65,10 +67,17 @@ public class ReservationValidation {
         // Convert the string to lowercase for case-insensitive comparison
         String[] servicesArray = services.toLowerCase().split(", ");
 
+        Set<String> uniqueServices = new HashSet<>(Arrays.asList(servicesArray));
+
         // List of valid services
         List<String> validServices = Arrays.asList("carga", "montaje", "desmontaje", "embalaje", "transporte");
 
-        for (String service : servicesArray) {
+        // Ensure that there are no duplicate services
+        if (uniqueServices.size() < servicesArray.length) {
+            throw new ValidationException("No se permiten servicios duplicados en la misma reserva");
+        }
+
+        for (String service : uniqueServices) {
             if (!validServices.contains(service)) {
                 throw new ValidationException("El servicio '" + service + "' no es válido. Los servicios permitidos son: carga, montaje, desmontaje, embalaje, transporte");
             }
