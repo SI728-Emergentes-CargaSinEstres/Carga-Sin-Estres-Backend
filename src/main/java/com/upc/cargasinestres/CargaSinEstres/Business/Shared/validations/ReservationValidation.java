@@ -34,7 +34,7 @@ public class ReservationValidation {
             throw new ValidationException("El tiempo de recogida debe ser obligatorio"); //error 400
         }
 
-        if(reservationRequestDto.getServicios() == null || reservationRequestDto.getServicios().isEmpty()){
+        if(reservationRequestDto.getServices() == null || reservationRequestDto.getServices().isEmpty()){
             throw new ValidationException("La reserva debe presentar almenos 1 servicio, es obligatorio"); //error 400
         }
 

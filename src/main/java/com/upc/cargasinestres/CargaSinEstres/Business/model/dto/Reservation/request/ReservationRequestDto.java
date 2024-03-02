@@ -26,5 +26,5 @@ public class ReservationRequestDto {
     private String destinationAddress;
     private Date startDate;
     private Time startTime;
-    private List<ServicioRequestDto> servicios;
+    private String services;
 }

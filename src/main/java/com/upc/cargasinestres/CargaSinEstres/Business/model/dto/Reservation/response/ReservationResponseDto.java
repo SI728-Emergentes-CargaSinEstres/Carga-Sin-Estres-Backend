@@ -30,7 +30,7 @@ public class ReservationResponseDto {
     private Time startTime;
     private Date endDate;
     private String status;
-    private List<ServicioRequestDto> servicios;
+    private String services;
     private Long chatId;
     private Company company;
     private Customer customer;
