@@ -40,7 +40,7 @@ public class CustomerController {
      */
     @Operation(summary = "Get customers for login")
     @GetMapping("/customers")
-    public ResponseEntity<CustomerResponseDto> getCustomerForLogin(@RequestParam(name="Email") String email, @RequestParam(name="Password")String password){
+    public ResponseEntity<CustomerResponseDto> getCustomerForLogin(@RequestParam(name="email") String email, @RequestParam(name="password")String password){
         var res = customerService.getCustomerForLogin(email, password);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
