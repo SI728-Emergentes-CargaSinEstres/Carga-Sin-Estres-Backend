@@ -38,11 +38,11 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
 
-        if(customerRepository.existsCustomer(customerRequestDto.getEmail(), customerRequestDto.getPassword()).isPresent())
-            throw new RuntimeException("Ya existe un cliente con ese email y password");
-
         if(customerRepository.findByPhoneNumber(customerRequestDto.getPhoneNumber()).isPresent())
-            throw new RuntimeException("Ya existe un cliente con ese numero de telefono");
+            throw new RuntimeException("Ya existe un cliente con ese número de teléfono");
+
+        if(customerRepository.findByEmail(customerRequestDto.getEmail()).isPresent())
+            throw new RuntimeException("Ya existe un cliente con ese email");
 
         CustomerValidation.ValidateCustomer(customerRequestDto);
 

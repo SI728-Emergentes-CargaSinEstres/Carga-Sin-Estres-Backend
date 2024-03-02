@@ -40,4 +40,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * @return An Optional containing the client if found, otherwise an empty Optional.
      */
     Optional<Customer> findByPhoneNumber(String phoneNumber);
+
+    /**
+     * Retrieves an Optional<Client> based on the provided email. This is used to avoid duplicate clients with the same email
+     *
+     * @param email The email of the client.
+     * @return An Optional containing the client if found, otherwise an empty Optional.
+     */
+    Optional<Customer> findByEmail(String email);
+
 }
