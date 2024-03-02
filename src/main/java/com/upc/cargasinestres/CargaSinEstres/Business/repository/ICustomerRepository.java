@@ -34,11 +34,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByEmailAndPassword(String email, String password);
 
     /**
-     * Retrieves a list of clients based on the provided email and password.
+     * Retrieves an Optional<Client> based on the provided phone number. This is used to avoid duplicate clients with the same phone number
      *
-     * @param id The id of the customer.
-     * @return A customer matching the specified id.
+     * @param phoneNumber The phone number of the client.
+     * @return An Optional containing the client if found, otherwise an empty Optional.
      */
-    Customer findCustomerById(Long id);
-
+    Optional<Customer> findByPhoneNumber(String phoneNumber);
 }
