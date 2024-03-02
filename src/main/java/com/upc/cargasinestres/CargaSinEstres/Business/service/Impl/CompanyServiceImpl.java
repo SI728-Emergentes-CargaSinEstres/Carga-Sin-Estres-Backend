@@ -69,6 +69,12 @@ public class CompanyServiceImpl implements ICompanyService {
         if (companyRepository.findByNameAndTIC(companyRequestDto.getName(), companyRequestDto.getTIC()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese nombre y numero de RUC");
 
+        if (companyRepository.findByEmail(companyRequestDto.getEmail()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese email");
+
+        if (companyRepository.findByPhoneNumber(companyRequestDto.getPhoneNumber()).isPresent())
+            throw new RuntimeException("Ya existe una empresa con ese numero de telefono");
+
         CompanyValidation.ValidateCompany(companyRequestDto);
 
         List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());

@@ -39,4 +39,20 @@ public interface ICompanyRepository extends JpaRepository<Company, Long> {
      */
     Company findCompanyById(Long id);
 
+    /**
+     * Retrieves an Optional<Company> based on the provided email. This is used to avoid duplicate companies with the same email
+     *
+     * @param email The email of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByEmail(String email);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided phone number. This is used to avoid duplicate companies with the same phone number
+     *
+     * @param phoneNumber The phone number of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByPhoneNumber(String phoneNumber);
+
 }
