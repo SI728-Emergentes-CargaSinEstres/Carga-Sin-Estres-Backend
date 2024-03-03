@@ -25,5 +25,5 @@ public class ServicioController {
     public ResponseEntity<ServicioResponseDto> createServicio(@RequestBody ServicioRequestDto servicioRequestDto) {
         var res = serviceService.createServicio(servicioRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
-    } //comentar para eliminar
+    }
 }

@@ -8,8 +8,8 @@ public interface IMessageService {
 
     /**
      * Create a new Message with the information provided as a parameter
-     * @param reservationId The booking id
+     * @param chatId The booking id
      * @return The created message information
      */
-    public abstract MessageResponseDto createMessage(Long reservationId, MessageRequestDto messageRequestDto);
+    public abstract MessageResponseDto createMessage(Long chatId, MessageRequestDto messageRequestDto);
 }

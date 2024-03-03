@@ -2,7 +2,6 @@ package com.upc.cargasinestres.CargaSinEstres.Business.service;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
 
 import java.util.List;
 
@@ -25,8 +24,4 @@ public interface IReservationService {
 
     //update reservation status
     ReservationResponseDto updateReservationStatus(Long reservationId, String status);
-
-    ReservationResponseDto UpdateReservationChatId (Long reservationId, Long chatId);
-
-    Reservation getById(Long resId);
 }

@@ -60,6 +60,7 @@ public class Membership {
      * This is a foreign key.
      * This is a one-to-one relationship.
      */
-    @Column(name = "companyId")
-    private Long companyId; //cambiar a conexión por id
+    @OneToOne
+    @JoinColumn(name="idCompany", nullable = false)
+    private Company company; //cambiar a conexión por id
 }
