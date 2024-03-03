@@ -15,16 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class RatingController {
     private final IRatingService ratingService;
-    private final ICompanyService companyService;
 
-    public RatingController(IRatingService ratingService, ICompanyService companyService) {
+    public RatingController(IRatingService ratingService) {
         this.ratingService = ratingService;
-        this.companyService = companyService;
     }
 
     @PostMapping("/ratings/{idCompany}")
     public ResponseEntity<RatingResponseDto> createRating(@PathVariable Long idCompany, @RequestBody RatingRequestDto ratingRequestDto){
-        var company = companyService.getCompanyById(idCompany);
 
         var res = ratingService.createRating(idCompany, ratingRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);

@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import java.util.Date;
+
 /**
  * The reservationValidation class provides methods for validating reservationRequestDto objects.
  * It checks for the presence and validity of essential fields in a booking history request.
@@ -43,6 +45,12 @@ public class ReservationValidation {
         } else {
             validateServices(reservationRequestDto.getServices());
         }
+
+        Date ahora = new Date();
+        if(reservationRequestDto.getStartDate().before(ahora)){
+            throw new ValidationException("La fecha de inicio de la reserva no puede ser en el pasado."); //error 400
+        }
+
     }
 
     /*public static void ValidateReservationStatus(ReservationRequestDto reservationRequestDto) {

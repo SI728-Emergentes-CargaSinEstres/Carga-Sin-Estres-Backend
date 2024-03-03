@@ -100,10 +100,8 @@ public class Company {
     @OneToMany(mappedBy="company")
     private List<Rating> ratings;
 
-    @OneToOne
-    @JoinColumn(name="idMembership", foreignKey = @ForeignKey(name="FK_membership_company"))
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Membership membership; //cambiar a conexion por id
+    @Column(name="idMembership")
+    private Long membershipId; //cambiar a conexion por id
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

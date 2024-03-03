@@ -126,6 +126,6 @@ public class Reservation {
     /**
      * The chats of the booking history.
      */
-    @Column(name="chat")
+    @Column(name="chatId")
     private Long chatId;
 }

@@ -25,10 +25,7 @@ public class Message {
     @Column(name = "message_date", nullable = false)
     private LocalDateTime messageDate;
 
-    @Column(name = "chat_id", nullable = false) //deberia ser many to one
-    private Long chatId;
-
-    //@ManyToOne
-    //@JoinColumn(name = "chat_id", nullable = false)
-    //private Chat chat;
+    @ManyToOne
+    @JoinColumn(name = "chat", nullable = false)
+    private Chat chat;
 }
