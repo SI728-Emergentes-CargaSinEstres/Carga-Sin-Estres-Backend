@@ -3,6 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 /**
  * The ClientResponseDto class represents the data transfer object of the Client class.
  * It contains fields related to the details of a client entity.
@@ -19,4 +21,5 @@ public class CustomerResponseDto {
     private String lastName;
     private String phoneNumber;
     private String email;
+    private LocalDate dateOfBirth;
 }

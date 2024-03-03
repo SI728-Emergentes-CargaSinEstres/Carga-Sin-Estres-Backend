@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * This class represents the Client entity for CSE. The table name is clients. And the columns are:
@@ -67,4 +70,10 @@ public class Customer {
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * The date of birth
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 }

@@ -3,6 +3,8 @@ package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Customer.request.CustomerRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 
+import java.time.LocalDate;
+
 /**
  * The CustomerValidation class provides methods for validating CustomerRequestDto objects.
  * It checks for the length and presence of required fields in a customer request.
@@ -37,7 +39,19 @@ public class CustomerValidation {
         if (!customerRequestDto.getPhoneNumber().matches("\\d+")) {
             throw new ValidationException("El celular debe contener solo dígitos enteros");
         }
+        if (customerRequestDto.getDateOfBirth() == null) {
+            throw new ValidationException("La fecha de nacimiento del cliente debe ser obligatoria"); // ERROR 400
+        }
 
+        LocalDate currentDate = LocalDate.now(); // Calcular la fecha actual
+        if (customerRequestDto.getDateOfBirth().isAfter(currentDate) ) {
+            throw new ValidationException("La fecha de nacimiento no puede ser en el futuro"); // ERROR 400
+        }
+
+        LocalDate eighteenYearsAgo = currentDate.minusYears(17); // Calcular la fecha hace 18 años (validacion con un año menos)
+        if (customerRequestDto.getDateOfBirth().isAfter(eighteenYearsAgo)) { // Comprobar si la fecha de nacimiento es posterior a la fecha hace 18 años
+            throw new RuntimeException("No puede crear una cuenta si es menor de edad");
+        }
 
         // Password Validation
         if (customerRequestDto.getPassword().length() < 8 ) {
