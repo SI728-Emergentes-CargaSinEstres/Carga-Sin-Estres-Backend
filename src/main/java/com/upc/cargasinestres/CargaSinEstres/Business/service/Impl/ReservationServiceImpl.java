@@ -68,6 +68,7 @@ public class ReservationServiceImpl implements IReservationService {
         var newReservation = modelMapper.map(reservationRequestDto, Reservation.class);
         newReservation.setCustomer(client);
         newReservation.setCompany(company);
+        newReservation.setServices(newReservation.getServices().toLowerCase());
         /*
         newreservation.setBookingDate(LocalDate.now()); // Carga rapida
         */

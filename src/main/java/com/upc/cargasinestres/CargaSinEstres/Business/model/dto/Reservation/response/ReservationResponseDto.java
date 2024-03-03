@@ -26,10 +26,7 @@ public class ReservationResponseDto {
     private float price;
     private String originAddress;
     private String destinationAddress;
-    /*private Date startDate;
-    private Time startTime;
-    private Date endDate;
-    private String status;*/
-    private List<ServicioRequestDto> servicios;
+    private String status;
+    private String services;
     private Long chatId;
 }
