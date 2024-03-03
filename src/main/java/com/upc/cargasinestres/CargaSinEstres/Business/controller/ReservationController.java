@@ -2,7 +2,6 @@ package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IChatService;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,16 +24,15 @@ import java.util.List;
 public class ReservationController {
 
     private final IReservationService reservationService;
-    private final IChatService chatService;
-
+   // private final IChatService chatService;
 
     /**
      * Class constructor
      * @param reservationService The service for handling reservation operations.
      */
-    public ReservationController(IReservationService reservationService, IChatService chatService) { //, IChatService chatService
+    public ReservationController(IReservationService reservationService) { //, IChatService chatService
         this.reservationService = reservationService;
-        this.chatService = chatService;
+        //this.chatService = chatService;
     }
 
     /**
@@ -47,23 +45,18 @@ public class ReservationController {
      */
     @Operation(summary = "Create a Reservation")
     @PostMapping("/reservations")
-    public ResponseEntity<ReservationResponseDto> createReservation
-    (@RequestParam(name = "customerId") Long customerId, @RequestParam(name = "idCompany") Long companyId, @RequestBody ReservationRequestDto reservationRequestDto) {
+    public ResponseEntity<ReservationResponseDto> createReservation(@RequestParam(name = "customerId") Long customerId, @RequestParam(name = "idCompany") Long companyId, @RequestBody ReservationRequestDto reservationRequestDto) {
         var res = reservationService.createReservation(customerId, companyId, reservationRequestDto);
 
-        //chat se crea
-        var chat = chatService.createChat(res.getId());
-        /*if (chat == null) {
-            return ResponseEntity.badRequest().build();
-        }*/
+        /*var chat = chatService.createChat(res.getId()); //revision, sino ser ilegal V2
 
-        //Id de chat se setea en la reserva
-        var reservation = reservationService.UpdateReservationChatId(res.getId(), chat.getId());
-        if (reservation.getChatId() == null) {
+        if (chat == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
+         */
+
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
     /**

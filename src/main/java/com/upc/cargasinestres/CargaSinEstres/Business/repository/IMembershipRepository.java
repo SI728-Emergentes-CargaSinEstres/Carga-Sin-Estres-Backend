@@ -4,7 +4,6 @@ import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Membership;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -15,19 +14,17 @@ import java.util.Optional;
  * */
 @Repository
 public interface IMembershipRepository extends JpaRepository<Membership, Long> {
+    /**
+     * Retrieve a membership by the specified company ID.
+     * @param companyId The unique identifier of the company associated with the subscription.
+     * @return An Optional containing the Subscription entity, or empty if not found.
+     */
+    Optional<Membership> findByCompanyId(Long companyId);
 
     /**
      * Retrieve a membership by the specified end date, this is used to check if a membership is still active.
      * @param endDate
      * @return
      */
-    Membership findByEndDate(LocalDate endDate); //flujo
-
-    /**
-     * Retrieve a membership by the specified company ID.
-     * @param companyId The unique identifier of the company associated with the subscription.
-     * @return An Optional containing the Subscription entity, or empty if not found.
-     */
-    Membership findByCompanyId(Long companyId);
-
+    Optional<Membership> findByEndDate(Date endDate);
 }

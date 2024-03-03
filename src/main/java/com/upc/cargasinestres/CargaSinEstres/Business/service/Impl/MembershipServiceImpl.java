@@ -24,10 +24,13 @@ public class MembershipServiceImpl implements IMembershipService {
 
     private final IMembershipRepository membershipRepository;
 
+    private final ICompanyRepository companyRepository;
+
     private final ModelMapper modelMapper;
 
-    public MembershipServiceImpl(IMembershipRepository membershipRepository, ModelMapper modelMapper) {
+    public MembershipServiceImpl(IMembershipRepository membershipRepository, ICompanyRepository companyRepository, ModelMapper modelMapper) {
         this.membershipRepository = membershipRepository;
+        this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -38,7 +41,8 @@ public class MembershipServiceImpl implements IMembershipService {
         var membership = modelMapper.map(membershipRequestDto, Membership.class);
         membership.setEndDate(endDate); // Set the endDate
 
-        membership.setCompanyId(companyId); // Set the company ID
+        membership.setCompany(companyRepository.findById(companyId)
+                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la empresa con id: "+companyId))); //Company of the membership is set
 
         var createdMembership = membershipRepository.save(membership); //saved in the DB
 
@@ -47,10 +51,8 @@ public class MembershipServiceImpl implements IMembershipService {
 
     @Override
     public MembershipResponseDto getMembershipByCompanyId(Long companyId){
-        var subscription = membershipRepository.findByCompanyId(companyId);
-        if (subscription == null) {
-            throw new ResourceNotFoundException("No se encontro la membresía de la empresa con id: " + companyId);
-        };
+        var subscription = membershipRepository.findByCompanyId(companyId)
+                .orElseThrow(()-> new ResourceNotFoundException("No se encontro la membresía de la empresa con id: "+companyId));
 
         return modelMapper.map(subscription, MembershipResponseDto.class);
     }
