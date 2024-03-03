@@ -33,8 +33,6 @@ public class ReservationServiceImpl implements IReservationService {
     private final ICustomerRepository customerRepository;
     private final ICompanyRepository companyRepository;
 
-    //private final IChatRepository chatRepository;
-
     @Autowired
     public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper,
                                   ICustomerRepository customerRepository, ICompanyRepository companyRepository) { //, IChatRepository chatRepository
@@ -42,7 +40,6 @@ public class ReservationServiceImpl implements IReservationService {
         this.modelMapper = modelMapper;
         this.customerRepository = customerRepository;
         this.companyRepository = companyRepository;
-        //this.chatRepository = chatRepository;
     }
 
     /**
@@ -71,8 +68,9 @@ public class ReservationServiceImpl implements IReservationService {
         var newReservation = modelMapper.map(reservationRequestDto, Reservation.class);
         newReservation.setCustomer(client);
         newReservation.setCompany(company);
+        newReservation.setServices(newReservation.getServices().toLowerCase());
         /*
-        newreservation.setBookingDate(LocalDate.now());
+        newreservation.setBookingDate(LocalDate.now()); // Carga rapida
         */
         newReservation.setStatus("solicited");
 
@@ -208,6 +206,28 @@ public class ReservationServiceImpl implements IReservationService {
 
         // Retornar la respuesta actualizada
         return modelMapper.map(updatedreservation, ReservationResponseDto.class);
+    }
+
+    @Override
+    public ReservationResponseDto UpdateReservationChatId (Long reservationId, Long chatId) {
+        // Buscar la reserva
+        var reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
+
+        // Actualizar el campo "chatId"
+        reservation.setChatId(chatId);
+
+        // Guardar la reserva actualizada
+        var updated = reservationRepository.save(reservation);
+
+        return modelMapper.map(updated, ReservationResponseDto.class);
+    }
+
+
+    @Override
+    public Reservation getById(Long resId) {
+        return reservationRepository.findById(resId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + resId));
     }
 
 }

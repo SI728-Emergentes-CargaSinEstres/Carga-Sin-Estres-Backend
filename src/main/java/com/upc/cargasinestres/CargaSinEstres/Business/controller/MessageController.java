@@ -1,6 +1,5 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
-
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.request.MessageRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.response.MessageResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IMessageService;
@@ -21,10 +20,10 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/messages/{idChat}")
-    public ResponseEntity<MessageResponseDto> createMessage(@PathVariable Long idChat ,@RequestBody MessageRequestDto messageRequestDto){
+    @PostMapping("/messages/{reservationId}")
+    public ResponseEntity<MessageResponseDto> createMessage(@PathVariable Long reservationId ,@RequestBody MessageRequestDto messageRequestDto){
 
-        var res = messageService.createMessage(idChat, messageRequestDto);
+        var res = messageService.createMessage(reservationId, messageRequestDto);
 
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }

@@ -17,6 +17,4 @@ public class MessageResponseDto {
 
     private LocalDateTime messageDate;
 
-    private Long reservationId;
-
 }

@@ -3,6 +3,12 @@ package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import java.util.Date;
 
 /**
  * The reservationValidation class provides methods for validating reservationRequestDto objects.
@@ -34,10 +40,16 @@ public class ReservationValidation {
             throw new ValidationException("El tiempo de recogida debe ser obligatorio"); //error 400
         }
 
-        if(reservationRequestDto.getServicios() == null || reservationRequestDto.getServicios().isEmpty()){
+        if(reservationRequestDto.getServices() == null || reservationRequestDto.getServices().isEmpty()){
             throw new ValidationException("La reserva debe presentar almenos 1 servicio, es obligatorio"); //error 400
+        } else {
+            validateServices(reservationRequestDto.getServices());
         }
 
+        Date ahora = new Date();
+        if(reservationRequestDto.getStartDate().before(ahora)){
+            throw new ValidationException("La fecha de inicio de la reserva no puede ser en el pasado."); //error 400
+        }
 
     }
 
@@ -47,10 +59,36 @@ public class ReservationValidation {
         }
     }*/
 
-/*
+    /*
     // Validación
         if (reservation.getStatus().equals("finished") || reservation.getStatus().equals("cancelled")) {
         throw new ValidationException("Esta reserva ya esta finalizada");
     }
-*/
+    */
+
+    private static void validateServices(String services){
+        // Ensure that services are separated by comma and space
+        if (!services.matches("^(\\s*\\w+\\s*(,\\s*\\w+\\s*)*)$")) {
+            throw new ValidationException("Los servicios deben estar separados por coma y espacio (', ') o puedes ingresar un solo servicio");
+        }
+
+        // Convert the string to lowercase for case-insensitive comparison
+        String[] servicesArray = services.toLowerCase().split(", ");
+
+        Set<String> uniqueServices = new HashSet<>(Arrays.asList(servicesArray));
+
+        // List of valid services
+        List<String> validServices = Arrays.asList("carga", "montaje", "desmontaje", "embalaje", "transporte");
+
+        // Ensure that there are no duplicate services
+        if (uniqueServices.size() < servicesArray.length) {
+            throw new ValidationException("No se permiten servicios duplicados en la misma reserva");
+        }
+
+        for (String service : uniqueServices) {
+            if (!validServices.contains(service)) {
+                throw new ValidationException("El servicio '" + service + "' no es válido. Los servicios permitidos son: carga, montaje, desmontaje, embalaje, transporte");
+            }
+        }
+    }
 }

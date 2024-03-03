@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,5 +26,5 @@ public class ReservationRequestDto {
     private String destinationAddress;
     private Date startDate;
     private Time startTime;
-    private List<ServicioRequestDto> servicios;
+    private String services;
 }
