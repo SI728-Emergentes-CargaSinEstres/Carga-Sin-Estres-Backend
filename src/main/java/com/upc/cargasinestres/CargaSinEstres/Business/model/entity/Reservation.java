@@ -120,8 +120,8 @@ public class Reservation {
     /**
      * The services of the reservation
      */
-    @Column(name="services", nullable = false)
-    private String services;
+    @ManyToMany(mappedBy = "reservations")
+    private List<Servicio> servicios;
 
     /**
      * The chats of the booking history.
