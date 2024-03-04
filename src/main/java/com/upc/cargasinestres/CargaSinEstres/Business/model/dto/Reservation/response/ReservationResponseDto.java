@@ -24,12 +24,13 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class ReservationResponseDto {
     private Long id;
-    private float price;
-    private String originAddress;
-    private String destinationAddress;
-    private String status;
-    private String services;
     private LocalDate startDate;
     private String startTime;
+    private String originAddress;
+    private String destinationAddress;
+    private Date endDate;
+    private float price;
+    private String status;
+    private String services;
     private Long chatId;
 }
