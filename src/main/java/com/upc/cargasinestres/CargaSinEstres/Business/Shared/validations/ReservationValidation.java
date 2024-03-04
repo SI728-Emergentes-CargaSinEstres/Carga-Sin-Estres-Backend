@@ -3,6 +3,8 @@ package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
+
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -46,8 +48,8 @@ public class ReservationValidation {
             validateServices(reservationRequestDto.getServices());
         }
 
-        Date ahora = new Date();
-        if(reservationRequestDto.getStartDate().before(ahora)){
+        LocalDate ahora = LocalDate.now();
+        if(reservationRequestDto.getStartDate().isBefore(ahora)){
             throw new ValidationException("La fecha de inicio de la reserva no puede ser en el pasado."); //error 400
         }
 

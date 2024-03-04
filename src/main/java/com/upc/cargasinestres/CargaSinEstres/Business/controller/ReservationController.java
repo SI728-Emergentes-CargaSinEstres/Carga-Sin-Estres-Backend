@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -106,10 +109,10 @@ public class ReservationController {
      * @param price The data for updating the reservation.
      * @return The response of the updated reservation.
      */
-    @Operation(summary = "Update the price of a reservation")
-    @PatchMapping("/reservations/{id}/price")
-    public ResponseEntity<ReservationResponseDto> updateReservationPayment(@PathVariable(name = "id") Long reservationId, float price) {
-        var res = reservationService.updateReservationPrice(reservationId, price);
+    @Operation(summary = "Update the price, startDate, startTime of a reservation")
+    @PatchMapping("/reservations/{id}/price-startDate-startTime-status")
+    public ResponseEntity<ReservationResponseDto> updateReservationPayment(@PathVariable(name = "id") Long reservationId, float price, LocalDate startDate, String startTime, String status) {
+        var res = reservationService.updateReservationPriceStartDateStartTime(reservationId, price, startDate, startTime, status);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

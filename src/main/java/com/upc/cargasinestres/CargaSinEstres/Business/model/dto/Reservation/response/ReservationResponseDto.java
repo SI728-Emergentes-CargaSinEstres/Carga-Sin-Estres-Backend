@@ -12,6 +12,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.time.LocalTime;
 
 /**
  * This class represents the response of the booking history
@@ -28,5 +29,7 @@ public class ReservationResponseDto {
     private String destinationAddress;
     private String status;
     private String services;
+    private LocalDate startDate;
+    private String startTime;
     private Long chatId;
 }

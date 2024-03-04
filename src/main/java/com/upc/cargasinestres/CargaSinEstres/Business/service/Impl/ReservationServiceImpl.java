@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.sql.Time;
 
 /**
  * Implementation of the IreservationService interface.
@@ -69,6 +72,7 @@ public class ReservationServiceImpl implements IReservationService {
         newReservation.setCustomer(client);
         newReservation.setCompany(company);
         newReservation.setServices(newReservation.getServices().toLowerCase());
+        newReservation.setStartTime(LocalTime.parse(reservationRequestDto.getStartTime()));
         /*
         newreservation.setBookingDate(LocalDate.now()); // Carga rapida
         */
@@ -163,18 +167,21 @@ public class ReservationServiceImpl implements IReservationService {
      * @throws ValidationException       If the payment amount is not greater than 0.
      */
     @Override
-    public ReservationResponseDto updateReservationPrice(Long reservationId, float price) {
+    public ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime, String status) {
         // Buscar la reserva
         var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
         // Validación
-        if (price <= 0) {
-            throw new ValidationException("El precio debe ser mayor a 0");
+        if (price <= 0) throw new ValidationException("El precio debe ser mayor a 0");
+        if (!(status.equals("to be scheduled")) && !(status.equals("rescheduled"))) {
+            throw new ValidationException("El estado debe ser 'to be scheduled', 'rescheduled'");
         }
 
-        // Actualizar el campo "payment"
         reservation.setPrice(price);
+        reservation.setStartDate(startDate);
+        reservation.setStartTime(LocalTime.parse(startTime));
+        reservation.setStatus(status);
 
         // Guardar la reserva actualizada
         var updatedreservation = reservationRepository.save(reservation);
@@ -198,7 +205,10 @@ public class ReservationServiceImpl implements IReservationService {
         var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
-        // Actualizar el campo "payment"
+        // Validación
+        if (!(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("to be scheduled"))) {
+            throw new ValidationException("El estado debe ser 'finalized', 'to be scheduled', 'cancelled'");
+        }
         reservation.setStatus(status);
 
         // Guardar la reserva actualizada
@@ -222,7 +232,6 @@ public class ReservationServiceImpl implements IReservationService {
 
         return modelMapper.map(updated, ReservationResponseDto.class);
     }
-
 
     @Override
     public Reservation getById(Long resId) {

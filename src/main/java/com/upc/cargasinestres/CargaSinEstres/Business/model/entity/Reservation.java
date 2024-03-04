@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -75,7 +78,8 @@ public class Reservation {
      * The moving date of the booking history.
      */
     @Column(name="start_date", nullable = false)
-    private Date startDate; //movingDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate; //movingDate
 
     /**
      * The moving time of the booking history.
@@ -83,9 +87,9 @@ public class Reservation {
      *     The attribute is mapped by the {@code movingTime} attribute of the {@code Time} class.
      * </p>
      */
-    @Temporal(TemporalType.TIME)
     @Column(name="start_time", nullable = false)
-    private Time startTime; //movingTime //cambiar a time
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime startTime; //movingTime //cambiar a time
 
     /**
      * The pickup address of the booking history.
