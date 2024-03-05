@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -77,7 +75,7 @@ public class ReservationController {
      */
     @Operation(summary = "Obtain a list of reservation by client Id")
     @GetMapping("/reservations/customer/{id}")
-    public ResponseEntity<List<ReservationResponseDto>> getReservationByClientId(@PathVariable(name="id") Long id){
+    public ResponseEntity<List<ReservationResponseDto>> getReservationByCustomerId(@PathVariable(name="id") Long id){
         var res = reservationService.getReservationByCustomerId(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
