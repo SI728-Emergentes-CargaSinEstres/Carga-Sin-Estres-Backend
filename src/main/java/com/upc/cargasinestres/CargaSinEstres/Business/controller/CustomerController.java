@@ -79,7 +79,7 @@ public class CustomerController {
      * @return A ResponseEntity containing the updated CustomerResponseDto and HttpStatus.OK.
      */
     @Operation(summary = "Update a Customer")
-    @PutMapping("/customers/{id}")
+    @PatchMapping("/customers/{id}")
     public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable(name="id") Long id, @RequestBody CustomerRequestDto customerRequestDto){
         var res = customerService.updateCustomer(id, customerRequestDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
