@@ -18,7 +18,6 @@ public class CompanyValidation {
      * Validates the provided CompanyRequestDto object.
      *
      * @param companyRequestDto   The CompanyRequestDto object to be validated.
-     * @param IServicioRepository
      * @throws ValidationException if any validation rule is not met.
      */
     public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
