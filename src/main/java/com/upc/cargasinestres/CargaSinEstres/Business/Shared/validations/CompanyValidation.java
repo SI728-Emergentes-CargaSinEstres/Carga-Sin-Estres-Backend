@@ -1,7 +1,12 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
+import com.upc.cargasinestres.CargaSinEstres.Business.repository.IServicioRepository;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The CompanyValidation class provides methods for validating CompanyRequestDto objects.
@@ -12,10 +17,11 @@ public class CompanyValidation {
     /**
      * Validates the provided CompanyRequestDto object.
      *
-     * @param companyRequestDto The CompanyRequestDto object to be validated.
+     * @param companyRequestDto   The CompanyRequestDto object to be validated.
+     * @param IServicioRepository
      * @throws ValidationException if any validation rule is not met.
      */
-    public static void ValidateCompany(CompanyRequestDto companyRequestDto){
+    public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
 
         if(companyRequestDto.getName().isEmpty()){
             throw new ValidationException("El nombre de la empresa no puede estar vacio");
@@ -72,6 +78,25 @@ public class CompanyValidation {
         if (distinctServiceCount != companyRequestDto.getServicioIds().size()) {
             throw new ValidationException("La empresa no puede ofrecer servicios duplicados");
         }
+
+        // Obtener la lista de IDs de servicios proporcionados por la solicitud
+        List<Long> servicioIds = companyRequestDto.getServicioIds();
+
+        // Obtener la lista de servicios disponibles en la base de datos
+        List<Long> availableServicioIds = servicioRepository.findAll().stream()
+                .map(Servicio::getId)
+                .collect(Collectors.toList());
+
+        // Verificar si hay algún servicio proporcionado que no exista en la lista de servicios disponibles
+        List<Long> invalidServicioIds = servicioIds.stream()
+                .filter(id -> !availableServicioIds.contains(id))
+                .collect(Collectors.toList());
+
+        // Si hay servicios no válidos, lanzar una excepción
+        if (!invalidServicioIds.isEmpty()) {
+            throw new ValidationException("Este servicio no existe, solo puede acceder a los siguiente servicos: "+availableServicioIds);
+        }
+
     }
 
 }

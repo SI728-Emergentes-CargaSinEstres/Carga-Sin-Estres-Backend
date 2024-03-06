@@ -14,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.OptionalDouble;
 
 /**
  * Implementation of the ICompanyService interface.
@@ -81,7 +80,7 @@ public class CompanyServiceImpl implements ICompanyService {
         if(companyRepository.findByLogo(companyRequestDto.getLogo()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese logo");
 
-        CompanyValidation.ValidateCompany(companyRequestDto);
+        CompanyValidation.ValidateCompany(companyRequestDto, servicioRepository);
 
         List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
 
@@ -99,7 +98,7 @@ public class CompanyServiceImpl implements ICompanyService {
                 .orElseThrow(()-> new ResourceNotFoundException("No se encontró la empresa con id: "+id));
         // se obtiene el company de la base de datos
 
-        CompanyValidation.ValidateCompany(companyRequestDto);
+        CompanyValidation.ValidateCompany(companyRequestDto, servicioRepository);
 
         modelMapper.map(companyRequestDto, company); // se mapea el companyRequestDto a company y se actualiza el company
 
