@@ -16,7 +16,7 @@ public interface IMembershipService {
      * @param companyId The unique identifier of the company for which the membership is registered.
      * @return A MembershipResponseDto containing information about the registered membership.
      */
-    public abstract MembershipResponseDto createMembership(Long companyId, LocalDate endDate, MembershipRequestDto membershipRequestDto);
+    public abstract MembershipResponseDto createMembership(Long companyId, MembershipRequestDto membershipRequestDto);
 
     /**
      * Retrieves membership information for the specified company.

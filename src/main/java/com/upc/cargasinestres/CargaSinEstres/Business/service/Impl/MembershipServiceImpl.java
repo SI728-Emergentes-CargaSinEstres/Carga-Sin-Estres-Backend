@@ -32,11 +32,10 @@ public class MembershipServiceImpl implements IMembershipService {
     }
 
     @Override
-    public MembershipResponseDto createMembership(Long companyId, LocalDate endDate, MembershipRequestDto membershipRequestDto) {
+    public MembershipResponseDto createMembership(Long companyId, MembershipRequestDto membershipRequestDto) {
         MembershipValidation.ValidateMembership(membershipRequestDto);
 
         var membership = modelMapper.map(membershipRequestDto, Membership.class);
-        membership.setEndDate(endDate); // Set the endDate
 
         membership.setCompanyId(companyId); // Set the company ID
 

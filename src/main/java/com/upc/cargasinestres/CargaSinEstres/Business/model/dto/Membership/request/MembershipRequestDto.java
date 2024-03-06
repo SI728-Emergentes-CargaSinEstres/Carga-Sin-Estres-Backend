@@ -19,5 +19,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class MembershipRequestDto {
     private LocalDate startDate;
+    private LocalDate endDate;
     private float price;
 }

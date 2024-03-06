@@ -39,11 +39,7 @@ public class MembershipController {
      */
     @PostMapping("/memberships/{idCompany}")
     public ResponseEntity<MembershipResponseDto> createMembership(@PathVariable Long idCompany, @RequestBody MembershipRequestDto membershipRequestDto){
-        // Calculate the membership end date
-        var startDate = membershipRequestDto.getStartDate();
-        var endDate = startDate.plusYears(1);
-
-        var res = membershipService.createMembership(idCompany, endDate, membershipRequestDto);
+        var res = membershipService.createMembership(idCompany, membershipRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
