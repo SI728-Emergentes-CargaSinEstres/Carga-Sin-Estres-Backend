@@ -66,8 +66,5 @@ public class CustomerValidation {
         if (!customerRequestDto.getPassword().matches(".*\\d.*")) {
             throw new ValidationException("La contraseña debe contener al menos un número");
         }
-        if (!customerRequestDto.getPassword().matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?].*")) {
-            throw new ValidationException("La contraseña debe contener al menos un carácter especial");
-        }
     }
 }
