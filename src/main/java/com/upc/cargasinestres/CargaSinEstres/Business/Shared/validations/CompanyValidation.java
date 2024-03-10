@@ -14,71 +14,69 @@ import java.util.stream.Collectors;
  */
 public class CompanyValidation {
 
-    /**
-     * Validates the provided CompanyRequestDto object.
-     *
-     * @param companyRequestDto   The CompanyRequestDto object to be validated.
-     * @throws ValidationException if any validation rule is not met.
-     */
-    public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
-
-        if(companyRequestDto.getName().isEmpty()){
-            throw new ValidationException("El nombre de la empresa no puede estar vacio");
-        }
-        if(companyRequestDto.getLogo().isEmpty()){
-            throw new ValidationException("El logo de la empresa no puede estar vacio");
-        }
-        if(!companyRequestDto.getLogo().toLowerCase().startsWith("https://")){
-            throw new ValidationException("El logo de la empresa debe ser un url");
-        }
-        if(companyRequestDto.getName().length()>30) {
+    public static void validateCompanyName(String name) {
+        if (name.length() > 30) {
             throw new ValidationException("El nombre de la empresa no puede exceder los 30 caracteres");
         }
-        if(companyRequestDto.getDescription().length() > 250){
-            throw new ValidationException("La descripcion de la empresa no puede exceder los 250 caracteres");
+    }
+    public static void validateCompanyLogo(String logo) {
+        if (!logo.toLowerCase().startsWith("https://")) {
+            throw new ValidationException("El logo de la empresa debe ser una URL que comience con 'https://'");
         }
-        if(companyRequestDto.getTIC().length() != 11) {
+    }
+
+    public static void validateCompanyDescription(String description) {
+        if (description.length() > 250) {
+            throw new ValidationException("La descripción de la empresa no puede exceder los 250 caracteres");
+        }
+    }
+    public static void validateCompanyTIC(String tic) {
+        if (tic.length() != 11) {
             throw new ValidationException("El RUC de la empresa debe tener exactamente 11 caracteres");
         }
-        if(companyRequestDto.getPhoneNumber().length()!=9) {
-            throw new ValidationException("El telefono de la empresa debe tener exactamente 9 digitos");
-        }
-        if (!companyRequestDto.getTIC().matches("\\d+")) {
+        if (!tic.matches("\\d+")) {
             throw new ValidationException("El RUC de la empresa debe ser un número");
         }
-        if (!companyRequestDto.getPhoneNumber().matches("\\d+")) {
-            throw new ValidationException("El número de teléfono de la empresa debe ser un número");
+    }
+    public static void validateCompanyPhoneNumber(String phoneNumber) {
+        if (phoneNumber.length() != 9) {
+            throw new ValidationException("El teléfono de la empresa debe tener exactamente 9 digitos");
         }
-
-
-        // Password Validation
-        if (companyRequestDto.getPassword().length() < 8 ) {
+        if (!phoneNumber.matches("\\d+")) {
+            throw new ValidationException("El teléfono de la empresa debe ser un número");
+        }
+    }
+    public static void validateCompanyPassword(String password) {
+        if (password.length() < 8 ) {
             throw new ValidationException("La contraseña debe tener al menos 8 caracteres");
         }
-        if (!companyRequestDto.getPassword().matches(".*[A-Z].*")) {
+        if (!password.matches(".*[A-Z].*")) {
             throw new ValidationException("La contraseña debe contener al menos una letra mayúscula");
         }
-        if (!companyRequestDto.getPassword().matches(".*[a-z].*")) {
+        if (!password.matches(".*[a-z].*")) {
             throw new ValidationException("La contraseña debe contener al menos una letra minúscula");
         }
-        if (!companyRequestDto.getPassword().matches(".*\\d.*")) {
+        if (!password.matches(".*\\d.*")) {
             throw new ValidationException("La contraseña debe contener al menos un número");
         }
-
-        // Services validation
-        if (companyRequestDto.getServicioIds().isEmpty()) {
-            throw new ValidationException("La empresa debe ofrecer al menos un servicio");
+    }
+    public static void validateCompanyEmail(String email) {
+        if (!email.matches("^(.+)@(.+)$")) {
+            throw new ValidationException("El email de la empresa debe ser válido");
         }
-
-        long distinctServiceCount = companyRequestDto.getServicioIds().stream().distinct().count();
-        if (distinctServiceCount != companyRequestDto.getServicioIds().size()) {
+    }
+    public static void validateCompanyDirection(String direction) {
+        if (direction.length() > 250) {
+            throw new ValidationException("La dirección de la empresa no puede exceder los 250 caracteres");
+        }
+    }
+    public static void validateCompanyServices(List<Long> servicioIds, IServicioRepository servicioRepository) {
+        long distinctServiceCount = servicioIds.stream().distinct().count();
+        if (distinctServiceCount != servicioIds.size()) {
             throw new ValidationException("La empresa no puede ofrecer servicios duplicados");
         }
 
         // Obtener la lista de IDs de servicios proporcionados por la solicitud
-        List<Long> servicioIds = companyRequestDto.getServicioIds();
-
-        // Obtener la lista de servicios disponibles en la base de datos
         List<Long> availableServicioIds = servicioRepository.findAll().stream()
                 .map(Servicio::getId)
                 .collect(Collectors.toList());
@@ -92,7 +90,48 @@ public class CompanyValidation {
         if (!invalidServicioIds.isEmpty()) {
             throw new ValidationException("Este servicio no existe, solo puede acceder a los siguiente servicos: "+availableServicioIds);
         }
-
     }
 
+
+    public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
+
+        if(companyRequestDto.getName().isEmpty()){
+            throw new ValidationException("El nombre de la empresa no puede estar vacio");
+        }
+        if(companyRequestDto.getLogo().isEmpty()){
+            throw new ValidationException("El logo de la empresa no puede estar vacio");
+        }
+        if(companyRequestDto.getDescription().isEmpty()){
+            throw new ValidationException("La descripción de la empresa no puede estar vacia");
+        }
+        if(companyRequestDto.getTIC().isEmpty()){
+            throw new ValidationException("El RUC de la empresa no puede estar vacio");
+        }
+        if(companyRequestDto.getPhoneNumber().isEmpty()){
+            throw new ValidationException("El teléfono de la empresa no puede estar vacio");
+        }
+        if(companyRequestDto.getEmail().isEmpty()){
+            throw new ValidationException("El email de la empresa no puede estar vacio");
+        }
+        if(companyRequestDto.getDirection().isEmpty()){
+            throw new ValidationException("La dirección de la empresa no puede estar vacia");
+        }
+        if(companyRequestDto.getPassword().isEmpty()){
+            throw new ValidationException("La contraseña de la empresa no puede estar vacia");
+        }
+        if (companyRequestDto.getServicioIds().isEmpty()) {
+            throw new ValidationException("La empresa debe ofrecer al menos un servicio");
+        }
+
+        // Validaciones de longitud, formato y duplicados
+        validateCompanyName(companyRequestDto.getName());
+        validateCompanyLogo(companyRequestDto.getLogo());
+        validateCompanyDescription(companyRequestDto.getDescription());
+        validateCompanyTIC(companyRequestDto.getTIC());
+        validateCompanyPhoneNumber(companyRequestDto.getPhoneNumber());
+        validateCompanyEmail(companyRequestDto.getEmail());
+        validateCompanyDirection(companyRequestDto.getDirection());
+        validateCompanyPassword(companyRequestDto.getPassword());
+        validateCompanyServices(companyRequestDto.getServicioIds(), servicioRepository);
+    }
 }

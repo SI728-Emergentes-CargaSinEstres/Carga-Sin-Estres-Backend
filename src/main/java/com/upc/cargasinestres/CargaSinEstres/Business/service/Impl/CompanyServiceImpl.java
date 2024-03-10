@@ -95,17 +95,45 @@ public class CompanyServiceImpl implements ICompanyService {
     public CompanyResponseDto updateCompany(Long id, CompanyRequestDto companyRequestDto){
         var company = companyRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("No se encontró la empresa con id: "+id));
-        // se obtiene el company de la base de datos
 
-        CompanyValidation.ValidateCompany(companyRequestDto, servicioRepository);
-
-        modelMapper.map(companyRequestDto, company); // se mapea el companyRequestDto a company y se actualiza el company
-
-        // Obtener los servicios correspondientes a través de los IDs proporcionados
-        List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
-
-        // Actualizar los servicios que ofrece la empresa
-        company.setServicios(servicios);
+        //Validar que campos setear
+        if(companyRequestDto.getName() != null) {
+            CompanyValidation.validateCompanyName(companyRequestDto.getName());
+            company.setName(companyRequestDto.getName());
+        }
+        if(companyRequestDto.getLogo() != null) {
+            CompanyValidation.validateCompanyLogo(companyRequestDto.getLogo());
+            company.setLogo(companyRequestDto.getLogo());
+        }
+        if(companyRequestDto.getDescription() != null) {
+            CompanyValidation.validateCompanyDescription(companyRequestDto.getDescription());
+            company.setDescription(companyRequestDto.getDescription());
+        }
+        if(companyRequestDto.getTIC() != null) {
+            CompanyValidation.validateCompanyTIC(companyRequestDto.getTIC());
+            company.setTIC(companyRequestDto.getTIC());
+        }
+        if(companyRequestDto.getPhoneNumber() != null) {
+            CompanyValidation.validateCompanyPhoneNumber(companyRequestDto.getPhoneNumber());
+            company.setPhoneNumber(companyRequestDto.getPhoneNumber());
+        }
+        if(companyRequestDto.getEmail() != null) {
+            CompanyValidation.validateCompanyEmail(companyRequestDto.getEmail());
+            company.setEmail(companyRequestDto.getEmail());
+        }
+        if(companyRequestDto.getDirection() != null) {
+            CompanyValidation.validateCompanyDirection(companyRequestDto.getDirection());
+            company.setDirection(companyRequestDto.getDirection());
+        }
+        if(companyRequestDto.getPassword() != null) {
+            CompanyValidation.validateCompanyPassword(companyRequestDto.getPassword());
+            company.setPassword(companyRequestDto.getPassword());
+        }
+        if(companyRequestDto.getServicioIds()!=null) {
+            CompanyValidation.validateCompanyServices(companyRequestDto.getServicioIds(), servicioRepository);
+            List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
+            company.setServicios(servicios);
+        }
 
         Company updatedCompany = companyRepository.save(company); // se guardan los cambios en la base de datos
         return modelMapper.map(updatedCompany, CompanyResponseDto.class); // se retorna un responseDTO con los datos del company actualizado
