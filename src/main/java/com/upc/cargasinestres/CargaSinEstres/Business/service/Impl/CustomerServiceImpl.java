@@ -83,12 +83,34 @@ public class CustomerServiceImpl implements ICustomerService {
         var customer = customerRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("No se encontro el cliente con id: "+id));
 
-        modelMapper.map(customerRequestDto, customer);
+        //Validar que campos setear
+        if(customerRequestDto.getFirstName() != null) {
+            CustomerValidation.validateCustomerName(customerRequestDto.getFirstName());
+            customer.setFirstName(customerRequestDto.getFirstName());
+        }
+        if(customerRequestDto.getLastName() != null) {
+            CustomerValidation.validateCustomerLastName(customerRequestDto.getLastName());
+            customer.setLastName(customerRequestDto.getLastName());
+        }
+        if(customerRequestDto.getDateOfBirth() != null) {
+            CustomerValidation.validateCustomerDateOfBirth(customerRequestDto.getDateOfBirth());
+            customer.setDateOfBirth(customerRequestDto.getDateOfBirth());
+        }
+        if(customerRequestDto.getEmail() != null) {
+            CustomerValidation.validateCustomerEmail(customerRequestDto.getEmail());
+            customer.setEmail(customerRequestDto.getEmail());
+        }
+        if(customerRequestDto.getPhoneNumber() != null) {
+            CustomerValidation.validateCustomerPhoneNumber(customerRequestDto.getPhoneNumber());
+            customer.setPhoneNumber(customerRequestDto.getPhoneNumber());
+        }
+        if(customerRequestDto.getPassword() != null) {
+            CustomerValidation.validateCustomerPassword(customerRequestDto.getPassword());
+            customer.setPassword(customerRequestDto.getPassword());
+        }
 
         Customer updateCustomer = customerRepository.save(customer);
-
         return modelMapper.map(updateCustomer, CustomerResponseDto.class);
-
     }
 
 
