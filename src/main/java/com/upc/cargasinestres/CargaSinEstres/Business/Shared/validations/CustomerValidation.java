@@ -22,15 +22,15 @@ public class CustomerValidation {
     }
     public static void validateCustomerEmail(String email) {
         if (!email.matches("^(.+)@(.+)$")) {
-            throw new ValidationException("El email de la empresa debe ser válido");
+            throw new ValidationException("El email debe ser válido");
         }
     }
     public static void validateCustomerPhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 9) {
-            throw new ValidationException("El celular del cliente debe tener exactamente 9 digitos");
+            throw new ValidationException("El celular debe tener exactamente 9 digitos");
         }
         if (!phoneNumber.matches("\\d+")) {
-            throw new ValidationException("El celular del cliente debe contener solo dígitos enteros");
+            throw new ValidationException("El celular debe contener solo dígitos enteros");
         }
     }
     public static void validateCustomerDateOfBirth(LocalDate dateOfBirth) {
@@ -61,22 +61,22 @@ public class CustomerValidation {
 
     public static void ValidateCustomer(CustomerRequestDto customerRequestDto){
         if(customerRequestDto.getFirstName().isEmpty()){
-            throw new ValidationException("El nombre del cliente debe ser obligatorio");
+            throw new ValidationException("El nombre debe ser obligatorio");
         }
         if(customerRequestDto.getLastName().isEmpty()) {
-            throw new ValidationException("El apellido del cliente debe ser obligatorio");
+            throw new ValidationException("El apellido debe ser obligatorio");
         }
         if (customerRequestDto.getDateOfBirth() == null) {
-            throw new ValidationException("La fecha de nacimiento del cliente debe ser obligatoria"); // ERROR 400
+            throw new ValidationException("La fecha de nacimiento debe ser obligatoria"); // ERROR 400
         }
         if (customerRequestDto.getEmail().isEmpty()) {
-            throw new ValidationException("El email del cliente debe ser obligatorio");
+            throw new ValidationException("El email debe ser obligatorio");
         }
         if (customerRequestDto.getPhoneNumber().isEmpty()) {
-            throw new ValidationException("El celular del cliente debe ser obligatorio");
+            throw new ValidationException("El celular debe ser obligatorio");
         }
         if (customerRequestDto.getPassword().isEmpty()) {
-            throw new ValidationException("La contraseña del cliente debe ser obligatoria");
+            throw new ValidationException("La contraseña debe ser obligatoria");
         }
 
         // Validaciones de longitud, formato y duplicados
