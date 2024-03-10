@@ -16,34 +16,34 @@ public class CompanyValidation {
 
     public static void validateCompanyName(String name) {
         if (name.length() > 30) {
-            throw new ValidationException("El nombre de la empresa no puede exceder los 30 caracteres");
+            throw new ValidationException("El nombre no puede exceder los 30 caracteres");
         }
     }
     public static void validateCompanyLogo(String logo) {
         if (!logo.toLowerCase().startsWith("https://")) {
-            throw new ValidationException("El logo de la empresa debe ser una URL que comience con 'https://'");
+            throw new ValidationException("El logo debe ser una URL que comience con 'https://'");
         }
     }
 
     public static void validateCompanyDescription(String description) {
         if (description.length() > 250) {
-            throw new ValidationException("La descripción de la empresa no puede exceder los 250 caracteres");
+            throw new ValidationException("La descripción no puede exceder los 250 caracteres");
         }
     }
     public static void validateCompanyTIC(String tic) {
         if (tic.length() != 11) {
-            throw new ValidationException("El RUC de la empresa debe tener exactamente 11 caracteres");
+            throw new ValidationException("El RUC debe tener exactamente 11 caracteres");
         }
         if (!tic.matches("\\d+")) {
-            throw new ValidationException("El RUC de la empresa debe ser un número");
+            throw new ValidationException("El RUC debe ser un número");
         }
     }
     public static void validateCompanyPhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 9) {
-            throw new ValidationException("El teléfono de la empresa debe tener exactamente 9 digitos");
+            throw new ValidationException("El teléfono debe tener exactamente 9 digitos");
         }
         if (!phoneNumber.matches("\\d+")) {
-            throw new ValidationException("El teléfono de la empresa debe ser un número");
+            throw new ValidationException("El teléfono debe ser un número");
         }
     }
     public static void validateCompanyPassword(String password) {
@@ -62,12 +62,12 @@ public class CompanyValidation {
     }
     public static void validateCompanyEmail(String email) {
         if (!email.matches("^(.+)@(.+)$")) {
-            throw new ValidationException("El email de la empresa debe ser válido");
+            throw new ValidationException("El email debe ser válido");
         }
     }
     public static void validateCompanyDirection(String direction) {
         if (direction.length() > 250) {
-            throw new ValidationException("La dirección de la empresa no puede exceder los 250 caracteres");
+            throw new ValidationException("La dirección no puede exceder los 250 caracteres");
         }
     }
     public static void validateCompanyServices(List<Long> servicioIds, IServicioRepository servicioRepository) {
@@ -96,28 +96,28 @@ public class CompanyValidation {
     public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
 
         if(companyRequestDto.getName().isEmpty()){
-            throw new ValidationException("El nombre de la empresa no puede estar vacio");
+            throw new ValidationException("El nombre no puede estar vacio");
         }
         if(companyRequestDto.getLogo().isEmpty()){
-            throw new ValidationException("El logo de la empresa no puede estar vacio");
+            throw new ValidationException("El logo no puede estar vacio");
         }
         if(companyRequestDto.getDescription().isEmpty()){
-            throw new ValidationException("La descripción de la empresa no puede estar vacia");
+            throw new ValidationException("La descripción no puede estar vacia");
         }
         if(companyRequestDto.getTIC().isEmpty()){
-            throw new ValidationException("El RUC de la empresa no puede estar vacio");
+            throw new ValidationException("El RUC no puede estar vacio");
         }
         if(companyRequestDto.getPhoneNumber().isEmpty()){
-            throw new ValidationException("El teléfono de la empresa no puede estar vacio");
+            throw new ValidationException("El teléfono no puede estar vacio");
         }
         if(companyRequestDto.getEmail().isEmpty()){
-            throw new ValidationException("El email de la empresa no puede estar vacio");
+            throw new ValidationException("El email no puede estar vacio");
         }
         if(companyRequestDto.getDirection().isEmpty()){
-            throw new ValidationException("La dirección de la empresa no puede estar vacia");
+            throw new ValidationException("La dirección no puede estar vacia");
         }
         if(companyRequestDto.getPassword().isEmpty()){
-            throw new ValidationException("La contraseña de la empresa no puede estar vacia");
+            throw new ValidationException("La contraseña no puede estar vacia");
         }
         if (companyRequestDto.getServicioIds().isEmpty()) {
             throw new ValidationException("La empresa debe ofrecer al menos un servicio");
