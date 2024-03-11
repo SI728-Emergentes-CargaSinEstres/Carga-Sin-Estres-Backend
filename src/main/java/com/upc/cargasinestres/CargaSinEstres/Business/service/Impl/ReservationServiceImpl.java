@@ -206,8 +206,8 @@ public class ReservationServiceImpl implements IReservationService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
         // Validación
-        if (!(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("to be scheduled"))) {
-            throw new ValidationException("El estado debe ser 'finalized', 'to be scheduled', 'cancelled'");
+        if (!(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("scheduled"))) {
+            throw new ValidationException("El estado debe ser 'finalized', 'scheduled', 'cancelled'");
         }
         reservation.setStatus(status);
 
