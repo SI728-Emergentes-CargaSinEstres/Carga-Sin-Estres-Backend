@@ -4,9 +4,7 @@ import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.requ
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
 
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface IReservationService {
@@ -29,7 +27,7 @@ public interface IReservationService {
     //update reservation status
     ReservationResponseDto updateReservationStatus(Long reservationId, String status);
 
-    ReservationResponseDto UpdateReservationChatId (Long reservationId, Long chatId);
+    ReservationResponseDto updateReservationChatId(Long reservationId, Long chatId);
 
     Reservation getById(Long resId);
 

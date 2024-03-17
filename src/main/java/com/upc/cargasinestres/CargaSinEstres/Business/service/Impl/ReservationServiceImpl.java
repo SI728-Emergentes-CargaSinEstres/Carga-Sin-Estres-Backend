@@ -203,11 +203,11 @@ public class ReservationServiceImpl implements IReservationService {
     public ReservationResponseDto updateReservationStatus(Long reservationId, String status) {
         // Buscar la reserva
         var reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la reserva con ID: " + reservationId));
 
         // Validación
-        if (!(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("scheduled"))) {
-            throw new ValidationException("El estado debe ser 'finalized', 'scheduled', 'cancelled'");
+        if (!(status.equals("solicited")) && !(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("scheduled"))) {
+            throw new ValidationException("El estado debe ser 'solicited', 'finalized', 'scheduled', 'cancelled'");
         }
         reservation.setStatus(status);
 
@@ -219,7 +219,7 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
-    public ReservationResponseDto UpdateReservationChatId (Long reservationId, Long chatId) {
+    public ReservationResponseDto updateReservationChatId(Long reservationId, Long chatId) {
         // Buscar la reserva
         var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));

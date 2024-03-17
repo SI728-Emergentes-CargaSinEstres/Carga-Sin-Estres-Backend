@@ -16,10 +16,11 @@ import java.util.List;
 /**
  * REST reservation controller for the management of reservations of the API
  * Provides the methods to manage the reservations
+ *
  * @author Grupo1
  * @version 1.0
  */
-@Tag(name="Reservation Controller")
+@Tag(name = "Reservation Controller")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/")
@@ -31,6 +32,7 @@ public class ReservationController {
 
     /**
      * Class constructor
+     *
      * @param reservationService The service for handling reservation operations.
      */
     public ReservationController(IReservationService reservationService, IChatService chatService) { //, IChatService chatService
@@ -41,7 +43,7 @@ public class ReservationController {
     /**
      * Creates a new reservation record.
      *
-     * @param customerId              The ID of the client associated with the reservation.
+     * @param customerId            The ID of the client associated with the reservation.
      * @param companyId             The ID of the company associated with the reservation.
      * @param reservationRequestDto The data for creating the reservation.
      * @return A ResponseEntity containing the created reservationResponseDtoV2 and HttpStatus.CREATED.
@@ -59,7 +61,7 @@ public class ReservationController {
         }*/
 
         //Id de chat se setea en la reserva
-        var reservation = reservationService.UpdateReservationChatId(res.getId(), chat.getId());
+        var reservation = reservationService.updateReservationChatId(res.getId(), chat.getId());
         if (reservation.getChatId() == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -75,7 +77,7 @@ public class ReservationController {
      */
     @Operation(summary = "Obtain a list of reservation by client Id")
     @GetMapping("/reservations/customer/{id}")
-    public ResponseEntity<List<ReservationResponseDto>> getReservationByCustomerId(@PathVariable(name="id") Long id){
+    public ResponseEntity<List<ReservationResponseDto>> getReservationByCustomerId(@PathVariable(name = "id") Long id) {
         var res = reservationService.getReservationByCustomerId(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -88,14 +90,14 @@ public class ReservationController {
      */
     @Operation(summary = "Obtain a list of reservation by company Id")
     @GetMapping("/reservations/company/{id}")
-    public ResponseEntity<List<ReservationResponseDto>> getReservationByCompanyId(@PathVariable(name="id") Long id){
+    public ResponseEntity<List<ReservationResponseDto>> getReservationByCompanyId(@PathVariable(name = "id") Long id) {
         var res = reservationService.getReservationByCompanyId(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @Operation(summary = "Obtain a list of reservation by company Id and status")
     @GetMapping("/reservations/company/{id}/status")
-    public ResponseEntity<List<ReservationResponseDto>> getReservationByCompanyIdAndStatus(@PathVariable(name="id") Long id, @RequestParam(name="status") String status){
+    public ResponseEntity<List<ReservationResponseDto>> getReservationByCompanyIdAndStatus(@PathVariable(name = "id") Long id, @RequestParam(name = "status") String status) {
         var res = reservationService.getReservationByCompanyIdAndStatus(id, status);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -104,7 +106,7 @@ public class ReservationController {
      * Updates the payment field of a specific reservation.
      *
      * @param reservationId The ID of the reservation to be updated.
-     * @param price The data for updating the reservation.
+     * @param price         The data for updating the reservation.
      * @return The response of the updated reservation.
      */
     @Operation(summary = "Update the price, startDate, startTime of a reservation")
@@ -118,17 +120,20 @@ public class ReservationController {
      * Updates the status field of a specific reservation.
      *
      * @param reservationId The ID of the reservation to be updated.
-     * @param status The data status for updating the reservation.
+     * @param status        The data status for updating the reservation.
      * @return The response of the updated reservation.
      */
     @Operation(summary = "Update the status of a reservation")
     @PatchMapping("/reservations/{id}/status")
     public ResponseEntity<ReservationResponseDto> updateReservationStatus(@PathVariable(name = "id") Long reservationId, @RequestParam String status) {
-
         var res = reservationService.updateReservationStatus(reservationId, status);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        if (res == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(res);
     }
-    
+
+
     //para posibles endpoints del flujo
 
 }
