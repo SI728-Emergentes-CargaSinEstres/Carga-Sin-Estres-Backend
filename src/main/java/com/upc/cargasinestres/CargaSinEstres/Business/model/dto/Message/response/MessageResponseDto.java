@@ -17,4 +17,5 @@ public class MessageResponseDto {
 
     private LocalDateTime messageDate;
 
+    private String userType;
 }

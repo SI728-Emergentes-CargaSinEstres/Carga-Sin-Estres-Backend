@@ -28,4 +28,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "chat", nullable = false)
     private Chat chat;
+
+    @Column(name = "user_type", nullable = false)
+    private String userType;
 }
