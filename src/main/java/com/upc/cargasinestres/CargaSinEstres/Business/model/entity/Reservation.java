@@ -89,7 +89,7 @@ public class Reservation {
      */
     @Column(name="start_time", nullable = false)
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime startTime; //movingTime //cambiar a time
+    private LocalTime startTime;
 
     /**
      * The pickup address of the booking history.
@@ -104,10 +104,16 @@ public class Reservation {
     private String destinationAddress;
 
     /**
-     * The end date of the booking history.
+     * The end date of the reservation.
      */
     @Column(name="end_date")
-    private Date endDate;
+    private LocalDate endDate;
+
+    /**
+     * The end time of the reservation.
+     */
+    @Column(name="end_time")
+    private LocalTime endTime;
 
     /**
      * The payment of the booking history.

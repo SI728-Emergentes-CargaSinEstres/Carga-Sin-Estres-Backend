@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.sql.Time;
 
@@ -210,6 +211,22 @@ public class ReservationServiceImpl implements IReservationService {
             throw new ValidationException("El estado debe ser 'solicited', 'finalized', 'scheduled', 'cancelled'");
         }
         reservation.setStatus(status);
+
+        // Guardar la reserva actualizada
+        var updatedreservation = reservationRepository.save(reservation);
+
+        // Retornar la respuesta actualizada
+        return modelMapper.map(updatedreservation, ReservationResponseDto.class);
+    }
+
+    @Override
+    public ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, LocalDate endDate, String endTime) {
+        // Buscar la reserva
+        var reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la reserva con ID: " + reservationId));
+
+        reservation.setEndDate(endDate);
+        reservation.setEndTime(LocalTime.parse(endTime));
 
         // Guardar la reserva actualizada
         var updatedreservation = reservationRepository.save(reservation);
