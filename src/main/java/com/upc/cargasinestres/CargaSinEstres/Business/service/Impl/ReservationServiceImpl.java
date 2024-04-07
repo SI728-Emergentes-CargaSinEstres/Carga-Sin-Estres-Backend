@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import java.sql.Time;
 
@@ -74,18 +73,13 @@ public class ReservationServiceImpl implements IReservationService {
         newReservation.setCompany(company);
         newReservation.setServices(newReservation.getServices().toLowerCase());
         newReservation.setStartTime(LocalTime.parse(reservationRequestDto.getStartTime()));
-        /*
-        newreservation.setBookingDate(LocalDate.now()); // Carga rapida
-        */
+
         newReservation.setStatus("solicited");
 
-        /* Convertir movingTime de Date a Time
-        String movingTimeDate = reservationRequestDto.getMovingTime();
-        Time movingTime = new Time(movingTimeDate.getTime());
-        newreservation.setMovingTime(movingTime);*/
-
-        var createdreservation = reservationRepository.save(newReservation);
-        return modelMapper.map(createdreservation, ReservationResponseDto.class);
+        var savedreservation = reservationRepository.save(newReservation);
+        var response = modelMapper.map(savedreservation, ReservationResponseDto.class);
+        response.setCompanyName(company.getName());
+        return response;
     }
 
     /**
@@ -129,12 +123,6 @@ public class ReservationServiceImpl implements IReservationService {
                 .map(Reservation -> modelMapper.map(Reservation, ReservationResponseDto.class))
                 .toList();
 
-        /*
-        for (ReservationResponseDto reservation : toShowReservations) {
-            var Chat = chatRepository.findByReservationId(reservation.getId());
-            reservation.setChat_id(Chat.getId());
-        }
-         */
         return toShowReservations;
 
     }
@@ -168,21 +156,17 @@ public class ReservationServiceImpl implements IReservationService {
      * @throws ValidationException       If the payment amount is not greater than 0.
      */
     @Override
-    public ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime, String status) {
+    public ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime) {
         // Buscar la reserva
         var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el historial de reserva con ID: " + reservationId));
 
         // Validación
         if (price <= 0) throw new ValidationException("El precio debe ser mayor a 0");
-        if (!(status.equals("to be scheduled")) && !(status.equals("rescheduled"))) {
-            throw new ValidationException("El estado debe ser 'to be scheduled', 'rescheduled'");
-        }
 
         reservation.setPrice(price);
         reservation.setStartDate(startDate);
         reservation.setStartTime(LocalTime.parse(startTime));
-        reservation.setStatus(status);
 
         // Guardar la reserva actualizada
         var updatedreservation = reservationRepository.save(reservation);
@@ -207,26 +191,10 @@ public class ReservationServiceImpl implements IReservationService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró la reserva con ID: " + reservationId));
 
         // Validación
-        if (!(status.equals("solicited")) && !(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("scheduled"))) {
-            throw new ValidationException("El estado debe ser 'solicited', 'finalized', 'scheduled', 'cancelled'");
+        if (!(status.equals("solicited")) && !(status.equals("finalized")) && !(status.equals("cancelled")) && !(status.equals("scheduled")) && !(status.equals("to be scheduled")) ) {
+            throw new ValidationException("El estado debe ser 'solicited', 'finalized', 'scheduled', 'cancelled', o 'to be scheduled'");
         }
         reservation.setStatus(status);
-
-        // Guardar la reserva actualizada
-        var updatedreservation = reservationRepository.save(reservation);
-
-        // Retornar la respuesta actualizada
-        return modelMapper.map(updatedreservation, ReservationResponseDto.class);
-    }
-
-    @Override
-    public ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, LocalDate endDate, String endTime) {
-        // Buscar la reserva
-        var reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la reserva con ID: " + reservationId));
-
-        reservation.setEndDate(endDate);
-        reservation.setEndTime(LocalTime.parse(endTime));
 
         // Guardar la reserva actualizada
         var updatedreservation = reservationRepository.save(reservation);
