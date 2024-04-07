@@ -35,4 +35,5 @@ public class ReservationResponseDto {
     private String services;
     private Long chatId;
     private Customer customer;
+    private String companyName;
 }
