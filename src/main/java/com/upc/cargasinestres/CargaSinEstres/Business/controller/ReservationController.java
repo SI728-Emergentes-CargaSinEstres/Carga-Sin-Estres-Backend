@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,9 +110,9 @@ public class ReservationController {
      * @return The response of the updated reservation.
      */
     @Operation(summary = "Update the price, startDate, startTime of a reservation")
-    @PatchMapping("/reservations/{id}/price-startDate-startTime-status")
-    public ResponseEntity<ReservationResponseDto> updateReservationPayment(@PathVariable(name = "id") Long reservationId, float price, LocalDate startDate, String startTime, String status) {
-        var res = reservationService.updateReservationPriceStartDateStartTime(reservationId, price, startDate, startTime, status);
+    @PatchMapping("/reservations/{id}/price-startDate-startTime")
+    public ResponseEntity<ReservationResponseDto> updateReservationPayment(@PathVariable(name = "id") Long reservationId, float price, LocalDate startDate, String startTime) { //status
+        var res = reservationService.updateReservationPriceStartDateStartTime(reservationId, price, startDate, startTime);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -133,19 +132,6 @@ public class ReservationController {
         }
         return ResponseEntity.ok(res);
     }
-
-    @Operation(summary = "Update the endDate of a reservation")
-    @PatchMapping("/reservations/{id}/endDate-endTime")
-    public ResponseEntity<ReservationResponseDto> updateReservationEndDateAndEndTime(@PathVariable(name = "id") Long reservationId, @RequestParam LocalDate endDate, @RequestParam String endTime) {
-        var res = reservationService.updateReservationEndDateAndEndTime(reservationId, endDate, endTime);
-        if (res == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(res);
-    }
-
-
-    //para posibles endpoints del flujo
 
 }
 
