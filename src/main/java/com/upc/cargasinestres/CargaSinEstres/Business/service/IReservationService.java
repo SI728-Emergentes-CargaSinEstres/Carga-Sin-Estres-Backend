@@ -5,7 +5,6 @@ import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.resp
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public interface IReservationService {
@@ -22,17 +21,12 @@ public interface IReservationService {
     // get all reservations for a company by id and status
     public abstract List<ReservationResponseDto> getReservationByCompanyIdAndStatus(Long companyId, String status);
 
-    //update reservation price
-    //ReservationResponseDto updateReservationPrice(Long reservationId, float price);
-
     //update reservation status
     ReservationResponseDto updateReservationStatus(Long reservationId, String status);
-
-    ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, LocalDate endDate, String endTime);
 
     ReservationResponseDto updateReservationChatId(Long reservationId, Long chatId);
 
     Reservation getById(Long resId);
 
-    ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime, String status);
+    ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime); //status
 }

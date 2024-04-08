@@ -28,11 +28,11 @@ public class ReservationResponseDto {
     private String startTime;
     private String originAddress;
     private String destinationAddress;
-    private LocalDate endDate;
-    private String endTime;
+    private Date endDate;
     private float price;
     private String status;
     private String services;
     private Long chatId;
     private Customer customer;
+    private String companyName;
 }
