@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class MessageRequestDto {
 
     private String content;
-
+    private String userType;
 }

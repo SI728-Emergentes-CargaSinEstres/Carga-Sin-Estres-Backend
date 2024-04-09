@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Qualifier("messageServiceImpl")
 public class MessageServiceImpl implements IMessageService {
@@ -47,4 +50,19 @@ public class MessageServiceImpl implements IMessageService {
 
     }
 
+    @Override
+    public List<MessageResponseDto> getMessagesByReservationId(Long reservationId) {
+        // Busca el chat asociado a la reserva
+        Chat chat = chatRepository.findByReservationId(reservationId);
+        if (chat == null) {
+            throw new RuntimeException("No se encontró un chat para la reserva con ID " + reservationId);
+        }
+
+        // Obtiene la lista de mensajes asociados al chat
+        List<MessageResponseDto> messages = chat.getMessages().stream()
+                .map(message -> modelMapper.map(message, MessageResponseDto.class))
+                .collect(Collectors.toList());
+
+        return messages;
+    }
 }

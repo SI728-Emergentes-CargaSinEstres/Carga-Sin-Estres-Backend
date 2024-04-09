@@ -4,6 +4,8 @@ package com.upc.cargasinestres.CargaSinEstres.Business.service;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.request.MessageRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Message.response.MessageResponseDto;
 
+import java.util.List;
+
 public interface IMessageService {
 
     /**
@@ -12,4 +14,6 @@ public interface IMessageService {
      * @return The created message information
      */
     public abstract MessageResponseDto createMessage(Long reservationId, MessageRequestDto messageRequestDto);
+
+    List<MessageResponseDto> getMessagesByReservationId(Long reservationId);
 }
