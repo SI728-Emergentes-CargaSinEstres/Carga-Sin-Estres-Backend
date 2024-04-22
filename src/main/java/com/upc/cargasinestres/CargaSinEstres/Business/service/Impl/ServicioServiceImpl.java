@@ -1,6 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.service.Impl;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.ServicioValidation;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
@@ -10,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -39,5 +42,14 @@ public class ServicioServiceImpl implements IServicioService {
         newService.setName(nombreServicio);
         var createdService = servicioRepository.save(newService);
         return modelMapper.map(createdService, ServicioResponseDto.class);
+    }
+
+    @Override
+    public List<ServicioResponseDto> getAllServices(){
+        var servicios = servicioRepository.findAll();
+
+        return servicios.stream()
+                .map(servicio -> modelMapper.map(servicio, ServicioResponseDto.class))
+                .toList();
     }
 }

@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
+import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IServicioService;
@@ -8,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name="Service Controller")
 @RestController
@@ -25,5 +28,16 @@ public class ServicioController {
     public ResponseEntity<ServicioResponseDto> createServicio(@RequestBody ServicioRequestDto servicioRequestDto) {
         var res = serviceService.createServicio(servicioRequestDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
-    } //comentar para eliminar
+    }
+
+    /**
+     * Retrieves a list of all services.
+     * @return A ResponseEntity containing a list of ServicioResponseDto and HttpStatus OK.
+     */
+    @Operation(summary = "Get all services")
+    @GetMapping("/services")
+    public ResponseEntity<List<ServicioResponseDto>> getAllServices() {
+        var res = serviceService.getAllServices();
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }
