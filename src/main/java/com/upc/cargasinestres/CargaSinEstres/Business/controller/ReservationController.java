@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,6 +128,16 @@ public class ReservationController {
     @PatchMapping("/reservations/{id}/status")
     public ResponseEntity<ReservationResponseDto> updateReservationStatus(@PathVariable(name = "id") Long reservationId, @RequestParam String status) {
         var res = reservationService.updateReservationStatus(reservationId, status);
+        if (res == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(res);
+    }
+
+    @Operation(summary = "Update the endDate of a reservation")
+    @PatchMapping("/reservations/{id}/endDate-endTime")
+    public ResponseEntity<ReservationResponseDto> updateReservationEndDateAndEndTime(@PathVariable(name = "id") Long reservationId, @RequestParam LocalDate endDate, @RequestParam String endTime) {
+        var res = reservationService.updateReservationEndDateAndEndTime(reservationId, endDate, endTime);
         if (res == null) {
             return ResponseEntity.notFound().build();
         }
