@@ -16,7 +16,7 @@ public interface IUserService {
     ApiResponse<UserResponseDto> profile(Long userId);
 
     /**
-     * Deetes a User by it's Id
+     * Deletes a User by it's Id
      * @param userId id of the user
      * @return Response of the operation
      */

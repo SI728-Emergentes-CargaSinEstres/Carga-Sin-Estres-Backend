@@ -1,9 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.repository;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Client;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -16,15 +14,61 @@ import java.util.Optional;
 public interface ICompanyRepository extends JpaRepository<Company, Long> {
 
     /**
-     * Retrieves an Optional<Company> based on the provided name and contact number.
+     * Retrieves an Optional<Company> based on the provided name. This is used to avoid duplicate companies with the same name
      *
      * @param name The name of the company.
-     * @param numeroContacto The contact number of the company.
      * @return An Optional containing the company if found, otherwise an empty Optional.
      */
-    Optional<Company> findByNameAndNumeroContacto(String name, String numeroContacto);
+    Optional<Company> findByName(String name);
 
-    Optional<Company> findCompanyByEmailAndPassword(String email, String password); //para login
-    Company findByEmailAndPassword(String email, String password);
+    /**
+     * Retrieves an Optional<Company> based on the provided TIC. This is used to avoid duplicate companies with the same TIC
+     *
+     * @param TIC The TIC of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByTIC(String TIC);
+
+
+    /**
+     * Retrieves an Optional<Company> based on the provided email and contact number. This is used to
+     *
+     * @param email The email of the company.
+     * @param password The contact password used by the company account.
+     * @return An Optional containing the company info if account is found for login, otherwise an empty Optional.
+     */
+    Optional<Company> findByEmailAndPassword(String email, String password);
+
+    /**
+     * Retrieves a Company based on the provided company ID.
+     *
+     * @param id The ID of the company.
+     * @return The company if found, otherwise null.
+     */
+    Company findCompanyById(Long id);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided email. This is used to avoid duplicate companies with the same email
+     *
+     * @param email The email of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByEmail(String email);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided phone number. This is used to avoid duplicate companies with the same phone number
+     *
+     * @param phoneNumber The phone number of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByPhoneNumber(String phoneNumber);
+
+    /**
+     * Retrieves an Optional<Company> based on the provided logo. This is used to avoid duplicate companies with the same logo
+     *
+     * @param logo The logo of the company.
+     * @return An Optional containing the company if found, otherwise an empty Optional.
+     */
+    Optional<Company> findByLogo(String logo);
 
 }

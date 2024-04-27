@@ -2,12 +2,12 @@ package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
 
 import java.util.List;
 
@@ -81,7 +81,7 @@ public class CompanyController {
      * @return A ResponseEntity containing the updated CompanyResponseDto and HttpStatus OK.
      */
     @Operation(summary = "Update a Company")
-    @PutMapping("/companies/{id}")
+    @PatchMapping("/companies/{id}")
     public ResponseEntity<CompanyResponseDto> updateCompany(@PathVariable Long id, @RequestBody CompanyRequestDto companyRequestDto){
         var res = companyService.updateCompany(id, companyRequestDto);
         return new ResponseEntity<>(res, HttpStatus.OK);

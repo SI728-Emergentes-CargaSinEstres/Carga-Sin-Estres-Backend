@@ -3,6 +3,9 @@ package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 /**
  * The CompanyRequestDto class represents the data transfer object of the Company class.
  * It contains fields related to the details of a company entity.
@@ -15,16 +18,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanyRequestDto {
     private String name;
-    private String photo;
-    private String description;
+    private String TIC;
+    private String direction;
     private String email;
-    private String NumeroContacto;
-    private String direccion;
+    private String phoneNumber;
     private String password;
-    //private String userType;
-    private boolean transporte;
-    private boolean carga;
-    private boolean embalaje;
-    private boolean montaje;
-    private boolean desmontaje;
+    private String description;
+    private String logo;
+    private List<Long> servicioIds;
 }

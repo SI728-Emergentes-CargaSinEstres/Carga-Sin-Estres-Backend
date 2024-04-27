@@ -3,6 +3,7 @@ package com.upc.cargasinestres.CargaSinEstres.Users.repository;
 import com.upc.cargasinestres.CargaSinEstres.Users.model.Entity.Role;
 import com.upc.cargasinestres.CargaSinEstres.Users.model.enums.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
  * @version 1.0
  */
 
+@Repository
 public interface IRoleRepository extends JpaRepository<Role, Long> {
     /**
      * Searchs a role by its name

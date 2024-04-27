@@ -1,10 +1,13 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * This class represents the Company entity for CSE. The table name is companies. And the columns are:
@@ -32,7 +35,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="company")
+@Table(name="companies")
 public class Company {
     /**
      * The id of the company.
@@ -50,10 +53,16 @@ public class Company {
     private String name;
 
     /**
-     * The photo of the company.
+     * The TIC of the company.
      */
-    @Column(name = "photo", nullable = false)
-    private String photo;
+    @Column(name = "TIC", nullable = false)
+    private String TIC;
+
+    /**
+     * The address of the company.
+     */
+    @Column(name = "direction", nullable = false)
+    private String direction;
 
     /**
      * The email of the company.
@@ -62,16 +71,10 @@ public class Company {
     private String email;
 
     /**
-     * The adress of the company.
-     */
-    @Column(name = "direccion", nullable = false)
-    private String direccion;
-
-    /**
      * The contact number of the company.
      */
-    @Column(name = "numeroContacto", nullable = false)
-    private String numeroContacto;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     /**
      * The password of the company.
@@ -80,40 +83,10 @@ public class Company {
     private String password;
 
     /**
-     * If the company has transporte.
+     * The photo of the company.
      */
-    @Column(name = "transporte", nullable = false)
-    private boolean transporte;
-
-    /**
-     * If the company has carga.
-     */
-    @Column(name = "carga", nullable = false)
-    private boolean carga;
-
-    /**
-     * If the company has embalaje.
-     */
-    @Column(name = "embalaje", nullable = false)
-    private boolean embalaje;
-
-    /**
-     * If the company has montaje
-     */
-    @Column(name = "montaje", nullable = false)
-    private boolean montaje;
-
-    /**
-     * If the company has desmontaje
-     */
-    @Column(name = "desmontaje", nullable = false)
-    private boolean desmontaje;
-
-    /**
-     * The average rating given to the company via reviews
-     */
-    @Column(name = "averageRating", nullable = false)
-    private int averageRating;
+    @Column(name = "logo", nullable = false)
+    private String logo;
 
     /**
      * The description of the company
@@ -122,10 +95,19 @@ public class Company {
     private String description;
 
     /**
-     * The user type of company
+     * The rating of the company
      */
-    @Column(name = "userType", nullable = false)
-    private String userType;
+    @OneToMany(mappedBy="company")
+    private List<Rating> ratings;
 
+    @Column(name="idMembership")
+    private Long membershipId; //cambiar a conexion por id
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "company_servicio", // Nombre de la tabla de unión
+            joinColumns = @JoinColumn(name = "company_id"), // Columna que hace referencia a la entidad actual (Company)
+            inverseJoinColumns = @JoinColumn(name = "servicio_id") // Columna que hace referencia a la entidad relacionada (Servicio)
+    )
+    private List<Servicio> servicios;
 }
