@@ -63,11 +63,31 @@ public class CustomerControllerTest {
         assertEquals(LocalDate.of(2003, 5, 22), updatedCustomer.getDateOfBirth());
     }
 
+    @Test
+    public void testGetCustomerForLogin() throws ParseException {
+        // Arrange
+        String email = "lu@gmail.com";
+        String password = "Lucero123";
+
+        // Act
+        ResponseEntity<CustomerResponseDto> response = customerController.getCustomerForLogin(email, password);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        CustomerResponseDto expectedResponse = response.getBody();
+        assertEquals("Lucero", expectedResponse.getFirstName());
+        assertEquals("Obispo", expectedResponse.getLastName());
+        assertEquals("912345678", expectedResponse.getPhoneNumber());
+        assertEquals("lu@gmail.com", expectedResponse.getEmail());
+        assertEquals(LocalDate.of(2004, 04, 12), expectedResponse.getDateOfBirth());
+    }
+
     // Implementing MockCustomerService class to simulate service behavior
     private static class MockCustomerService implements ICustomerService {
         @Override
+
         public CustomerResponseDto getCustomerForLogin(String email, String password) {
-            return null;
+            return new CustomerResponseDto(1L, "Lucero", "Obispo", "912345678", email, LocalDate.of(2004, 4, 12));
         }
 
         @Override
