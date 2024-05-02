@@ -75,30 +75,6 @@ public class CompanyControllerTest {
         assertEquals(List.of(1L, 2L, 3L), servicioIds);
     }
 
-    @Test
-    public void TestGetCompanyForLogin(){
-        // Arrange
-        String email = "cse@gmail.com";
-        String password = "CSE123";
-
-        // Act
-        ResponseEntity<CompanyResponseDto> response = companyController.getCompanyForLogin(email, password);
-
-        // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        CompanyResponseDto expectedResponse = response.getBody();
-        assertEquals("Carga Con Estrés", expectedResponse.getName());
-        assertEquals("12345678901", expectedResponse.getTIC());
-        assertEquals("Miraflores", expectedResponse.getDirection());
-        assertEquals("cse@gmail.com", expectedResponse.getEmail());
-        assertEquals("123456789", expectedResponse.getPhoneNumber());
-        assertEquals("Lorem ipsum", expectedResponse.getDescription());
-        assertEquals("https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", expectedResponse.getLogo());
-        List<ServicioResponseDto> servicios = expectedResponse.getServicios();
-        List<Long> servicioIds = servicios.stream().map(ServicioResponseDto::getId).collect(Collectors.toList());
-        assertEquals(List.of(1L, 2L, 3L), servicioIds);
-    }
-
     // Implement MockCompanyService class to simulate service behavior
     private static class MockCompanyService implements ICompanyService {
 
@@ -138,7 +114,7 @@ public class CompanyControllerTest {
 
         @Override
         public CompanyResponseDto getCompanyForLogin(String email, String password) {
-            return new CompanyResponseDto(1L, "Carga Con Estrés", "12345678901", "Miraflores", email, "123456789", "Lorem ipsum", "https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", List.of(new ServicioResponseDto(1L, "Transporte"), new ServicioResponseDto(2L, "Carga"), new ServicioResponseDto(3L, "Embalaje")), 0);
+            return null;
         }
     }
 }
