@@ -77,7 +77,7 @@ public class ReservationServiceImpl implements IReservationService {
         newReservation.setStatus("solicited");
 
         var savedreservation = reservationRepository.save(newReservation);
-        var response = modelMapper.map(savedreservation, ReservationResponseDto.class);
+        var response = modelMapper.map(newReservation, ReservationResponseDto.class);
         response.setCompanyName(company.getName());
         return response;
     }
