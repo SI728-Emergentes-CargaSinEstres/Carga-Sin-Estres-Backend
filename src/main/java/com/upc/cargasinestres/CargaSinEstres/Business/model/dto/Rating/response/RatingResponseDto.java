@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatingResponseDto {
     private int stars;
+    private Long companyId;
 }

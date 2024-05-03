@@ -1,44 +1,40 @@
 package com.upc.cargasinestres.CargaSinEstres;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.controller.CompanyController;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.ICompanyService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CompanyControllerTest {
+public class CompanyServiceTest {
 
-    private CompanyController companyController;
     private ICompanyService companyService;
 
     @BeforeEach
     public void setup() {
         // Arrange
         companyService = new MockCompanyService();
-        companyController = new CompanyController(companyService);
     }
 
+    @DisplayName("Test to validate that the created company has a unique ID")
     @Test
     public void testCreateCompany() {
         // Arrange
         CompanyRequestDto requestDto = new CompanyRequestDto("Carga Sin Estrés", "12345678901", "Miraflores", "cse@gmail.com", "123456789", "Cargasinestr3s!", "Lorem ipsum", "https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", List.of(1L, 2L, 3L));
 
         // Act
-        ResponseEntity<CompanyResponseDto> response = companyController.createCompany(requestDto);
+        CompanyResponseDto createdCompany = companyService.createCompany(requestDto);
 
         // Assert
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        CompanyResponseDto createdCompany = response.getBody();
+        assertNotNull(createdCompany.getId());
         assertEquals("Carga Sin Estrés", createdCompany.getName());
         assertEquals("12345678901", createdCompany.getTIC());
         assertEquals("Miraflores", createdCompany.getDirection());
@@ -47,22 +43,22 @@ public class CompanyControllerTest {
         assertEquals("Lorem ipsum", createdCompany.getDescription());
         assertEquals("https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", createdCompany.getLogo());
         List<ServicioResponseDto> servicios = createdCompany.getServicios();
-        List<Long> servicioIds = servicios.stream().map(ServicioResponseDto::getId).collect(Collectors.toList());
+        List<Long> servicioIds = servicios.stream().map(ServicioResponseDto::getId).toList();
         assertEquals(List.of(1L, 2L, 3L), servicioIds);
     }
 
+    @DisplayName("Test to validate that the company id persists after updating the customer information")
     @Test
-    public void testUpdateCompany() {
+    public void testUpdateExistingCompany() {
         // Arrange
-        Long companyId = 1L; // ID de la compañía a actualizar
+        Long companyId = 1L;
         CompanyRequestDto requestDto = new CompanyRequestDto("Carga Con Estrés", "12345678901", "Miraflores", "cse@gmail.com", "123456789", "Cargasinestr3s!", "Lorem ipsum", "https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", List.of(1L, 2L, 3L));
 
         // Act
-        ResponseEntity<CompanyResponseDto> response = companyController.updateCompany(companyId, requestDto);
+        CompanyResponseDto updatedCompany = companyService.updateCompany(companyId, requestDto);
 
         // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        CompanyResponseDto updatedCompany = response.getBody();
+        assertEquals(companyId, updatedCompany.getId());
         assertEquals("Carga Con Estrés", updatedCompany.getName());
         assertEquals("12345678901", updatedCompany.getTIC());
         assertEquals("Miraflores", updatedCompany.getDirection());
@@ -71,8 +67,19 @@ public class CompanyControllerTest {
         assertEquals("Lorem ipsum", updatedCompany.getDescription());
         assertEquals("https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", updatedCompany.getLogo());
         List<ServicioResponseDto> servicios = updatedCompany.getServicios();
-        List<Long> servicioIds = servicios.stream().map(ServicioResponseDto::getId).collect(Collectors.toList());
+        List<Long> servicioIds = servicios.stream().map(ServicioResponseDto::getId).toList();
         assertEquals(List.of(1L, 2L, 3L), servicioIds);
+    }
+
+    @DisplayName("Test to update a non-existing company")
+    @Test
+    public void testUpdateNonExistingCompany() {
+        // Arrange
+        Long companyId = 999L;
+        CompanyRequestDto requestDto = new CompanyRequestDto("Carga Con Estrés", "12345678901", "Miraflores", "cse@gmail.com", "123456789", "Cargasinestr3s!", "Lorem ipsum", "https://transporteromabe.com/wp-content/uploads/2020/02/para-todo.jpg", List.of(1L, 2L, 3L));
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> companyService.updateCompany(companyId, requestDto));
     }
 
     // Implement MockCompanyService class to simulate service behavior
@@ -90,23 +97,30 @@ public class CompanyControllerTest {
 
         @Override
         public CompanyResponseDto createCompany(CompanyRequestDto company) {
-            // Simulate creation of company and return a dummy response
-            List<ServicioResponseDto> servicios = new ArrayList<>();
-            servicios.add(new ServicioResponseDto(1L, "Transporte"));
-            servicios.add(new ServicioResponseDto(2L, "Carga"));
-            servicios.add(new ServicioResponseDto(3L, "Embalaje"));
+            // Simular creación de una compañía y retornar una respuesta ficticia
+            List<ServicioResponseDto> servicios = List.of(
+                    new ServicioResponseDto(1L, "Transporte"),
+                    new ServicioResponseDto(2L, "Carga"),
+                    new ServicioResponseDto(3L, "Embalaje")
+            );
 
             return new CompanyResponseDto(1L, company.getName(), company.getTIC(), company.getDirection(), company.getEmail(),
                     company.getPhoneNumber(), company.getDescription(), company.getLogo(), servicios, 0);
-
         }
 
         @Override
         public CompanyResponseDto updateCompany(Long id, CompanyRequestDto companyRequestDto) {
-            List<ServicioResponseDto> servicios = new ArrayList<>();
-            servicios.add(new ServicioResponseDto(1L, "Transporte"));
-            servicios.add(new ServicioResponseDto(2L, "Carga"));
-            servicios.add(new ServicioResponseDto(3L, "Embalaje"));
+            // Simular actualización de una compañía manteniendo el identificador
+            List<ServicioResponseDto> servicios = List.of(
+                    new ServicioResponseDto(1L, "Transporte"),
+                    new ServicioResponseDto(2L, "Carga"),
+                    new ServicioResponseDto(3L, "Embalaje")
+            );
+
+            // Simular actualización de una compañía inexistente
+            if (id.equals(999L)) {
+                throw new IllegalArgumentException("Company not found");
+            }
 
             return new CompanyResponseDto(id, companyRequestDto.getName(), companyRequestDto.getTIC(), companyRequestDto.getDirection(), companyRequestDto.getEmail(),
                     companyRequestDto.getPhoneNumber(), companyRequestDto.getDescription(), companyRequestDto.getLogo(), servicios, 0);
