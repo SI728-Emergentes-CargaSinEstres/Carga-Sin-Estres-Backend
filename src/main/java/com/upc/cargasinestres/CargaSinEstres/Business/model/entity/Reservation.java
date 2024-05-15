@@ -8,11 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Represents an entity of booking history within the context of carga sin estres booking system. This class is a JPA entity
@@ -107,13 +104,13 @@ public class Reservation {
      * The end date of the reservation.
      */
     @Column(name="end_date")
-    private LocalDate endDate;
+    private String endDate;
 
     /**
      * The end time of the reservation.
      */
     @Column(name="end_time")
-    private LocalTime endTime;
+    private String endTime;
 
     /**
      * The payment of the booking history.

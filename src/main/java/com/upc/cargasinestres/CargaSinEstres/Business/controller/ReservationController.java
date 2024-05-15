@@ -6,7 +6,6 @@ import com.upc.cargasinestres.CargaSinEstres.Business.service.IChatService;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -146,7 +145,7 @@ public class ReservationController {
     @PatchMapping("/reservations/{id}/endDate-endTime")
     public ResponseEntity<ReservationResponseDto> updateReservationEndDateAndEndTime(
             @PathVariable(name = "id") Long reservationId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam String endDate,
             @RequestParam String endTime) {
         var res = reservationService.updateReservationEndDateAndEndTime(reservationId, endDate, endTime);
         if (res == null) {

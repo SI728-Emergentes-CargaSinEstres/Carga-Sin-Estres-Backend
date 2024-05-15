@@ -30,5 +30,5 @@ public interface IReservationService {
 
     ReservationResponseDto updateReservationPriceStartDateStartTime(Long reservationId, float price, LocalDate startDate, String startTime); //status
 
-    ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, LocalDate endDate, String endTime);
+    ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, String endDate, String endTime);
 }
