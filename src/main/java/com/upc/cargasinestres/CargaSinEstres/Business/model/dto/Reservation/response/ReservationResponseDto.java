@@ -28,7 +28,7 @@ public class ReservationResponseDto {
     private String startTime;
     private String originAddress;
     private String destinationAddress;
-    private LocalDate endDate;
+    private String endDate;
     private String endTime;
     private float price;
     private String status;

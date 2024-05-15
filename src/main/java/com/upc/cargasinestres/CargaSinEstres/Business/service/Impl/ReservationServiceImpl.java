@@ -227,16 +227,17 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
-    public ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, LocalDate endDate, String endTime) {
+    public ReservationResponseDto updateReservationEndDateAndEndTime(Long reservationId, String endDate, String endTime) {
         // Buscar la reserva
         var reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró la reserva con ID: " + reservationId));
 
         reservation.setEndDate(endDate);
-        reservation.setEndTime(LocalTime.parse(endTime));
+        reservation.setEndTime(endTime);
 
         // Guardar la reserva actualizada
         var updatedreservation = reservationRepository.save(reservation);
+
 
         // Retornar la respuesta actualizada
         return modelMapper.map(updatedreservation, ReservationResponseDto.class);
