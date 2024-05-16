@@ -21,5 +21,5 @@ public class MembershipResponseDto {
     private float price;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Company company;
+    private Long companyId;
 }

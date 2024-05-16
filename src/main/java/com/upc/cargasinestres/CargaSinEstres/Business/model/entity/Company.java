@@ -100,8 +100,8 @@ public class Company {
     @OneToMany(mappedBy="company")
     private List<Rating> ratings;
 
-    @Column(name="idMembership")
-    private Long membershipId; //cambiar a conexion por id
+    @OneToOne(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Membership membership;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
