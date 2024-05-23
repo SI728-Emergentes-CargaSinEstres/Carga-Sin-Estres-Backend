@@ -29,5 +29,6 @@ public class CompanyResponseDto {
     private String logo;
     private List<ServicioResponseDto> servicios;
     private int averageRating;
+    private Boolean hasMembership;
 
 }

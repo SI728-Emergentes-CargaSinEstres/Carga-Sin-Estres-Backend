@@ -18,8 +18,10 @@ import java.util.List;
 /**
  * Implementation of the ICompanyService interface.
  * Handles the business logic for company operations.
+ *
  * @author Grupo1
- * @version 1.0*/
+ * @version 1.0
+ */
 @Service
 public class CompanyServiceImpl implements ICompanyService {
 
@@ -41,13 +43,16 @@ public class CompanyServiceImpl implements ICompanyService {
 
         return companies.stream()
                 .map(company -> {
-                    CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
                     int averageRating = calculateAverageRating(company);
+                    boolean hasMembership = company.getMembership() != null;
+                    CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
                     companyResponseDto.setAverageRating(averageRating);
+                    companyResponseDto.setHasMembership(hasMembership);
                     return companyResponseDto;
                 })
                 .toList();
     }
+
 
 
     @Override
@@ -65,10 +70,10 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
-        if(companyRepository.findByName(companyRequestDto.getName()).isPresent())
+        if (companyRepository.findByName(companyRequestDto.getName()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese nombre");
 
-        if(companyRepository.findByTIC(companyRequestDto.getTIC()).isPresent())
+        if (companyRepository.findByTIC(companyRequestDto.getTIC()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese RUC");
 
         if (companyRepository.findByEmail(companyRequestDto.getEmail()).isPresent())
@@ -77,7 +82,7 @@ public class CompanyServiceImpl implements ICompanyService {
         if (companyRepository.findByPhoneNumber(companyRequestDto.getPhoneNumber()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese número de teléfono");
 
-        if(companyRepository.findByLogo(companyRequestDto.getLogo()).isPresent())
+        if (companyRepository.findByLogo(companyRequestDto.getLogo()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese logo");
 
         CompanyValidation.ValidateCompany(companyRequestDto, servicioRepository);
@@ -92,44 +97,44 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public CompanyResponseDto updateCompany(Long id, CompanyRequestDto companyRequestDto){
+    public CompanyResponseDto updateCompany(Long id, CompanyRequestDto companyRequestDto) {
         var company = companyRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("No se encontró la empresa con id: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la empresa con id: " + id));
 
         //Validar que campos setear
-        if(companyRequestDto.getName() != null) {
+        if (companyRequestDto.getName() != null) {
             CompanyValidation.validateCompanyName(companyRequestDto.getName());
             company.setName(companyRequestDto.getName());
         }
-        if(companyRequestDto.getLogo() != null) {
+        if (companyRequestDto.getLogo() != null) {
             CompanyValidation.validateCompanyLogo(companyRequestDto.getLogo());
             company.setLogo(companyRequestDto.getLogo());
         }
-        if(companyRequestDto.getDescription() != null) {
+        if (companyRequestDto.getDescription() != null) {
             CompanyValidation.validateCompanyDescription(companyRequestDto.getDescription());
             company.setDescription(companyRequestDto.getDescription());
         }
-        if(companyRequestDto.getTIC() != null) {
+        if (companyRequestDto.getTIC() != null) {
             CompanyValidation.validateCompanyTIC(companyRequestDto.getTIC());
             company.setTIC(companyRequestDto.getTIC());
         }
-        if(companyRequestDto.getPhoneNumber() != null) {
+        if (companyRequestDto.getPhoneNumber() != null) {
             CompanyValidation.validateCompanyPhoneNumber(companyRequestDto.getPhoneNumber());
             company.setPhoneNumber(companyRequestDto.getPhoneNumber());
         }
-        if(companyRequestDto.getEmail() != null) {
+        if (companyRequestDto.getEmail() != null) {
             CompanyValidation.validateCompanyEmail(companyRequestDto.getEmail());
             company.setEmail(companyRequestDto.getEmail());
         }
-        if(companyRequestDto.getDirection() != null) {
+        if (companyRequestDto.getDirection() != null) {
             CompanyValidation.validateCompanyDirection(companyRequestDto.getDirection());
             company.setDirection(companyRequestDto.getDirection());
         }
-        if(companyRequestDto.getPassword() != null) {
+        if (companyRequestDto.getPassword() != null) {
             CompanyValidation.validateCompanyPassword(companyRequestDto.getPassword());
             company.setPassword(companyRequestDto.getPassword());
         }
-        if(companyRequestDto.getServicioIds()!=null) {
+        if (companyRequestDto.getServicioIds() != null) {
             CompanyValidation.validateCompanyServices(companyRequestDto.getServicioIds(), servicioRepository);
             List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
             company.setServicios(servicios);

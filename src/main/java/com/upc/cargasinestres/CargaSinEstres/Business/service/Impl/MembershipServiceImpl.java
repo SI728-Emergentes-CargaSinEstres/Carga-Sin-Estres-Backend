@@ -4,6 +4,7 @@ import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.Custome
 import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.MembershipValidation;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.request.MembershipRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Membership.response.MembershipResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Membership;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IMembershipRepository;
@@ -23,11 +24,13 @@ import java.time.LocalDate;
 public class MembershipServiceImpl implements IMembershipService {
 
     private final IMembershipRepository membershipRepository;
+    private final ICompanyRepository companyRepository;
 
     private final ModelMapper modelMapper;
 
-    public MembershipServiceImpl(IMembershipRepository membershipRepository, ModelMapper modelMapper) {
+    public MembershipServiceImpl(IMembershipRepository membershipRepository, ICompanyRepository companyRepository, ModelMapper modelMapper) {
         this.membershipRepository = membershipRepository;
+        this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -37,12 +40,16 @@ public class MembershipServiceImpl implements IMembershipService {
 
         var membership = modelMapper.map(membershipRequestDto, Membership.class);
 
-        membership.setCompanyId(companyId); // Set the company ID
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la empresa con ID: " + companyId));
 
-        var createdMembership = membershipRepository.save(membership); //saved in the DB
+        membership.setCompany(company);
+
+        var createdMembership = membershipRepository.save(membership);
 
         return modelMapper.map(createdMembership, MembershipResponseDto.class);
     }
+
 
     @Override
     public MembershipResponseDto getMembershipByCompanyId(Long companyId){
