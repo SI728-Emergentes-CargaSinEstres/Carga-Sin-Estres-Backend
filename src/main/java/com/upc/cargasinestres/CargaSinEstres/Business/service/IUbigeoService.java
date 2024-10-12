@@ -11,4 +11,6 @@ public interface IUbigeoService {
     public abstract List<String> getProvincias(String departamento);
 
     public abstract List<UbigeoDto> getDistritos(String provincia);
+
+    public abstract List<String> getLocationByIdUbigeo(Long idUbigeo);
 }

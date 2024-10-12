@@ -44,6 +44,9 @@ public class UbigeoController {
         return ResponseEntity.ok(distritos);
     }
 
-
+    @GetMapping("/location/{idUbigeo}")
+    public List<String> getLocationByIdUbigeo(@PathVariable Long idUbigeo) {
+        return ubigeoService.getLocationByIdUbigeo(idUbigeo);
+    }
 
 }

@@ -52,4 +52,14 @@ public class UbigeoServiceImpl implements IUbigeoService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getLocationByIdUbigeo(Long idUbigeo) {
+        return ubigeoRepository.findAll()
+                .stream()
+                .filter(ubigeo -> ubigeo.getIdUbigeo().equals(idUbigeo)) // Filtra por idUbigeo
+                .map(ubigeo -> List.of(ubigeo.getDepartamento(), ubigeo.getProvincia(), ubigeo.getDistrito())) // Mapea a la lista de departamento, provincia y distrito
+                .findFirst() // Obtiene el primer resultado (debería haber solo uno)
+                .orElseThrow(() -> new RuntimeException("Ubigeo no encontrado para el id: " + idUbigeo)); // Lanza excepción si no existe
+    }
 }
