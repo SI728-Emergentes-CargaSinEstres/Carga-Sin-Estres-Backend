@@ -88,11 +88,17 @@ public class Reservation {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
+    @Column(name="ubigeo_origin", nullable = false)
+    private Long ubigeoOrigin;
+
     /**
      * The pickup address of the booking history.
      */
     @JoinColumn(name = "origin_address", nullable = false)
     private String originAddress;
+
+    @Column(name="ubigeo_destination", nullable = false)
+    private Long ubigeoDestination;
 
     /**
      * The destination address of the booking history.

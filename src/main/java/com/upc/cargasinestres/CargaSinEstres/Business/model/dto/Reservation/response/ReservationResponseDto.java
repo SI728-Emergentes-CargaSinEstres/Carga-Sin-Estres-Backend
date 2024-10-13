@@ -26,7 +26,9 @@ public class ReservationResponseDto {
     private Long id;
     private LocalDate startDate;
     private String startTime;
+    private Long ubigeoOrigin;
     private String originAddress;
+    private Long ubigeoDestination;
     private String destinationAddress;
     private String endDate;
     private String endTime;

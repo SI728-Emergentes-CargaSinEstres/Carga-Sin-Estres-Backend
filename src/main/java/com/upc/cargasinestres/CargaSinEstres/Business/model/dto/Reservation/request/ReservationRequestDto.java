@@ -17,7 +17,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationRequestDto {
+    private Long ubigeoOrigin;
     private String originAddress;
+    private Long ubigeoDestination;
     private String destinationAddress;
     private LocalDate startDate;
     private String startTime;
