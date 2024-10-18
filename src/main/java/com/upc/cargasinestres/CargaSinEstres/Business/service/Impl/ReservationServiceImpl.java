@@ -116,8 +116,7 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<ReservationResponseDto> getReservationByCompanyId(Long companyId) {
         var existingReservation = reservationRepository.findByCompanyId(companyId);
-        if (existingReservation.isEmpty())
-            throw new ResourceNotFoundException("No se encuentran reservas para el cliente : " + companyId);
+
 
         var toShowReservations = existingReservation.stream()
                 .map(Reservation -> modelMapper.map(Reservation, ReservationResponseDto.class))
