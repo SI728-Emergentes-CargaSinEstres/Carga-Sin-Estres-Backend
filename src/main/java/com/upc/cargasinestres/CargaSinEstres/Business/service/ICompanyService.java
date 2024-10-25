@@ -13,6 +13,8 @@ public interface ICompanyService {
     //get company by id
     public abstract CompanyResponseDto getCompanyById(Long id);
 
+    public abstract CompanyResponseDto getCompanyByName(String name);
+
     //create company
     public abstract CompanyResponseDto createCompany(CompanyRequestDto company);
 

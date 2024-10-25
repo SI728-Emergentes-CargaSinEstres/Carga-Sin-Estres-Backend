@@ -55,6 +55,13 @@ public class CompanyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @Operation(summary = "Get a company by name")
+    @GetMapping("/companiesByName")
+    public ResponseEntity<CompanyResponseDto> getCompanyByName(@RequestParam(name="name") String name) {
+        var res = companyService.getCompanyByName(name);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     @Operation(summary = "Get a company for login")
     @GetMapping("/companiesForLogin")
     public ResponseEntity<CompanyResponseDto> getCompanyForLogin(@RequestParam(name="email") String email, @RequestParam(name="password")String password){

@@ -69,6 +69,19 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
+    public CompanyResponseDto getCompanyByName(String name) {
+        var company = companyRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro la empresa con nombre: " + name));
+
+        int averageRating = calculateAverageRating(company);
+
+        CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
+        companyResponseDto.setAverageRating(averageRating);
+
+        return companyResponseDto;
+    }
+
+    @Override
     public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
         if (companyRepository.findByName(companyRequestDto.getName()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese nombre");
