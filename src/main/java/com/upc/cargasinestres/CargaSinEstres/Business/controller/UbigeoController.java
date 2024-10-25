@@ -1,13 +1,8 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.response.ServicioResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Ubigeo.UbigeoDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.IUbigeoRepository;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IServicioService;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IUbigeoService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

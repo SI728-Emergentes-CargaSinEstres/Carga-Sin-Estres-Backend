@@ -1,6 +1,8 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Company;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

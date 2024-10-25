@@ -4,12 +4,11 @@ import com.upc.cargasinestres.CargaSinEstres.Business.Shared.validations.Reserva
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICompanyRepository;
-import com.upc.cargasinestres.CargaSinEstres.Business.repository.ICustomerRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.shared.UserQueryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.sql.Time;
 
 /**
  * Implementation of the IreservationService interface.
@@ -33,16 +31,13 @@ public class ReservationServiceImpl implements IReservationService {
 
     private final IReservationRepository reservationRepository;
     private final ModelMapper modelMapper;
-    private final ICustomerRepository customerRepository;
-    private final ICompanyRepository companyRepository;
+    private final UserQueryService userQueryService;
 
     @Autowired
-    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper,
-                                  ICustomerRepository customerRepository, ICompanyRepository companyRepository) { //, IChatRepository chatRepository
+    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper, UserQueryService userQueryService) {
         this.reservationRepository = reservationRepository;
         this.modelMapper = modelMapper;
-        this.customerRepository = customerRepository;
-        this.companyRepository = companyRepository;
+        this.userQueryService = userQueryService;
     }
 
     /**
@@ -57,11 +52,11 @@ public class ReservationServiceImpl implements IReservationService {
     //Method : POST
     @Override
     public ReservationResponseDto createReservation(Long customerId, Long companyId, ReservationRequestDto reservationRequestDto) {
-        // Buscar la cuenta
-        var client = customerRepository.findById(customerId)
+
+        var client = userQueryService.existsByCustomerId(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el cliente con ID: " + customerId));
 
-        var company = companyRepository.findById(companyId)
+        var company = userQueryService.existsByCompanyId(companyId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró la empresa con ID: " + companyId));
 
         // Validación

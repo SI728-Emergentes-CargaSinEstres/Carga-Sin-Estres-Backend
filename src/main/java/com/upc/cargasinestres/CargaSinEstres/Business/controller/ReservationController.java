@@ -2,7 +2,7 @@ package com.upc.cargasinestres.CargaSinEstres.Business.controller;
 
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.service.IChatService;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.IChatService;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -1,18 +1,11 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response;
 
-import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Servicio.request.ServicioRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Customer;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Servicio;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.time.LocalTime;
 
 /**
  * This class represents the response of the booking history
