@@ -19,7 +19,7 @@ public class RatingController {
         this.ratingService = ratingService;
     }
 
-    @PostMapping("/ratings/{idCompany}")
+    @PostMapping("/{idCompany}/ratings")
     public ResponseEntity<RatingResponseDto> createRating(@PathVariable Long idCompany, @RequestBody RatingRequestDto ratingRequestDto){
 
         var res = ratingService.createRating(idCompany, ratingRequestDto);

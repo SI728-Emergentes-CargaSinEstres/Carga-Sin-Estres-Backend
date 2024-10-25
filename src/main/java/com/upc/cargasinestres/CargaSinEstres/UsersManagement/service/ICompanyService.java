@@ -21,4 +21,5 @@ public interface ICompanyService {
 
     //get companies for login
     public abstract CompanyResponseDto getCompanyForLogin(String email, String password);
+    public abstract CompanyResponseDto getCompanyByName(String name);
 }

@@ -169,4 +169,14 @@ class CompanyServiceImpl implements ICompanyService {
         return (int) Math.round(sumRatings / ratings.size());
     }
 
+    @Override
+    public CompanyResponseDto getCompanyByName(String name) {
+        var company = companyRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro la empresa con nombre: " + name));
+        int averageRating = calculateAverageRating(company);
+        CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
+        companyResponseDto.setAverageRating(averageRating);
+        return companyResponseDto;
+    }
+
 }
