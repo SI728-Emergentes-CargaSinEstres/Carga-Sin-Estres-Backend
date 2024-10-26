@@ -31,7 +31,7 @@ class CompanyServiceImpl implements ICompanyService {
     private final ModelMapper modelMapper;
 
     //inyeccion de dependencias
-    public CompanyServiceImpl(ICompanyRepository companyRepository, IServicioRepository servicioRepository, CompanyQueryService companyQueryService, ModelMapper modelMapper) {
+    public CompanyServiceImpl(ICompanyRepository companyRepository, CompanyQueryService companyQueryService, ModelMapper modelMapper) {
 
         this.companyRepository = companyRepository;
         this.companyQueryService = companyQueryService;
@@ -86,12 +86,15 @@ class CompanyServiceImpl implements ICompanyService {
         if (companyRepository.findByLogo(companyRequestDto.getLogo()).isPresent())
             throw new RuntimeException("Ya existe una empresa con ese logo");
 
-        CompanyValidation.ValidateCompany(companyRequestDto, servicioRepository);
+        //obtener todos los id de servicios que existen
+        List<Long> idsServiciosExistentes= companyQueryService.findAllIdsServices();
 
-        List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
+        CompanyValidation.ValidateCompany(companyRequestDto, idsServiciosExistentes);
+
+        //List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
         var newCompany = modelMapper.map(companyRequestDto, Company.class);
 
-        newCompany.setServicios(servicios);
+        newCompany.setServicios(companyQueryService.findAllServicerById(companyRequestDto.getServicioIds()));
 
         var createdCompany = companyRepository.save(newCompany);
         return modelMapper.map(createdCompany, CompanyResponseDto.class);
@@ -135,10 +138,14 @@ class CompanyServiceImpl implements ICompanyService {
             CompanyValidation.validateCompanyPassword(companyRequestDto.getPassword());
             company.setPassword(companyRequestDto.getPassword());
         }
+
+        //obtener todos los id de servicios que existen
+        List<Long> idsServiciosExistentes= companyQueryService.findAllIdsServices();
+
         if (companyRequestDto.getServicioIds() != null) {
-            CompanyValidation.validateCompanyServices(companyRequestDto.getServicioIds(), servicioRepository);
-            List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
-            company.setServicios(servicios);
+            CompanyValidation.validateCompanyServices(companyRequestDto.getServicioIds(), idsServiciosExistentes);
+            //List<Servicio> servicios = servicioRepository.findAllById(companyRequestDto.getServicioIds());
+            company.setServicios(companyQueryService.findAllServicerById(companyRequestDto.getServicioIds()));
         }
 
         Company updatedCompany = companyRepository.save(company); // se guardan los cambios en la base de datos

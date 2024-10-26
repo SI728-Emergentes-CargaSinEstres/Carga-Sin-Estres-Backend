@@ -70,30 +70,21 @@ public class CompanyValidation {
             throw new ValidationException("La dirección no puede exceder los 250 caracteres");
         }
     }
-    public static void validateCompanyServices(List<Long> servicioIds, IServicioRepository servicioRepository) {
-        long distinctServiceCount = servicioIds.stream().distinct().count();
-        if (distinctServiceCount != servicioIds.size()) {
-            throw new ValidationException("La empresa no puede ofrecer servicios duplicados");
-        }
-
-        // Obtener la lista de IDs de servicios proporcionados por la solicitud
-        List<Long> availableServicioIds = servicioRepository.findAll().stream()
-                .map(Servicio::getId)
-                .collect(Collectors.toList());
+    public static void validateCompanyServices(List<Long> servicioIds, List<Long> idsServiciosExistentes) {
 
         // Verificar si hay algún servicio proporcionado que no exista en la lista de servicios disponibles
         List<Long> invalidServicioIds = servicioIds.stream()
-                .filter(id -> !availableServicioIds.contains(id))
+                .filter(id -> !idsServiciosExistentes.contains(id))
                 .collect(Collectors.toList());
 
-        // Si hay servicios no válidos, lanzar una excepción
+        // Si de lo anterior hay servicios no válidos, lanzar una excepción
         if (!invalidServicioIds.isEmpty()) {
-            throw new ValidationException("Este servicio no existe, solo puede acceder a los siguiente servicos: "+availableServicioIds);
+            throw new ValidationException("Este servicio no existe, solo puede acceder a los siguientes servicos: "+idsServiciosExistentes);
         }
     }
 
 
-    public static void ValidateCompany(CompanyRequestDto companyRequestDto, IServicioRepository servicioRepository){
+    public static void ValidateCompany(CompanyRequestDto companyRequestDto, List<Long> idsServiciosExistentes){
 
         if(companyRequestDto.getName().isEmpty()){
             throw new ValidationException("El nombre no puede estar vacio");
@@ -132,6 +123,6 @@ public class CompanyValidation {
         validateCompanyEmail(companyRequestDto.getEmail());
         validateCompanyDirection(companyRequestDto.getDirection());
         validateCompanyPassword(companyRequestDto.getPassword());
-        validateCompanyServices(companyRequestDto.getServicioIds(), servicioRepository);
+        validateCompanyServices(companyRequestDto.getServicioIds(), idsServiciosExistentes);
     }
 }
