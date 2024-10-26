@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.service.impl;
 
+import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.shared.CompanyQueryService;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.validations.CompanyValidation;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.response.CompanyResponseDto;
@@ -26,14 +27,14 @@ import java.util.List;
 class CompanyServiceImpl implements ICompanyService {
 
     private final ICompanyRepository companyRepository;
-    private final IServicioRepository servicioRepository;
+    private final CompanyQueryService companyQueryService;
     private final ModelMapper modelMapper;
 
     //inyeccion de dependencias
-    public CompanyServiceImpl(ICompanyRepository companyRepository, IServicioRepository servicioRepository, ModelMapper modelMapper) {
+    public CompanyServiceImpl(ICompanyRepository companyRepository, IServicioRepository servicioRepository, CompanyQueryService companyQueryService, ModelMapper modelMapper) {
 
         this.companyRepository = companyRepository;
-        this.servicioRepository = servicioRepository;
+        this.companyQueryService = companyQueryService;
         this.modelMapper = modelMapper;
     }
 
@@ -43,7 +44,7 @@ class CompanyServiceImpl implements ICompanyService {
 
         return companies.stream()
                 .map(company -> {
-                    int averageRating = calculateAverageRating(company);
+                    int averageRating = companyQueryService.calculateAverageRating(company.getRatings());
                     boolean hasMembership = company.getMembership() != null;
                     CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
                     companyResponseDto.setAverageRating(averageRating);
@@ -60,7 +61,7 @@ class CompanyServiceImpl implements ICompanyService {
         var company = companyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontro la empresa con id: " + id));
 
-        int averageRating = calculateAverageRating(company);
+        int averageRating = companyQueryService.calculateAverageRating(company.getRatings());
 
         CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
         companyResponseDto.setAverageRating(averageRating);
@@ -156,24 +157,12 @@ class CompanyServiceImpl implements ICompanyService {
         return modelMapper.map(company, CompanyResponseDto.class); // se retorna un responseDTO con los datos del company
     }
 
-    public static int calculateAverageRating(Company company) {
-        if (company == null || company.getRatings() == null || company.getRatings().isEmpty()) {
-            return 0;  // Manejo de casos nulos o vacíos
-        }
-
-        List<Rating> ratings = company.getRatings();
-        double sumRatings = ratings.stream()
-                .mapToInt(Rating::getStars)
-                .sum();
-
-        return (int) Math.round(sumRatings / ratings.size());
-    }
 
     @Override
     public CompanyResponseDto getCompanyByName(String name) {
         var company = companyRepository.findByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontro la empresa con nombre: " + name));
-        int averageRating = calculateAverageRating(company);
+        int averageRating = companyQueryService.calculateAverageRating(company.getRatings());
         CompanyResponseDto companyResponseDto = modelMapper.map(company, CompanyResponseDto.class);
         companyResponseDto.setAverageRating(averageRating);
         return companyResponseDto;
