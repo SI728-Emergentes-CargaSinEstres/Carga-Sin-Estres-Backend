@@ -1,6 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response;
 
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Customer;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
