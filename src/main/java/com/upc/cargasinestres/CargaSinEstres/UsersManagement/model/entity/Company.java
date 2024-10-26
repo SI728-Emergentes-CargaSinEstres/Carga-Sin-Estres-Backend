@@ -1,8 +1,8 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity;
 
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Membership;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Rating;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Servicio;
+import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity.Membership;
+import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity.Rating;
+import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity.Servicio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.validations;
 
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.request.CompanyRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Servicio;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.repository.IServicioRepository;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 
 import java.util.List;

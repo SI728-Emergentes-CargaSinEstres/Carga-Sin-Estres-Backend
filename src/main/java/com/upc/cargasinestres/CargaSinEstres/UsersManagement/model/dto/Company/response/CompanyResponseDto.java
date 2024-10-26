@@ -1,6 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.response;
 
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.dto.Servicio.response.ServicioResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.dto.Servicio.response.ServicioResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

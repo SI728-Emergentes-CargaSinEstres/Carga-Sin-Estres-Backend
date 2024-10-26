@@ -5,10 +5,7 @@ import com.upc.cargasinestres.CargaSinEstres.UsersManagement.validations.Company
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.request.CompanyRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.dto.Company.response.CompanyResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Rating;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.model.entity.Servicio;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.repository.ICompanyRepository;
-import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.repository.IServicioRepository;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.service.ICompanyService;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
