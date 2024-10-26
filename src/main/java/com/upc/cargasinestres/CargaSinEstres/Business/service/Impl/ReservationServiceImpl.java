@@ -6,12 +6,15 @@ import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.resp
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
 import com.upc.cargasinestres.CargaSinEstres.Business.repository.IReservationRepository;
 import com.upc.cargasinestres.CargaSinEstres.Business.service.IReservationService;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.shared.ChatQueryService;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ValidationException;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.shared.UserQueryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,12 +35,14 @@ public class ReservationServiceImpl implements IReservationService {
     private final IReservationRepository reservationRepository;
     private final ModelMapper modelMapper;
     private final UserQueryService userQueryService;
+    private final ChatQueryService chatQueryService;
 
     @Autowired
-    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper, UserQueryService userQueryService) {
+    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper, UserQueryService userQueryService, ChatQueryService chatQueryService) {
         this.reservationRepository = reservationRepository;
         this.modelMapper = modelMapper;
         this.userQueryService = userQueryService;
+        this.chatQueryService = chatQueryService;
     }
 
     /**
@@ -75,6 +80,16 @@ public class ReservationServiceImpl implements IReservationService {
         var response = modelMapper.map(savedreservation, ReservationResponseDto.class);
         response.setCompanyName(company.getName());
         return response;
+    }
+
+    @Override
+    public ReservationResponseDto createChatByReservationID(Long reservationId) {
+
+        // se crea chat asociado a esta reserva
+        var chat = chatQueryService.createChat(reservationId);
+
+        //Id de chat se setea en la reserva
+        return updateReservationChatId(reservationId, chat.getId());
     }
 
     /**

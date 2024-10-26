@@ -3,7 +3,6 @@ package com.upc.cargasinestres.CargaSinEstres.Business.service;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.dto.Reservation.response.ReservationResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,6 +10,9 @@ public interface IReservationService {
 
     //create reservation
     public abstract ReservationResponseDto createReservation(Long clientId, Long companyId, ReservationRequestDto reservationRequestDto);
+
+    //crea el chat asociado a una reserva
+    public abstract ReservationResponseDto createChatByReservationID(Long reservationId);
 
     //get all reservation for a client by id
     public abstract List<ReservationResponseDto> getReservationByCustomerId(Long customerId);

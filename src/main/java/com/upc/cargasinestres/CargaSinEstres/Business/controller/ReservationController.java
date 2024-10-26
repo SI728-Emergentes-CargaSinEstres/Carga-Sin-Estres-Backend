@@ -27,17 +27,14 @@ import java.util.List;
 public class ReservationController {
 
     private final IReservationService reservationService;
-    private final IChatService chatService;
-
 
     /**
      * Class constructor
      *
      * @param reservationService The service for handling reservation operations.
      */
-    public ReservationController(IReservationService reservationService, IChatService chatService) { //, IChatService chatService
+    public ReservationController(IReservationService reservationService) {
         this.reservationService = reservationService;
-        this.chatService = chatService;
     }
 
     /**
@@ -54,14 +51,8 @@ public class ReservationController {
     (@RequestParam(name = "customerId") Long customerId, @RequestParam(name = "idCompany") Long companyId, @RequestBody ReservationRequestDto reservationRequestDto) {
         var res = reservationService.createReservation(customerId, companyId, reservationRequestDto);
 
-        //chat se crea
-        var chat = chatService.createChat(res.getId());
-        /*if (chat == null) {
-            return ResponseEntity.badRequest().build();
-        }*/
+        var reservation = reservationService.createChatByReservationID(res.getId());
 
-        //Id de chat se setea en la reserva
-        var reservation = reservationService.updateReservationChatId(res.getId(), chat.getId());
         if (reservation.getChatId() == null) {
             return ResponseEntity.badRequest().build();
         }
