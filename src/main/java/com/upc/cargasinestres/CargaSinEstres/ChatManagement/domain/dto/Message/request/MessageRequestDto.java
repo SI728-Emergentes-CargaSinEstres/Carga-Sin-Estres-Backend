@@ -1,4 +1,4 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.request;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.repository;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.repository;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity.Message;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

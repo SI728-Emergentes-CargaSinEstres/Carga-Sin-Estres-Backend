@@ -1,8 +1,8 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.controller;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.application.controller;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.request.MessageRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.response.MessageResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.IMessageService;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.request.MessageRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.response.MessageResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.service.IMessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

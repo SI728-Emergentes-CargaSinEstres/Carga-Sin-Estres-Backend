@@ -1,13 +1,13 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.impl;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.service;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.request.MessageRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.response.MessageResponseDto;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity.Chat;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity.Message;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.request.MessageRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.response.MessageResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity.Chat;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity.Message;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.repository.IChatRepository;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.repository.IMessageRepository;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.IMessageService;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.repository.IChatRepository;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.repository.IMessageRepository;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.service.IMessageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.service;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.service;
 
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.request.MessageRequestDto;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.dto.Message.response.MessageResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.request.MessageRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.dto.Message.response.MessageResponseDto;
 
 import java.util.List;
 

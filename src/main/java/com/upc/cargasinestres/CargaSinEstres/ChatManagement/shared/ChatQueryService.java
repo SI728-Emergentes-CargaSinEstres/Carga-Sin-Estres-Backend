@@ -1,6 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.ChatManagement.shared;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity.Chat;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity.Chat;
 
 public interface ChatQueryService {
 

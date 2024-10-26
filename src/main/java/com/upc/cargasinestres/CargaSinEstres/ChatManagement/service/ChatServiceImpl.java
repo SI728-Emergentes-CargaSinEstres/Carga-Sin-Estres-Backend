@@ -1,8 +1,8 @@
-package com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.impl;
+package com.upc.cargasinestres.CargaSinEstres.ChatManagement.service;
 
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.model.entity.Chat;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.repository.IChatRepository;
-import com.upc.cargasinestres.CargaSinEstres.ChatManagement.service.IChatService;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.entity.Chat;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.repository.IChatRepository;
+import com.upc.cargasinestres.CargaSinEstres.ChatManagement.domain.interfaces.service.IChatService;
 import org.springframework.stereotype.Service;
 
 @Service
