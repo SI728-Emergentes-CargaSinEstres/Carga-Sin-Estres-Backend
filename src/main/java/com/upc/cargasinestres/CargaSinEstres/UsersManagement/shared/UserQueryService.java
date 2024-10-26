@@ -1,7 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.shared;
 
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Customer;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Company;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Customer;
 
 import java.util.Optional;
 

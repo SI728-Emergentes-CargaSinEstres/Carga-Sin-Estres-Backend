@@ -1,9 +1,9 @@
 package com.upc.cargasinestres.CargaSinEstres.UsersManagement.shared;
 
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Customer;
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.repository.ICompanyRepository;
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.repository.ICustomerRepository;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Company;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Customer;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.interfaces.repository.ICompanyRepository;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.interfaces.repository.ICustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

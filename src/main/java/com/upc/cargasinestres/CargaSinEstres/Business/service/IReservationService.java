@@ -12,7 +12,7 @@ public interface IReservationService {
     public abstract ReservationResponseDto createReservation(Long clientId, Long companyId, ReservationRequestDto reservationRequestDto);
 
     //crea el chat asociado a una reserva
-    public ReservationResponseDto createChatByReservationID(Long reservationId);
+    public abstract ReservationResponseDto createChatByReservationID(Long reservationId);
 
     //get all reservation for a client by id
     public abstract List<ReservationResponseDto> getReservationByCustomerId(Long customerId);

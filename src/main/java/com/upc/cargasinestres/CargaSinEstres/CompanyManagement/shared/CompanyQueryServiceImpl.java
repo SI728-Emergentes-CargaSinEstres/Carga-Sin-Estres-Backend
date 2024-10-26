@@ -3,7 +3,7 @@ package com.upc.cargasinestres.CargaSinEstres.CompanyManagement.shared;
 import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity.Rating;
 import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity.Servicio;
 import com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.interfaces.repository.IServicioRepository;
-import com.upc.cargasinestres.CargaSinEstres.UsersManagement.model.entity.Company;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Company;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
