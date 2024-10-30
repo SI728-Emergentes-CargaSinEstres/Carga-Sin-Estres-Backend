@@ -1,7 +1,7 @@
 package com.upc.cargasinestres.CargaSinEstres.CompanyManagement.domain.entity;
 
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Company;
-import com.upc.cargasinestres.CargaSinEstres.Business.model.entity.Reservation;
+import com.upc.cargasinestres.CargaSinEstres.ReservationManagement.domain.entity.Reservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
