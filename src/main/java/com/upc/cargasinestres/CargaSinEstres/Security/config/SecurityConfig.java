@@ -75,7 +75,7 @@ public class SecurityConfig {
                             "/v3/api-docs/**",
                             "/error",
                             "/favicon.ico",
-                              "/api/v1/**"
+                    "/api/v1/**"
                     ).permitAll();
 
             //todas las demás rutas requieren autenticación
