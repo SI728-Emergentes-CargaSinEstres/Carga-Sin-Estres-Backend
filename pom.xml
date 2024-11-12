@@ -86,6 +86,12 @@
 			<version>0.12.3</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!--Blockchain-->
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>4.8.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
