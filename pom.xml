@@ -91,6 +91,12 @@
 			<artifactId>spring-modulith-core</artifactId>
 			<version>1.2.4</version> <!-- Confirma la versión en la documentación de Spring Modulith -->
 		</dependency>
+		<!--Blockchain-->
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>4.8.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
