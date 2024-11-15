@@ -2,12 +2,14 @@ package com.upc.cargasinestres.CargaSinEstres.ContractManagement.service;
 
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.Contract.request.ContractRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.Contract.response.ContractResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.entity.Contract;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.entity.ReservationScheduledContract;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.interfaces.repository.IContractRepository;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.interfaces.service.IContractService;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.infraestructure.BlockchainClient;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.dto.Customer.response.CustomerResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Customer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ public class ContractServiceImpl implements IContractService {
         try {
             ReservationScheduledContract contract = ReservationScheduledContract.deploy(
                     blockchainClient.getWeb3j(),
-                    blockchainClient.getTransactionManager(), // Use transaction manager with chain ID
+                    blockchainClient.getTransactionManager(),
                     blockchainClient.getGasProvider(),
                     reservationId,
                     registeredDate,
@@ -79,16 +81,15 @@ public class ContractServiceImpl implements IContractService {
             );
 
             logger.info("Mapping contract request to response DTO");
-            ContractResponseDto response = modelMapper.map(contractRequestDto, ContractResponseDto.class);
-            response.setReservationId(contractRequestDto.getReservationId());
-            response.setHashCodeValue(contractAddress);
-            response.setRegisteredDate(currentDate);
-            response.setRegisteredTime(java.sql.Time.valueOf(currentTime));
 
-            logger.info("Contract created and response DTO generated for reservationId: {}", contractRequestDto.getReservationId());
+            var newContract = modelMapper.map(contractRequestDto, Contract.class);
+            newContract.setReservationId(contractRequestDto.getReservationId());
+            newContract.setHashCodeValue(contractAddress);
+            newContract.setRegisteredDate(currentDate);
+            newContract.setRegisteredTime(java.sql.Time.valueOf(currentTime));
+            var createdContract = contractRepository.save(newContract);
 
-            return response;
-
+            return modelMapper.map(createdContract, ContractResponseDto.class);
         } catch (Exception e) {
             logger.error("Error occurred while creating the contract for reservationId: {}", contractRequestDto.getReservationId(), e);
             throw new RuntimeException("Error deploying contract", e);
