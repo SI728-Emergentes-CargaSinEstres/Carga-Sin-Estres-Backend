@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "additional_waiting_time") // Fixed the typo here
+@Table(name = "additional_waiting_time")
 public class AdditionalWaitingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

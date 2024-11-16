@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface IAdditionalWaitingTimeRepository extends JpaRepository<AdditionalWaitingTime, Long> {
     Optional<AdditionalWaitingTime> findByCustomerId(Long customerId);
     List<AdditionalWaitingTime> findByNextReservationDateLessThanEqual(LocalDate date);
+    Boolean existsByCustomerId(Long customerId);
 }

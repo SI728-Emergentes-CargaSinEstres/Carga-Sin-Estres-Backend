@@ -1,5 +1,6 @@
 package com.upc.cargasinestres.CargaSinEstres.ReservationManagement.service;
 
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.shared.IAdditionalWaitingTimeQueryService;
 import com.upc.cargasinestres.CargaSinEstres.ReservationManagement.application.validations.ReservationValidation;
 import com.upc.cargasinestres.CargaSinEstres.ReservationManagement.domain.dto.Reservation.request.ReservationRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.ReservationManagement.domain.dto.Reservation.response.ReservationResponseDto;
@@ -34,15 +35,16 @@ public class ReservationServiceImpl implements IReservationService {
     private final ModelMapper modelMapper;
     private final UserQueryService userQueryService;
     private final ChatQueryService chatQueryService;
+    private final IAdditionalWaitingTimeQueryService additionalWaitingTimeQueryService;
 
     @Autowired
-    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper, UserQueryService userQueryService, ChatQueryService chatQueryService) {
+    public ReservationServiceImpl(IReservationRepository reservationRepository, ModelMapper modelMapper, UserQueryService userQueryService, ChatQueryService chatQueryService, IAdditionalWaitingTimeQueryService additionalWaitingTimeQueryService) {
         this.reservationRepository = reservationRepository;
         this.modelMapper = modelMapper;
         this.userQueryService = userQueryService;
         this.chatQueryService = chatQueryService;
+        this.additionalWaitingTimeQueryService = additionalWaitingTimeQueryService;
     }
-
     /**
      * Creates a new reservation record.
      *
@@ -55,6 +57,10 @@ public class ReservationServiceImpl implements IReservationService {
     //Method : POST
     @Override
     public ReservationResponseDto createReservation(Long customerId, Long companyId, ReservationRequestDto reservationRequestDto) {
+
+        if (additionalWaitingTimeQueryService.existsByCustomerId(customerId)) {
+            throw new IllegalStateException("Usted tiene un tiempo de espera adicional debido a una infracción, por lo que no puede realizar nuevas reservas hasta 3 días después de su última reserva");
+        }
 
         var client = userQueryService.existsByCustomerId(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el cliente con ID: " + customerId));
