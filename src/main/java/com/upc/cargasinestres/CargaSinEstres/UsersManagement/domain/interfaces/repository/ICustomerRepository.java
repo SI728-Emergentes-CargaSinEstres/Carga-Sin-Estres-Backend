@@ -4,6 +4,7 @@ import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Custo
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
  * @author Grupo1
  * @version 1.0
  * */
+@Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     /**
      * Retrieves an Optional<Client> based on the provided email and password.

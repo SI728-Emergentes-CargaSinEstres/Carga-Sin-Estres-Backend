@@ -2,6 +2,7 @@ package com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.interfaces.
 
 import com.upc.cargasinestres.CargaSinEstres.UsersManagement.domain.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
@@ -11,6 +12,8 @@ import java.util.Optional;
  * @author Grupo1
  * @version 1.0
  * */
+
+@Repository
 public interface ICompanyRepository extends JpaRepository<Company, Long> {
 
     /**
