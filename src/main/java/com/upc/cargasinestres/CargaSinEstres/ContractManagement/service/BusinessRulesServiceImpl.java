@@ -1,8 +1,12 @@
 package com.upc.cargasinestres.CargaSinEstres.ContractManagement.service;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.AdditionalWaitingTime.request.AdditionalWaitingTimeRequestDto;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.AdditionalWaitingTime.response.AdditionalWaitingTimeResponseDto;
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.CompanyServiceViolation.request.CompanyServiceViolationRequestDto;
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.dto.CompanyServiceViolation.response.CompanyServiceViolationResponseDto;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.entity.AdditionalWaitingTime;
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.entity.CompanyServiceViolation;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.interfaces.repository.IAdditionalWaitingTimeRepository;
+import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.interfaces.repository.ICompanyViolationServiceRepository;
 import com.upc.cargasinestres.CargaSinEstres.ContractManagement.domain.interfaces.service.IBusinessRulesService;
 import com.upc.cargasinestres.CargaSinEstres.Shared.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -15,10 +19,12 @@ import java.util.List;
 public class BusinessRulesServiceImpl implements IBusinessRulesService {
     private final ModelMapper modelMapper;
     private final IAdditionalWaitingTimeRepository additionalWaitingTimeRepository;
+    private final ICompanyViolationServiceRepository companyViolationServiceRepository;
 
-    public BusinessRulesServiceImpl(ModelMapper modelMapper, IAdditionalWaitingTimeRepository additionalWaitingTimeRepository) {
+    public BusinessRulesServiceImpl(ModelMapper modelMapper, IAdditionalWaitingTimeRepository additionalWaitingTimeRepository, ICompanyViolationServiceRepository companyViolationServiceRepository) {
         this.modelMapper = modelMapper;
         this.additionalWaitingTimeRepository = additionalWaitingTimeRepository;
+        this.companyViolationServiceRepository = companyViolationServiceRepository;
     }
 
     @Override
@@ -56,5 +62,26 @@ public class BusinessRulesServiceImpl implements IBusinessRulesService {
 
         additionalWaitingTimeRepository.deleteAll(expiredWaitingTimes);
         System.out.println(expiredWaitingTimes.size() + " additional waiting times deleted for date: " + currentDate);
+    }
+
+    @Override
+    public int getCompanyServiceViolationCountByCompanyIdAndYear(Long companyId, int year) {
+        LocalDate startOfYear = LocalDate.of(year, 1, 1);
+        LocalDate endOfYear = LocalDate.of(year, 12, 31);
+
+        return companyViolationServiceRepository.countByCompanyIdAndViolationDateBetween(companyId, startOfYear, endOfYear);
+    }
+
+
+    @Override
+    public CompanyServiceViolationResponseDto createCompanyServiceViolation(CompanyServiceViolationRequestDto companyServiceViolationRequestDto) {
+        var newCompanyServiceViolation = modelMapper.map(companyServiceViolationRequestDto, CompanyServiceViolation.class);
+        newCompanyServiceViolation.setViolationDate(LocalDate.now());
+        newCompanyServiceViolation.setCompanyId(companyServiceViolationRequestDto.getCompanyId());
+        newCompanyServiceViolation.setReason(companyServiceViolationRequestDto.getReason());
+
+        companyViolationServiceRepository.save(newCompanyServiceViolation);
+
+        return modelMapper.map(newCompanyServiceViolation, CompanyServiceViolationResponseDto.class);
     }
 }
