@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BusinessRulesServiceImpl implements IBusinessRulesService {
@@ -69,19 +71,36 @@ public class BusinessRulesServiceImpl implements IBusinessRulesService {
         LocalDate startOfYear = LocalDate.of(year, 1, 1);
         LocalDate endOfYear = LocalDate.of(year, 12, 31);
 
-        return companyViolationServiceRepository.countByCompanyIdAndViolationDateBetween(companyId, startOfYear, endOfYear);
+        List<CompanyServiceViolation> violations = companyViolationServiceRepository
+                .findByCompanyId(companyId);
+
+        // Imprimir el resultado para ver cuántos registros se están obteniendo
+        System.out.println("Total violations: " + violations.size());
+
+        return violations.size();
     }
+
 
 
     @Override
     public CompanyServiceViolationResponseDto createCompanyServiceViolation(CompanyServiceViolationRequestDto companyServiceViolationRequestDto) {
-        var newCompanyServiceViolation = modelMapper.map(companyServiceViolationRequestDto, CompanyServiceViolation.class);
-        newCompanyServiceViolation.setViolationDate(LocalDate.now());
-        newCompanyServiceViolation.setCompanyId(companyServiceViolationRequestDto.getCompanyId());
-        newCompanyServiceViolation.setReason(companyServiceViolationRequestDto.getReason());
+        var newReportCompany = modelMapper.map(companyServiceViolationRequestDto, CompanyServiceViolation.class);
 
-        companyViolationServiceRepository.save(newCompanyServiceViolation);
+        Optional<CompanyServiceViolation> last = companyViolationServiceRepository.findTopByOrderByIdDesc();
 
-        return modelMapper.map(newCompanyServiceViolation, CompanyServiceViolationResponseDto.class);
+        Long newId = last != null ? last.get().getId() + 1 : 1L;
+
+        newReportCompany.setId(newId);
+        newReportCompany.setReason(companyServiceViolationRequestDto.getReason());
+        newReportCompany.setCompanyId(companyServiceViolationRequestDto.getCompanyId());
+        newReportCompany.setViolationDate(LocalDate.now());
+
+        var createdReportCompany = companyViolationServiceRepository.save(newReportCompany);
+
+        return modelMapper.map(createdReportCompany, CompanyServiceViolationResponseDto.class);
     }
+
+
+
+
 }
