@@ -14,7 +14,7 @@
 	<name>CargaSinEstres</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -85,6 +85,17 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.12.3</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.modulith</groupId>
+			<artifactId>spring-modulith-core</artifactId>
+			<version>1.2.4</version> <!-- Confirma la versión en la documentación de Spring Modulith -->
+		</dependency>
+		<!--Blockchain-->
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>4.8.7</version>
 		</dependency>
 	</dependencies>
 
