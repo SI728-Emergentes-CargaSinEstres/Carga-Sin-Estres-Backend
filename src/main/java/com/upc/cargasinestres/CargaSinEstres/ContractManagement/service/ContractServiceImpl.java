@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -98,10 +99,13 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public ContractResponseDto getContractByReservationId(Long reservationId) {
-        var contract = contractRepository.findByReservationId(reservationId);
-        if (contract.isEmpty())
-            throw new ResourceNotFoundException("No existe un contrato con el id de reserva " + reservationId.toString()); // se valida
+        var contract = contractRepository.findTopByReservationIdOrderByIdDesc(reservationId);
+        if (contract.isEmpty()) {
+            throw new ResourceNotFoundException("No existe un contrato con el id de reserva " + reservationId);
+        }
 
-        return modelMapper.map(contract, ContractResponseDto.class);
+        return modelMapper.map(contract.get(), ContractResponseDto.class);
     }
+
+
 }
